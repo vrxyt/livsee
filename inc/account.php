@@ -1,8 +1,5 @@
 <?php
 
-// includes
-include('inc/functions.php');
-
 // enable if error reporting is on
 if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
 
