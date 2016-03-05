@@ -1,6 +1,15 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
+// includes site vars
+include('inc/config.php');
+
+// enable if error reporting is on
+if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
+
+// start the session
+session_start();
+
+//includes
+include('inc/functions.php');
 require('lib/auth.php');
 include('lib/keyupdate.php');
 
