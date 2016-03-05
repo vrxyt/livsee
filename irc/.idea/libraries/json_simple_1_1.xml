@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="json_simple-1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/daemon/libs/json_simple-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/daemon/libs/postgresql-8.4-701.jdbc4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,563 @@
+div#errorBody textarea {
+	width : 515px;
+}
+
+.modal-body {
+	max-height : 500px;
+	overflow : auto;
+}
+
+#header {
+	margin : 5px 15px 5px 5px;
+	height : 15px;
+	text-align : right;
+	color : #555;
+	font-family : "Segoe WP", "Segoe UI Web", "Segoe UI", 
+		Ubuntu, "DejaVu Sans", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#input {
+	bottom : 5px;
+	height : 25px;
+	left : 100px;
+	right : 155px;
+	position : absolute;
+	text-align : center;
+}
+
+#emoticon-prompt {
+	position : absolute;
+	right : 115px;
+	bottom : 6px;
+	text-align : center;
+	padding-top : 1px;
+	height : 24px;
+}
+
+#emoticons {
+	border-width : 1px 0px 1px 0px;
+	border-color : #ccc;
+	border-style : solid;
+	position : absolute;
+	bottom : 30px;
+	right : -155px;
+	width : 154px;
+	height : 250px;
+	overflow : auto;
+}
+
+#emoticons img {
+	max-width : 40px;
+	max-height : 40px;
+	cursor : pointer;
+	vertical-align : middle;
+}
+
+#emoticons .wrapper {
+	margin-left : 4px;
+	width : 40px;
+	height : 40px;
+	float : left;
+}
+
+#sidebar {
+	position : absolute;
+	overflow : auto;
+	top : 0px;
+	right : 0px;
+	width : 155px;
+	overflow : auto;
+	bottom : 0px;
+}
+
+#sidebar-inner { 
+	margin : 5px;
+}
+
+#connect {
+	text-align : center;
+}
+
+#connect-btn {
+	width : 100%;
+	height : 24px;
+	padding-top : 1px;
+}
+
+
+#nick {
+	position : absolute;
+	left : 5px;
+	width : 90px;
+	bottom : 5px;
+	height : 25px;
+	line-height : 25px;
+	text-align : right;
+	cursor : pointer;
+	overflow : hidden;
+	font-family : "Segoe WP", "Segoe UI Web", "Segoe UI", 
+		Ubuntu, "DejaVu Sans", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#input div.wrapper {
+
+}
+
+#input input, #input textarea {
+	padding : 0px;
+	width : 100%;
+	height : 24px;
+	margin : 0px;
+	font-size : 14px;
+	text-indent : 5px;
+	padding-top : 2px;
+	resize : none;
+	font-family : sans-serif;
+}
+
+#toolbar {
+	top : 40px;
+	right : 200px;
+	left : 0px;
+	position : absolute;
+	overflow : auto;
+	height : 30px;
+	border-collapse : collapse;
+	line-height : 30px;
+	padding-left : 5px;
+	font-size : 12px;
+}
+
+#tabs {
+	position : absolute;
+	top : 45px;
+	width : 156px;
+	left : 5px;
+	bottom : 5px;
+	overflow : auto;
+}
+
+#tabs-list span.conn-img.connected {
+	background : #B8F2B8;
+}
+
+#tabs-list span.conn-img {
+	display : block;
+	vertical-align : middle;
+	margin-right : 7px;
+	font-size : 13px;
+	float : right;
+	text-align : center;
+	width : 11px;
+	height : 11px;
+	border : 1px solid #ccc;
+	border-radius : 20px;
+	margin-top : 4px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+#tabs-list li.selected span.close-img {
+	color : gray;
+}
+
+#tabs-list span.close-img {
+	display : block;
+	vertical-align : middle;
+	margin-right : 8px;
+	font-size : 16px;
+	float : right;
+	font-weight : bold;
+	color : #e0e0e0;
+	position : relative;
+	top : -2px;
+}
+
+#tabs-list span.unread {
+	display : block;
+	float : right;
+	color : #ccc;
+	font-size : 9px;
+	font-weight : normal;
+	line-height : 21px;
+}
+
+#tabs-list {
+	list-style-type : none;
+	margin : 0px;
+	padding : 0px;
+	white-space : nowrap;
+	overflow : hidden;
+}
+
+#tabs-list li {
+	font-family : "Segoe WP", "Segoe UI Web", "Segoe UI", Ubuntu, "DejaVu Sans", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-align : left;
+	text-indent : 10px;
+	padding : 5px 0px 5px 0px;
+	cursor : pointer;
+	z-index : 4;
+	position : relative;
+	right : -1px;
+}
+
+ul#tabs-list li.offline { 
+	color : #aaa; 
+}
+
+#tabs-list li div {
+	overflow : hidden;
+	margin-right : 5px;
+}
+
+#tabs-list li div.indented {
+	padding-left : 10px;
+	text-overflow : ellipsis;
+}
+
+#tabs-list li.attention {
+	color : red;
+}
+
+#tabs-list li.highlight {
+	color : blue;
+}
+
+#tabs-list li.selected {
+	color : black ! important;
+	background : #C4E0FF;
+	border-color : #5FA7CC;
+	font-weight : bold;
+	text-shadow : 0px 0px 4px #fff;
+	border-radius : 4px 0px 0px 4px;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#tabs-list li {
+	border-color : transparent;
+	border-style : solid;
+	border-width : 1px 0px 1px 1px;
+}
+
+ul.sub-tabs {
+	list-style-type : none;
+	margin : 0px;
+	padding : 0px;
+} 
+
+#content {
+	top : 30px;
+	right : 5px;
+	left : 160px;
+	position : absolute;
+	bottom : 5px;
+	word-wrap : break-word;
+	margin : 0px;
+	background : #C4E0FF;
+	border-color : #5FA7CC;
+	border-width : 1px;
+	border-style : solid;
+	border-radius : 4px;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#topic {
+	position : absolute;
+	top : 0px;
+	left : 5px;
+	height : 25px;
+	right : 155px;
+	text-align : center;
+	padding : 5px 0px 5px 0px;
+}
+
+#topic #topic-input {
+	padding : 0px;
+	width : 100%;
+	height : 24px;
+	margin : 0px;
+	padding-top : 2px;
+	text-indent : 5px;
+	text-align : left;
+	cursor : pointer;
+	overflow : hidden;
+	white-space : nowrap;	
+	color : #555;
+}
+
+#topic #topic-input-real {
+	padding : 0px;
+	width : 100%;
+	height : 24px;
+	margin : 0px;
+	padding-top : 2px;
+	font-size : 14px;
+	text-indent : 5px;
+}
+
+#topic #topic-input img {
+	max-height : 16px;
+	height : auto;
+	width : auto;
+}
+
+#topic #topic-input.disabled {
+	background : #f0f0f0;
+}
+
+#topic div.wrapper {
+	padding-right : 1px;
+}
+
+#log {	
+	position : absolute;
+	top : 35px;
+	right : 154px;
+	left : 5px;
+	bottom : 35px;
+	overflow : auto;
+	background : white;
+	border : 1px solid #ccc;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	border-radius : 4px;
+}
+
+form.connect-form {
+	margin : 0px;
+	display : inline;
+}
+
+#userlist {
+	font-size : 12px;
+	margin-top : 5px;
+	font-family : "Segoe WP", "Segoe UI Web", "Segoe UI", 
+		Ubuntu, "DejaVu Sans", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#userlist span.user-img {
+	display : inline-block;
+	vertical-align : middle;
+	width : 11px;
+	height : 11px;
+	border : 1px solid #ccc;
+	border-radius : 20px;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+	background : #f0f0f0;
+}
+
+#userlist span.user-img.voice {
+	background : #EDE4B6;
+}
+
+#userlist span.user-img.op {
+	background : #B8F2B8;
+}
+
+#log-inner {
+	padding : 5px;
+}
+
+#userlist-inner {
+}
+
+div#main.fade {
+	opacity : 0.3;
+	transition: opacity 0.5s;
+	-webkit-transition : opacity 0.5s;
+	-moz-transition : opacity 0.5s;
+}
+
+
+#dialog_overlay {
+	background : white;
+	opacity: 0.8;
+	left : 0;
+	top : 0;
+	height : 100%;
+	width : 100%;
+	z-index : 4;
+	position : absolute;
+}
+
+#overlay {
+	background : white;
+	left : 0;
+	top : 0;
+	height : 100%;
+	width : 100%;
+	z-index : 100;
+	position : absolute;
+}
+
+#overlay_inner {
+	font-weight : bold;
+	margin : 10px;
+}
+
+#log ul#log-list {
+  list-style-type : none;
+  margin : 0px;
+  padding : 0px;
+}  
+
+#log span.timestamp {
+	color : #999;
+}
+
+#log span.pvt-sender, #log span.pvt-sender-out {
+	color : black;
+}
+
+#log span.sender {
+	color : green;
+}
+
+#log .lt, #log .gt {
+	color : blue;
+}
+
+#log span.message {
+	color : black;
+	white-space : pre-wrap;
+}
+
+#log span.sys-message {
+	color : #5FA7CC;
+}
+
+#log span.action {
+	color : gray;
+}
+
+ul#userlist-list {
+	list-style-type : none;
+	margin : 0px;
+	padding : 0px;
+	white-space : nowrap;
+}
+
+ul#userlist-list li {
+	cursor : pointer;
+	margin-bottom : 2px;
+}
+
+ul#userlist-list li:hover {
+	color : #4684ff;
+}
+
+body.main .row {
+	margin : 0px;
+	border-width : 0px 0px 1px 0px;
+	border-style : solid;
+	border-color : #ddd;
+	border-collapse : collapse;
+	padding : 2px 5px 2px 5px;
+}
+
+body.main .row.HL, body.main .row.HL:nth-child(even) {
+	background-color : #fff7d5;
+	border-color : #e7d796;
+}
+
+body.main .row:nth-child(even), .row:nth-child(even) td {
+	background : #fafafa;
+} 
+
+textarea.user-css {
+	display : block;
+	width : 510px;
+	height : 200px;
+	overflow : auto;
+}
+
+.invisible {
+	display : none;
+}
+
+.away {
+	font-style : italic;
+}
+
+ul.scrollable {
+	background-color: #ffffff;	
+	border: 1px solid #cccccc;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	height : 120px;
+	overflow : auto;
+	border-radius: 3px;
+}
+
+ul.scrollable li.Selected {
+	font-weight : bold;
+}
+
+ul.scrollable li {
+	margin : 4px;
+}
+
+ul.scrollable li > input[type="checkbox"] {
+	margin-top : 0px;
+	margin-left : 4px;
+}
+
+ul.scrollable li > a {
+	vertical-align : middle;
+}
+
+span.message a:visited, span.sys-message a:visited {
+	color : #6100D1;
+}
+
+body#emoticons_list {
+	margin : 0px;
+	padding : 0px;
+	background : #C4E0FF;
+	font-family : sans-serif;
+	font-size : 10px;
+}
+
+#emoticons_long {
+	overflow : auto;
+	position : absolute;
+	top : 0;
+	right : 0;
+	bottom : 0;
+	left : 0;
+}
+
+#emoticons_list div.tile img {
+	padding-top : 4px;
+	max-width : 60px;
+	max-height : 50px;
+	cursor : pointer;
+	margin : auto;
+	vertical-align : middle;
+	display : block;
+}
+
+#emoticons_list div.tile div.wrapper {
+	width : 90px;
+	height : 60px;
+}
+
+#emoticons_list div.tile {
+	float : left;
+	width : 90px;
+	height : 90px;
+	text-align : center;
+}
+
+::-webkit-scrollbar {
+	width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgba(0,0,0,0.1);
+}
+
+::-webkit-scrollbar-track {
+	background-color:rgba(255,255,255,0);
+}
+
+#alerts-indicator {
+	cursor : pointer;
+}
