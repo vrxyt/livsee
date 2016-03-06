@@ -1,11 +1,5 @@
 <?php
 
-// enable if error reporting is on
-if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
-
-// open user class for use
-$user = new user();
-
 // set $email based on session var, but verify it's at least close to an email address first
 $email = filter_var($_SESSION['authenticated'], FILTER_VALIDATE_EMAIL);
 
@@ -17,7 +11,7 @@ if (!empty($_POST)) {
 	$status = $user->update($email, $channelname, $channeltitle, $displayname);
 }
 
-// grab accpimt info
+// grab account info
 $accountinfo = $user->info($email);
 
 ?>
