@@ -1,5 +1,5 @@
 <?php
-require ('/var/www/html/lib/dbconnect.php');
+require '/var/www/html/lib/dbconnect.php';
 
 $file = '/var/log/nginx/streamauth.log';
 $timestamp = new DateTime();
