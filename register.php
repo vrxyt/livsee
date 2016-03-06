@@ -1,7 +1,7 @@
 <?php
 
 // includes site vars
-include('inc/config.php');
+include 'inc/config.php';
 
 // enable if error reporting is on
 if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
@@ -10,7 +10,7 @@ if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
 session_start();
 
 //includes
-include('inc/functions.php');
+include 'inc/functions.php';
 //include('lib/auth.php');
 
 // check if info was posted
