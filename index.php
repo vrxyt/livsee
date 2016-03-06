@@ -1,17 +1,14 @@
 <?php
 // includes site vars
-include('inc/config.php');
+include 'inc/config.php';
 
 // enable if error reporting is on
 if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
 
-// start the session
-session_start();
-
-//includes
-include('inc/functions.php');
-require('lib/auth.php');
-include('lib/keyupdate.php');
+// includes
+include 'inc/functions.php';
+require 'inc/auth.php';
+include 'lib/keyupdate.php';
 
 function __autoload($class) {
 	include 'lib/' . $class . '.class.php';
