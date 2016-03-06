@@ -1,7 +1,8 @@
 <?php
+// failed experiment to attempt to hide the stream keys. Open to ideas on how to properly make them private.
 
 function updateKeymap() {
-    require('/var/www/html/lib/dbconnect.php');
+    require '/var/www/html/lib/dbconnect.php';
     $file = '/var/local/map/keymap.map';
     $timestamp = new DateTime();
     $timestamp = $timestamp->format('Y-m-d H:i:s');
