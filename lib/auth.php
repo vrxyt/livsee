@@ -1,8 +1,8 @@
 <?php
 
-/*	**************	*
+/* * *************	*
  * 	/lib/auth.php	*
- * 	**************	*/
+ * 	**************	 */
 
 class auth extends database {
 
@@ -33,6 +33,30 @@ class auth extends database {
 			echo 'All good?';
 			//header('Location: login.php');
 		}
+	}
+
+	public function login($email, $password) {
+		$params = array($email);
+		$sql = "SELECT * FROM users WHERE email = $1";
+		$result = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
+		$hash = $result['password'];
+		$verified = $result['verified'];
+		if ($verified === '1') {
+			if (password_verify($password, $hash)) {
+				$status = 'Login successful.';
+				$_SESSION['authenticated'] = $email;
+				if ($_POST['rememberMe'] === 'true') {
+					setcookie('rememberMe', true, time() + 31000000);
+					setcookie('email', $email, time() + 31000000);
+				}
+				header('Location: index.php');
+			} else {
+				$status = 'Login failed.';
+			}
+		} else {
+			$status = 'Account not verified/account doesn\'t exist.';
+		} 
+		return $status;
 	}
 
 }
