@@ -1,12 +1,21 @@
 <?php
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
+// includes site vars
+include 'inc/config.php';
+
+// enable if error reporting is on
+if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
+
+// start the session, in case we're already logged in (currently broke, future enhancements)
 session_start();
-if (empty($_SESSION['authenticated']) && $_COOKIE['rememberMe'] === '1' && !empty($_COOKIE['email'])) {
+
+//includes
+require_once 'inc/functions.php';
+
+if (empty($_SESSION['authenticated']) && !empty($_COOKIE['rememberMe']) && !empty($_COOKIE['email'])) {
     $_SESSION['authenticated'] = $_COOKIE['email'];
     header('Location: index.php');
 }
-require '/var/www/html/lib/dbconnect.php';
+
 if (isset($_GET["action"])) {
     $action = $_GET['action'];
     if ($action == 'account_created') {
@@ -14,30 +23,10 @@ if (isset($_GET["action"])) {
     }
 }
 if (!empty($_POST['email'])) {
+	$auth = new auth();
     $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $pass = $_POST['password'];
-    $pwcheck = pg_fetch_assoc(pg_query($pglink, "SELECT * FROM users WHERE email = '$email'"));
-    $pwhash = $pwcheck['password'];
-    $verifycheck = $pwcheck['verified'];
-    //echo '<br />email: ' . $email . '<br />pw:' . $pass . '<br />Hash: ' . $pwhash . 'verify: ' . $verifycheck;
-    if ($verifycheck === '1') {
-	//echo '<br />email: ' . $email . '<br />pw:' . $pass . '<br />Hash: ' . $pwhash . 'verify: ' . $verifycheck;
-	if (password_verify($pass, $pwhash)) {
-	    $status = 'Login successful.';
-	    $_SESSION['authenticated'] = $email;
-	    if ($_POST['rememberMe'] === 'true') {
-		setcookie('rememberMe', true, time() + 31000000);
-		setcookie('email', $email, time() + 31000000);
-	    }
-	    header('Location: index.php');
-	} else {
-	    $status = 'Login failed.';
-	}
-    } else {
-	$status = 'Account not verified/account doesn\'t exist.';
-    }
-} else {
-    //$status = 'No action.';
+    $password = $_POST['password'];
+	$status = $auth->login($email, $password);
 }
 ?>
 <html>
