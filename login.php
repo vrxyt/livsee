@@ -6,7 +6,7 @@ if (empty($_SESSION['authenticated']) && $_COOKIE['rememberMe'] === '1' && !empt
     $_SESSION['authenticated'] = $_COOKIE['email'];
     header('Location: index.php');
 }
-require('/var/www/html/lib/dbconnect.php');
+require '/var/www/html/lib/dbconnect.php';
 if (isset($_GET["action"])) {
     $action = $_GET['action'];
     if ($action == 'account_created') {
