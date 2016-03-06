@@ -18,7 +18,7 @@ if (empty($_GET['name'])) {
 	exit(1);
 } else {
 	//check and verify key against the DB
-	require('/var/www/html/lib/dbconnect.php');
+	require '/var/www/html/lib/dbconnect.php';
 	$key = $_GET['name'];
 	$result = pg_query($pglink, "SELECT * FROM users WHERE stream_key = '$key'");
 	$row_cnt = pg_num_rows($result);
