@@ -1,6 +1,6 @@
 <?php
 // includes site vars
-include('inc/config.php');
+include 'inc/config.php';
 
 // enable if error reporting is on
 if ($debug === true) {
@@ -12,7 +12,7 @@ if ($debug === true) {
 session_start();
 
 //includes
-include('inc/functions.php');
+include 'inc/functions.php';
 
 // check if the URL has both required pieces of information
 if (!empty($_GET['email']) && !empty($_GET['c'])) {
