@@ -1,5 +1,22 @@
 <?php
 
+/*
+ *---------------------------------------------------------------
+ * Account info/update page
+ *---------------------------------------------------------------
+ *
+ * This page is used for loading the account information,
+ * as well as allowing updates to channel name, channel title,
+ * and display name.
+ * 
+ * TODO:
+ *
+ *     -Password change/reset
+ *     -Possible custom channel page images?
+ *
+ * NOTE: This page will not load on its own, it must be inside index.php
+ */
+
 // set $email based on session var, but verify it's at least close to an email address first
 $email = filter_var($_SESSION['authenticated'], FILTER_VALIDATE_EMAIL);
 
