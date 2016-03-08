@@ -23,10 +23,10 @@ if (isset($_GET["action"])) {
     }
 }
 if (!empty($_POST['email'])) {
-	$auth = new auth();
+	$user = new user();
     $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
     $password = $_POST['password'];
-	$status = $auth->login($email, $password);
+	$status = $user->login($email, $password);
 }
 ?>
 <html>
