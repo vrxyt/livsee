@@ -55,6 +55,7 @@ if (isset($_GET["video"])) {
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>DM Stream</title>
+		<link rel="icon" href="img/favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.test.css">
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
@@ -99,29 +100,18 @@ if (isset($_GET["video"])) {
 					   id="player"
 					   preload="auto"
 					   width="100%" height="100%"
-					   poster="https://stream.rirnef.net/img/channel_<?php echo $streamkey; ?>.jpg"
+					   poster="//<?= $surl ?>/img/channel_<?php echo $streamkey; ?>.jpg"
 					   >
-					<source src="//stream.rirnef.net/hls/<?php echo $streamkey; ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
-					<!--<source src="http://stream.rirnef.net/dash/<?php echo $streamkey; ?>.mpd" type='application/dash+xml' label="DASH"/>-->
-					<source src="rtmp://stream.rirnef.net/live/<?php echo $streamkey; ?>" type="rtmp/flv" label='Flash'/>
+					<source src="//<?= $surl ?>/hls/<?php echo $streamkey; ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
+					<!--<source src="<?= $furl ?>/dash/<?php echo $streamkey; ?>.mpd" type='application/dash+xml' label="DASH"/>-->
+					<source src="rtmp://<?= $surl ?>/live/<?php echo $streamkey; ?>" type="rtmp/flv" label='Flash'/>
 				</video>
-		
 
 				<script>
 					videojs('player').videoJsResolutionSwitcher();
 				</script>   
 				<script>var settings = {player: true, channel: "<?php echo $streamkey; ?>"};</script>
 
-				<!--<video id="videoPlayer" controls data-setup='{}'></video>
-
-				<script>
-					(function () {
-						var url = "http://stream.rirnef.net/dash/<?php echo $streamkey; ?>.mpd";
-						var player = dashjs.MediaPlayer().create();
-						player.initialize(document.querySelector("#videoPlayer"), url, true);
-					})();
-				</script>
-				<script>var settings = {player: true, channel: "<?php echo $streamkey; ?>"};</script>-->
 			</div>
 			<?php
 		} elseif ($video !== false) {
@@ -132,11 +122,11 @@ if (isset($_GET["video"])) {
 					   id="player"
 					   preload="auto"
 					   width="100%" height="100%"
-					   poster="//stream.rirnef.net/img/video_<?php echo str_replace(".mp4", ".jpg", $video); ?>">
-					<source src="//stream.rirnef.net/rec/<?php echo $video; ?>" type="video/mp4"/>
+					   poster="//<?= $surl ?>/img/video_<?php echo str_replace(".mp4", ".jpg", $video); ?>">
+					<source src="//<?= $surl ?>/rec/<?= $video ?>" type="video/mp4"/>
 				</video>
 
-				<script>var settings = {player: true, video: "<?php echo $video; ?>"};</script>
+				<script>var settings = {player: true, video: "<?= $video ?>"};</script>
 			</div>
 			<?php
 		} else {
@@ -322,7 +312,7 @@ if (isset($_GET["video"])) {
 					</div>
 					<div class="container" id="statscontainer">
 						<br />
-						<div id="statsdiv"><iframe id="statspage" src="/stat"></iframe></div>
+						<div id="statsdiv"><iframe id="statspage" src="<?= $furl ?>/stat"></iframe></div>
 					</div>
 					<?php
 				} elseif (isset($_GET["account"])) {
@@ -379,7 +369,7 @@ if (isset($_GET["video"])) {
 							<div class="row grid">
 								<?php
 								foreach ($channels as $channelName => $streamkey) {
-									$viewcount = file_get_contents('https://stream.rirnef.net/nclients?app=live&name=' . $channelName);
+									$viewcount = file_get_contents($furl.'/nclients?app=live&name=' . $channelName);
 									$col = 'col-md-6';
 									if (count($_SESSION["rtmp"]["channels"]) === 1) {
 										$col.= ' col-md-offset-3';
@@ -409,7 +399,7 @@ if (isset($_GET["video"])) {
 											<th>Duration</th>
 											<th>Viewers</th>
 											<th class="hidden-xs">Definition</th>
-											<th class="text-center" style="width:100px">Record</i></th>
+											<th class="text-center" style="width:100px">Record</th>
 											<th class="text-center" style="width:100px">Watch</th>
 										</tr>
 									</thead>
@@ -417,7 +407,7 @@ if (isset($_GET["video"])) {
 										<?php
 										foreach ($channels as $channelName => $streamkey) {
 											$seed = uniqid();
-											$viewcount = file_get_contents('https://stream.rirnef.net/nclients?app=live&name=' . $channelName);
+											$viewcount = file_get_contents($furl.'/nclients?app=live&name=' . $channelName);
 											echo '<tr>' . "\r\n";
 											echo '	<td><a href="?channel=' . $channelName . '">' . updateStreamkey($channelName, 'channel') . '</a></td>' . "\r\n";
 											echo '	<td>' . gmdate("H:i:s", ($streamkey["time"] / 1000)) . '</td>' . "\r\n";
