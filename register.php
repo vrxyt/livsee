@@ -25,6 +25,7 @@ if (!empty($_POST['submitted'])) {
 	} else {
 		$user = new user();
 		$status = $user->register($email, $password, $displayname);
+		if ($status === true) {	header('Location: login.php?action=account_created'); }
 	}
 }
 ?>
