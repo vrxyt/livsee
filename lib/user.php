@@ -83,7 +83,7 @@ class user extends database {
 	// create a new account and send registration verification email
 	public function register($email, $password, $displayname) {
 		$emailcheck = $this->emailcheck($email);
-		if ($emailcheck !== true) {
+		if ($emailcheck === true) {
 			return 'Account already exists!';
 		}
 
