@@ -19,20 +19,19 @@
  * 		 If this file is included, do not set again on the page.
  */
 
-session_start();
-require_once 'inc/functions.php';
+// prevent opening duplicate sessions
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
+
 $user = new user();
-$action = null;
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 if (!empty($_COOKIE['email']) && $user->session_check($_COOKIE['email']) === false) {
 	session_destroy();
 	setcookie('rememberMe', null, -1, '/');
 	setcookie('email', null, -1, '/');
 	header("Location: login.php");
-}
-
-if (isset($_GET["action"])) {
-	$action = $_GET['action'];
 }
 
 if (!empty($_SESSION['authenticated']) && $user->session_authenticate($_SESSION['authenticated'], $action) === false) {
