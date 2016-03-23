@@ -27,4 +27,8 @@ $furl = $protocol . $surl;
 // sets the stream auth log file location. Can be changed to anything you want.
 $SAlogfile = '/var/log/nginx/streamauth.log';
 
+// title at the top of the page.
+$sitetitle = "Len's Streaming Emporium";
+$sitesubtitle = "(A Dancing Mad Production)";
+
 
