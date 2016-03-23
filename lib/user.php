@@ -81,7 +81,7 @@ class user extends database {
 	}
 
 	// create a new account and send registration verification email
-	public function register($email, $password, $displayname) {
+	public function register($email, $password, $displayname, $furl) {
 		$emailcheck = $this->emailcheck($email);
 		if ($emailcheck === true) {
 			return 'Account already exists!';
@@ -213,5 +213,22 @@ class user extends database {
 		}
 		return $status;
 	}
+	public function updateStreamkey($input, $function) {
+	if ($function === 'channel') {
+		$params = array($input);
+		$sql = "SELECT channel_name FROM users WHERE stream_key = $1";
+		$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
+		$channelname = $query['channel_name'];
+		return $channelname;
+	} elseif ($function === 'title') {
+		$params = array($input);
+		$sql = "SELECT channel_title FROM users WHERE stream_key = $1";
+		$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
+		$channeltitle = $query['channel_title'];
+		return $channeltitle;
+	} else {
+		return 'Error in updateStreamkey()!';
+	}
+}
 
 }
