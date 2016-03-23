@@ -26,8 +26,8 @@ if (isset($_GET["action"])) {
 }
 if (!empty($_POST['email'])) {
 	$user = new user();
-    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $password = $_POST['password'];
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 	$status = $user->login($email, $password);
 }
 ?>
@@ -53,7 +53,7 @@ if (!empty($_POST['email'])) {
 		echo '<br />' . $status;
 	    }
 	    if (!empty($newuser)) {
-		echo 'Account created.<br />Please check your email for verification.<br />Note: Email may be in spam.';
+		echo 'Account created.<br />Please check your email for verification.<br /><br />Note: Email may be in spam.';
 	    }
 	    ?>
 	</form>

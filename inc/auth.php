@@ -26,8 +26,10 @@ if (session_status() == PHP_SESSION_NONE) {
 
 $user = new user();
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$email = filter_input(INPUT_COOKIE, 'email', FILTER_SANITIZE_STRING);
+//echo '<pre>'; print_r($_SESSION); echo '</pre>';
 
-if (!empty($_COOKIE['email']) && $user->session_check($_COOKIE['email']) === false) {
+if (!empty($email) && $user->session_check($email) === false) {
 	session_destroy();
 	setcookie('rememberMe', null, -1, '/');
 	setcookie('email', null, -1, '/');

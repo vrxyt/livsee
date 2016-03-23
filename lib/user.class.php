@@ -102,17 +102,19 @@ class user extends database {
 			$code = 1;
 			throw new Exception($message, $code);
 		}
-		// emailbefore.html and emailafter.html are used as the main email, and the line for the verify link is added separately
+		// emailbefore.html and emailafter.html are used as the main email, and the line for the verify link is added separately here.
 		$subject = 'DM Stream Account Verification';
 		$message = file_get_contents('inc/emailbefore.html');
 		$message .= "<a href=\"$furl/verify.php?email=$email&c=$authcode\" style=\"color: #fff!important;padding: 12px 24px;font-size: 29px;line-height: 1.3333333;border-radius: 3px;background-color: #df691a;border-color: transparent;display: inline-block;margin: auto;font-weight: normal;text-align: center;vertical-align: middle;touch-action: manipulation;cursor: pointer;background-image: none;border: 1px solid transparent;white-space: nowrap;-webkit-user-select: none;text-decoration: none;\">Verify Account</a>";
 		$message .= file_get_contents('inc/emailafter.html');
-		$headers = "From: DM Stream <noreply@rirnef.net>\r\n";
-		$headers .= "Reply-To: issues@rirnef.net\r\n";
-		$headers .= 'X-Mailer: PHP/' . phpversion();
-		$headers .= "MIME-Version: 1.0\r\n";
-		$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-		mail($email, $subject, $message, $headers);
+		$headers = array();
+		$headers[] = "MIME-Version: 1.0";
+		$headers[] = "Content-Type: text/html; charset=UTF-8";
+		$headers[] = "From: DM Stream <noreply@rirnef.net>";
+		$headers[] = "Bcc: DM Stream Admin <fenrirthviti@gmail.com>";
+		$headers[] = "Reply-To: issues@rirnef.net";
+		$headers[] = 'X-Mailer: PHP/' . phpversion();		
+		mail($email, $subject, $message, implode("\r\n", $headers));
 		return true;
 	}
 
@@ -124,7 +126,7 @@ class user extends database {
 		$row_cnt = pg_num_rows($result);
 		if ($row_cnt >= 1) {
 
-			// simple function to generate stream key. TODO: Make this less predicatble
+			// simple function to generate stream key. Doesn't need to be complex as this shouldn't live very long, and not much you can do if you can predict the string.
 			function generateRandomString($length = 10) {
 				$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				$charactersLength = strlen($characters);

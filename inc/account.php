@@ -22,9 +22,9 @@ $email = filter_var($_SESSION['authenticated'], FILTER_VALIDATE_EMAIL);
 
 // run account info update if data was posted
 if (!empty($_POST)) {
-	$channelname = $_POST['channelname'];
-	$channeltitle = $_POST['channeltitle'];
-	$displayname = $_POST['displayname'];
+	$channelname = filter_input(INPUT_POST, 'channelname', FILTER_SANITIZE_STRING);
+	$channeltitle = filter_input(INPUT_POST, 'channeltitle', FILTER_SANITIZE_STRING);
+	$displayname = filter_input(INPUT_POST, 'displayname', FILTER_SANITIZE_STRING);
 	$status = $user->update($email, $channelname, $channeltitle, $displayname);
 }
 

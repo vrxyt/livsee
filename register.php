@@ -16,13 +16,13 @@ function __autoload($class) {
 
 // check if info was posted
 if (!empty($_POST['submitted'])) {
-	$email = filter_input(INPUT_POST, 'email');
-	$password = filter_input(INPUT_POST, 'password');
-	$displayname = filter_input(INPUT_POST, 'displayname');
+	$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+	$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+	$displayname = filter_input(INPUT_POST, 'displayname', FILTER_SANITIZE_STRING);
 	
 	// verify all required info is present before executing register
 	if (empty($email) || empty($password) || empty($displayname)) {
-		$status = 'Please enter a valid email address, display name, and a password';
+		$status = 'Please enter a valid email address, display name, and a password.';
 	} else {
 		$user = new user();
 		$status = $user->register($email, $password, $displayname, $furl);

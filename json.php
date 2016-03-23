@@ -2,12 +2,12 @@
 
 session_start();
 
+require_once 'inc/config.php';
 function __autoload($class) {
 	include 'lib/' . $class . '.class.php';
 }
-require_once 'inc/config.php';
 
-// Whatever, check stream information
+// Check stream information
 rtmp::checkStreams();
 
 // Prepare response Data

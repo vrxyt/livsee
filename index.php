@@ -202,7 +202,7 @@ if (isset($_GET["video"])) {
 
 								$mediainfo = array();
 								try {
-									$mediainfo = MediaInfo::fetchVideo($video);
+									$mediainfo = mediainfo::fetchVideo($video);
 
 									// eval FPS to get rid of fractions:
 									// - 30/1 becomes 30

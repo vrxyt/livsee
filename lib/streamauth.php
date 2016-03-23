@@ -31,11 +31,13 @@ $timestamp = "Connection Attempt: $timestamp\r\n";
 $getstring = $timestamp;
 $getstring .= print_r($_GET, true);
 
+// write connection attempt to log, regardless of success
 file_put_contents($SAlogfile, $getstring, FILE_APPEND | LOCK_EX);
+
 //check if querystrings exist or not
 if (empty($key)) {
 	//no querystrings or wrong syntax
-	$current = "wrong query input\n";
+	$current = "ERROR: Invalid query input.\n";
 	file_put_contents($SAlogfile, $current, FILE_APPEND | LOCK_EX);
 	echo "wrong query input";
 	header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");

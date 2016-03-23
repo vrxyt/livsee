@@ -18,8 +18,8 @@ function __autoload($class) {
 
 // check if the URL has both required pieces of information
 if (!empty($_GET['email']) && !empty($_GET['c'])) {
-	$email = filter_var($_GET['email'], FILTER_VALIDATE_EMAIL);
-	$code = preg_replace("@([^0-9])@Ui", "", $_GET['c']);
+	$email = filter_input(INPUT_GET, 'email', FILTER_VALIDATE_EMAIL);
+	$code = filter_input(INPUT_GET, 'c', FILTER_VALIDATE_INT);
 	$user = new user();
 	$status = $user->verify($email, $code);
 	$vstatus = $status;
