@@ -17,8 +17,14 @@
  */
 
 $debug = true; // setting to true will enable debug output in various places. Live sites should set to false.
+
+// grabs the urls for dynamic use elsewhere in the page. Saves time having to change dozens of hardcoded links.
+// $furl (full URL) will be http(s)://sub.domain.com where $surl (short URL) will just be sub.domain.com
 $protocol = $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 $surl = $_SERVER['HTTP_HOST'];
 $furl = $protocol . $surl;
+
+// sets the stream auth log file location. Can be changed to anything you want.
+$SAlogfile = '/var/log/nginx/streamauth.log';
 
 
