@@ -51,7 +51,7 @@ class rtmp extends database {
 		}
 
 		if ($forceCheck || time() - $_SESSION["rtmp"]["lastUpdate"] > 5) {
-			RTMP::fetchChannels();
+			rtmp::fetchChannels();
 		}
 	}
 
@@ -68,14 +68,14 @@ class rtmp extends database {
 					$channel["name"] = "default";
 				}
 				$_SESSION["rtmp"]["channels"][$channel["name"]] = $channel;
-				$_SESSION["rtmp"]["channels"][$channel["name"]]["recording"] = RTMP::isRecordingChannel($channel["name"]);
+				$_SESSION["rtmp"]["channels"][$channel["name"]]["recording"] = rtmp::isRecordingChannel($channel["name"]);
 			} else {
 				foreach ($rtmp["server"]["application"][1]["live"]["stream"] as $key => $channel) {
 					if (empty($channel["name"])) {
 						$channel["name"] = "default";
 					}
 					$_SESSION["rtmp"]["channels"][$channel["name"]] = $channel;
-					$_SESSION["rtmp"]["channels"][$channel["name"]]["recording"] = RTMP::isRecordingChannel($channel["name"]);
+					$_SESSION["rtmp"]["channels"][$channel["name"]]["recording"] = rtmp::isRecordingChannel($channel["name"]);
 				}
 			}
 		}
