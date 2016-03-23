@@ -6,14 +6,11 @@ include 'inc/config.php';
 if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
 
 // includes
-include 'inc/functions.php';
-require 'inc/auth.php';
-include 'lib/keyupdate.php';
-
 function __autoload($class) {
 	include 'lib/' . $class . '.class.php';
 }
 
+require 'inc/auth.php';
 
 if (isset($_GET["download"])) {
 	$file = "/var/tmp/rec/" . $_GET["download"];
@@ -31,7 +28,7 @@ if (isset($_GET["download"])) {
 }
 
 // Load RTMP channels informations
-RTMP::checkStreams();
+rtmp::checkStreams();
 
 
 // Check if there is a channel to display
@@ -141,7 +138,7 @@ if (isset($_GET["video"])) {
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<a class="navbar-brand" href="/"><i class="fa fa-youtube-play"></i> Len's Streaming Emporium <span class="subtext">(A Dancing Mad Production)</span></a>
+							<a class="navbar-brand" href="/"><i class="fa fa-youtube-play"></i> <?= $sitetitle ?> <span class="subtext"><?= $sitesubtitle ?></span></a>
 						</div>
 
 						<div id="navbar-collapse-menu" class="collapse navbar-collapse navbar-right">
@@ -195,7 +192,7 @@ if (isset($_GET["video"])) {
 							foreach ($videos as $key => $video) {
 								$file = substr($video, strrpos($video, "/") + 1);
 								$streamkey = substr($file, 0, strrpos($file, "-"));
-								$streamkey = updateStreamkey($streamkey, 'channel');
+								$streamkey = $user->updateStreamkey($streamkey, 'channel');
 								$timestamp = substr($file, strrpos($file, "-") + 1, -4);
 								$datetime = date("Y-m-d H:i:s", $timestamp);
 								$screenshot = 'img/video_' . str_replace('mp4', 'jpg', $file);
@@ -380,11 +377,11 @@ if (isset($_GET["video"])) {
 									echo '		<a href="?channel=' . $channelName . '">' . "\r\n";
 									echo '			<label class="status live"><i class="circle"></i> LIVE</label>' . "\r\n";
 									echo '			<label class="viewcount">Viewers: ' . $viewcount . "</label>\r\n";
-									echo '			<img class="img-responsive" src="' . $streamkey["screenshot"] . '" alt="' . updateStreamkey($channelName, 'channel') . '">' . "\r\n";
+									echo '			<img class="img-responsive" src="' . $streamkey["screenshot"] . '" alt="' . $user->updateStreamkey($channelName, 'channel') . '">' . "\r\n";
 									echo '		</a>' . "\r\n";
 									echo '		<div class="caption">' . "\r\n";
-									echo '			<div class="channel-display"><h3><a href="?channel=' . $channelName . '">' . updateStreamkey($channelName, 'channel') . '</a> </h3></div>';
-									echo '				<div class="channel-title">' . \updateStreamkey($channelName, 'title') . '</div>';
+									echo '			<div class="channel-display"><h3><a href="?channel=' . $channelName . '">' . $user->updateStreamkey($channelName, 'channel') . '</a> </h3></div>';
+									echo '				<div class="channel-title">' . $user->updateStreamkey($channelName, 'title') . '</div>';
 									echo '		</div>' . "\r\n";
 									echo '	</div>' . "\r\n";
 									echo '</div>' . "\r\n";
@@ -409,7 +406,7 @@ if (isset($_GET["video"])) {
 											$seed = uniqid();
 											$viewcount = file_get_contents($furl.'/nclients?app=live&name=' . $channelName);
 											echo '<tr>' . "\r\n";
-											echo '	<td><a href="?channel=' . $channelName . '">' . updateStreamkey($channelName, 'channel') . '</a></td>' . "\r\n";
+											echo '	<td><a href="?channel=' . $channelName . '">' . $user->updateStreamkey($channelName, 'channel') . '</a></td>' . "\r\n";
 											echo '	<td>' . gmdate("H:i:s", ($streamkey["time"] / 1000)) . '</td>' . "\r\n";
 											echo '	<td>' . $viewcount . ' watching</td>';
 											echo '	<td class="hidden-xs">' . "\r\n";
