@@ -1,6 +1,7 @@
 <?php
  // Include this to grab all the available functions
 
-include 'lib/database.php';
-include 'lib/user.php';
+include_once 'lib/database.php';
+include_once 'lib/user.php';
+include_once 'lib/rtmp.php';
 
