@@ -12,7 +12,9 @@ if ($debug === true) {
 session_start();
 
 //includes
-include 'inc/functions.php';
+function __autoload($class) {
+	include 'lib/' . $class . '.class.php';
+}
 
 // check if the URL has both required pieces of information
 if (!empty($_GET['email']) && !empty($_GET['c'])) {
