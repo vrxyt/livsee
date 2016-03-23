@@ -16,9 +16,10 @@
  *
  */
 
-require_once '../lib/database.php';
 require_once '../inc/config.php';
-require_once 'rtmp.php';
+function __autoload($class) {
+	include '../lib/' . $class . '.class.php';
+}
 
 $rtmp = new rtmp();
 $key = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_STRING);
