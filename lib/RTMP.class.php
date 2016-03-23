@@ -5,7 +5,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 class RTMP {
-	
+
 	public static function checkStreams($forceCheck = true) {
 		if (!isset($_SESSION["rtmp"])) {
 			$_SESSION["rtmp"] = array(
