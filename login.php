@@ -9,7 +9,9 @@ if ($debug === true){error_reporting(E_ALL);ini_set('display_errors', 1);}
 session_start();
 
 //includes
-require_once 'inc/functions.php';
+function __autoload($class) {
+	include 'lib/' . $class . '.class.php';
+}
 
 if (empty($_SESSION['authenticated']) && !empty($_COOKIE['rememberMe']) && !empty($_COOKIE['email'])) {
     $_SESSION['authenticated'] = $_COOKIE['email'];
