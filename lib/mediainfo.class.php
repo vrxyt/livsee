@@ -1,13 +1,13 @@
 <?php
 
-class MediaInfo {
+class mediainfo {
 
 	public static function fetchChannel($channel, $type = "all") {
-		return json_decode(MediaInfo::syscall('ffprobe -v quiet -print_format json -show_format -show_streams rtmp://localhost/live/' . $channel), TRUE);
+		return json_decode(mediainfo::syscall('ffprobe -v quiet -print_format json -show_format -show_streams rtmp://localhost/live/' . $channel), TRUE);
 	}
 
 	public static function fetchVideo($video, $type = "all") {
-		return json_decode(MediaInfo::syscall('ffprobe -v quiet -print_format json -show_format -show_streams ' . $video), TRUE);
+		return json_decode(mediainfo::syscall('ffprobe -v quiet -print_format json -show_format -show_streams ' . $video), TRUE);
 	}
 
 	private static function syscall($cmd) {
