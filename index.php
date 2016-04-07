@@ -12,8 +12,29 @@ function __autoload($class) {
 
 require 'inc/auth.php';
 
-if (isset($_GET["download"])) {
-	$file = "/var/tmp/rec/" . $_GET["download"];
+// Load RTMP channels informations
+$rtmpclass = new rtmp();
+$rtmpinfo = $rtmpclass->checkStreams();
+
+$getvideos = filter_input(INPUT_GET, 'videos', FILTER_SANITIZE_STRING);
+$getvideo = filter_input(INPUT_GET, 'video', FILTER_SANITIZE_STRING);
+$getdownload = filter_input(INPUT_GET, 'download', FILTER_SANITIZE_STRING);
+$getstats = filter_input(INPUT_GET, 'stats', FILTER_SANITIZE_STRING);
+$getchannel = filter_input(INPUT_GET, 'channel', FILTER_SANITIZE_STRING);
+$getaccount = filter_input(INPUT_GET, 'account', FILTER_SANITIZE_STRING);
+
+if ($debug === true) {
+	echo '<pre>Videos: '.$getvideos;
+	echo '<br />Video: '.$getvideo;
+	echo '<br />Download: '.$getdownload;
+	echo '<br />Stats: '.$getstats;
+	echo '<br />Streamkey (channel): '.$getchannel;
+	echo '<br />Account: '.$getaccount.'</pre>';
+	
+}
+
+if (!empty($getdownload)) {
+	$file = "/var/tmp/rec/" . $getdownload;
 	if (file_exists($file)) {
 		$size = filesize("./" . basename($file));
 		header("Content-Transfer-Encoding: binary");
@@ -27,8 +48,6 @@ if (isset($_GET["download"])) {
 	}
 }
 
-// Load RTMP channels informations
-rtmp::checkStreams();
 
 
 // Check if there is a channel to display
@@ -52,7 +71,7 @@ if (isset($_GET["video"])) {
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>DM Stream</title>
-		<link rel="icon" href="img/favicon.ico">
+		<link rel="icon" href="favicon.ico">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.test.css">
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
@@ -73,14 +92,14 @@ if (isset($_GET["video"])) {
     <body>
 		<?php
 		if ($streamkey !== false) {
-			if (count(array_keys($_SESSION["rtmp"]["channels"])) > 1) {
+			if (count(array_keys($rtmpinfo["rtmp"]["channels"])) > 1) {
 				?>
 				<select class="channel">
 					<?php
-					foreach (array_keys($_SESSION["rtmp"]["channels"]) as $channelName) {
+					foreach (array_keys($rtmpinfo["rtmp"]["channels"]) as $channelName) {
 						echo "\t\t";
 						echo '<option value="' . $channelName . '"';
-						if ($channelName === $_GET["channel"]) {
+						if ($channelName === $getchannel) {
 							echo ' selected';
 						}
 
@@ -97,7 +116,7 @@ if (isset($_GET["video"])) {
 					   id="player"
 					   preload="auto"
 					   width="100%" height="100%"
-					   poster="//<?= $surl ?>/img/channel_<?php echo $streamkey; ?>.jpg"
+					   poster="//<?= $surl ?>/img/channel_<?php echo $streamkey; ?>.png"
 					   >
 					<source src="//<?= $surl ?>/hls/<?php echo $streamkey; ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
 					<!--<source src="<?= $furl ?>/dash/<?php echo $streamkey; ?>.mpd" type='application/dash+xml' label="DASH"/>-->
@@ -119,7 +138,7 @@ if (isset($_GET["video"])) {
 					   id="player"
 					   preload="auto"
 					   width="100%" height="100%"
-					   poster="//<?= $surl ?>/img/video_<?php echo str_replace(".mp4", ".jpg", $video); ?>">
+					   poster="//<?= $surl ?>/img/video_<?php echo str_replace(".mp4", ".png", $video); ?>">
 					<source src="//<?= $surl ?>/rec/<?= $video ?>" type="video/mp4"/>
 				</video>
 
@@ -195,7 +214,7 @@ if (isset($_GET["video"])) {
 								$streamkey = $user->updateStreamkey($streamkey, 'channel');
 								$timestamp = substr($file, strrpos($file, "-") + 1, -4);
 								$datetime = date("Y-m-d H:i:s", $timestamp);
-								$screenshot = 'img/video_' . str_replace('mp4', 'jpg', $file);
+								$screenshot = 'img/video_' . str_replace('mp4', 'png', $file);
 								if (!file_exists($screenshot)) {
 									$screenshot = 'img/no-preview.jpg';
 								}
@@ -342,11 +361,11 @@ if (isset($_GET["video"])) {
 						</div>
 						<br />
 						<?php
-						if (count($_SESSION["rtmp"]["channels"]) > 0) {
+						if (count($rtmpinfo["rtmp"]["channels"]) > 0) {
 							$channels = array();
-							foreach ($_SESSION["rtmp"]["channels"] as $channelName => $streamkey) {
+							foreach ($rtmpinfo["rtmp"]["channels"] as $channelName => $streamkey) {
 								$channels[$channelName] = $streamkey;
-								$channels[$channelName]["screenshot"] = 'img/channel_' . $channelName . '.jpg';
+								$channels[$channelName]["screenshot"] = 'img/channel_' . $channelName . '.png';
 								if (!file_exists($channels[$channelName]["screenshot"])) {
 									$channels[$channelName]["screenshot"] = 'img/no-preview.jpg';
 								}
@@ -368,7 +387,7 @@ if (isset($_GET["video"])) {
 								foreach ($channels as $channelName => $streamkey) {
 									$viewcount = file_get_contents($furl.'/nclients?app=live&name=' . $channelName);
 									$col = 'col-md-6';
-									if (count($_SESSION["rtmp"]["channels"]) === 1) {
+									if (count($rtmpinfo["rtmp"]["channels"]) === 1) {
 										$col.= ' col-md-offset-3';
 									}
 
