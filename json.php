@@ -8,7 +8,8 @@ function __autoload($class) {
 }
 
 // Check stream information
-rtmp::checkStreams();
+$rtmpclass = new rtmp();
+$rtmpinfo = $rtmpclass->checkStreams();
 
 // Prepare response Data
 $json = array(
@@ -18,26 +19,27 @@ $json = array(
 
 // Compute input params
 $_OPTIONS = array_merge($_GET, $_POST);
+$channel = filter_input(INPUT_GET, 'channel', FILTER_SANITIZE_STRING);
 
 // Execute correct action
 switch ($_GET["action"]) {
 	case "ping":
-		$json["data"]["live"] = array_key_exists($_GET["channel"], $_SESSION["rtmp"]["channels"]) && array_key_exists("publishing", $_SESSION["rtmp"]["channels"][$_GET["channel"]]);
+		$json["data"]["live"] = array_key_exists($channel, $rtmpinfo["rtmp"]["channels"]) && array_key_exists("publishing", $rtmpinfo["rtmp"]["channels"][$_GET["channel"]]);
 		break;
 	case "record":
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		if (isset($_GET["start"])) {
-			curl_setopt($ch, CURLOPT_URL, "https://localhost/control/record/start?app=live&name=" .$_GET["channel"]. "&rec=rec");
+			curl_setopt($ch, CURLOPT_URL, "$furl/control/record/start?app=live&name=$channel&rec=rec");
 		} else if (isset($_GET["stop"])) {
-			curl_setopt($ch, CURLOPT_URL, "https://localhost/control/record/stop?app=live&name=" .$_GET["channel"]. "&rec=rec");	
+			curl_setopt($ch, CURLOPT_URL, "$furl/control/record/stop?app=live&name=$channel&rec=rec");	
 		}
 		$json["data"]["file"] = curl_exec($ch);
 		curl_close($ch);
 		break;
 	default:
-		$json["data"]["channels"] = $_SESSION["rtmp"]["channels"];
+		$json["data"]["channels"] = $rtmpinfo["rtmp"]["channels"];
 		break;
 }
 
