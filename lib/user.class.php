@@ -70,7 +70,7 @@ class user extends database {
 					setcookie('rememberMe', true, time() + 31000000);
 					setcookie('email', $email, time() + 31000000);
 				}
-				header('Location: index.php');
+				return true;
 			} else {
 				$status = 'Login failed.';
 			}
