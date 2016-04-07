@@ -20,6 +20,7 @@
 class rtmp extends database {
 
 	public $user_table = 'users';
+	public $rtmpinfo = array();
 	
 	/* 	Streamkey Auth Functions	 */
 
@@ -42,22 +43,23 @@ class rtmp extends database {
 	/* Stream stuff */
 	
 	// this is all gross, needs fixing.
-	public static function checkStreams($forceCheck = true) {
-		if (!isset($_SESSION["rtmp"])) {
-			$_SESSION["rtmp"] = array(
+	public function checkStreams($forceCheck = true) {
+		if (!isset($this->rtmpinfo["rtmp"])) {
+			$this->rtmpinfo["rtmp"] = array(
 				"lastUpdate" => 0,
 				"channels" => array()
 			);
 		}
 
-		if ($forceCheck || time() - $_SESSION["rtmp"]["lastUpdate"] > 5) {
-			rtmp::fetchChannels();
+		if ($forceCheck || time() - $this->rtmpinfo["rtmp"]["lastUpdate"] > 5) {
+			$this->fetchChannels();
 		}
+		return $this->rtmpinfo;
 	}
 
-	private static function fetchChannels() {
-		$_SESSION["rtmp"]["lastUpdate"] = time();
-		$_SESSION["rtmp"]["channels"] = array();
+	private function fetchChannels() {
+		$this->rtmpinfo["rtmp"]["lastUpdate"] = time();
+		$this->rtmpinfo["rtmp"]["channels"] = array();
 		$rtmp = json_decode(json_encode((array) simplexml_load_file($GLOBALS['furl'].'/stat.xml')), TRUE);
 
 		if (!empty($rtmp["server"]["application"][1]["live"]["stream"])) {
@@ -67,18 +69,19 @@ class rtmp extends database {
 				if (empty($channel["name"])) {
 					$channel["name"] = "default";
 				}
-				$_SESSION["rtmp"]["channels"][$channel["name"]] = $channel;
-				$_SESSION["rtmp"]["channels"][$channel["name"]]["recording"] = rtmp::isRecordingChannel($channel["name"]);
+				$this->rtmpinfo["rtmp"]["channels"][$channel["name"]] = $channel;
+				$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["recording"] = rtmp::isRecordingChannel($channel["name"]);
 			} else {
 				foreach ($rtmp["server"]["application"][1]["live"]["stream"] as $key => $channel) {
 					if (empty($channel["name"])) {
 						$channel["name"] = "default";
 					}
-					$_SESSION["rtmp"]["channels"][$channel["name"]] = $channel;
-					$_SESSION["rtmp"]["channels"][$channel["name"]]["recording"] = rtmp::isRecordingChannel($channel["name"]);
+					$this->rtmpinfo["rtmp"]["channels"][$channel["name"]] = $channel;
+					$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["recording"] = rtmp::isRecordingChannel($channel["name"]);
 				}
 			}
 		}
+		return $this->rtmpinfo;
 	}
 
 	private static function isRecordingChannel($channelName) {
