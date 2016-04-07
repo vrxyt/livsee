@@ -13,22 +13,19 @@ function __autoload($class) {
 	include 'lib/' . $class . '.class.php';
 }
 
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+
 if (empty($_SESSION['authenticated']) && !empty($_COOKIE['rememberMe']) && !empty($_COOKIE['email'])) {
     $_SESSION['authenticated'] = $_COOKIE['email'];
     header('Location: index.php');
 }
 
-if (isset($_GET["action"])) {
-    $action = $_GET['action'];
-    if ($action == 'account_created') {
-	$newuser = true;
-    }
-}
 if (!empty($_POST['email'])) {
 	$user = new user();
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 	$status = $user->login($email, $password);
+	if ($status === true) { header('Location: index.php'); }
 }
 ?>
 <html>
@@ -52,7 +49,7 @@ if (!empty($_POST['email'])) {
 	    if (!empty($status)) {
 		echo '<br />' . $status;
 	    }
-	    if (!empty($newuser)) {
+	    if ($action == 'account_created') {
 		echo 'Account created.<br />Please check your email for verification.<br /><br />Note: Email may be in spam.';
 	    }
 	    ?>
