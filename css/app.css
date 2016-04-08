@@ -31,10 +31,17 @@ em {
     margin-left: auto;
     padding-left: 15px;
     padding-right: 15px;
-    height: 900px;
+	height: 900px;
 }
 
-#statsdiv{
+#admincontainer{
+    margin-right: auto;
+    margin-left: auto;
+    padding: 15px;
+	padding-bottom: 40px;
+}
+
+#statsdiv, #admindiv{
     height: 100%;
 }
 
