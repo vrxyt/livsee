@@ -12,7 +12,7 @@
  *
  *     -Clean up functions with too many nested if statements
  *     -General code clean up
- *	   -Maybe make exception codes mean something.
+ * 	   -Maybe make exception codes mean something.
  *
  */
 
@@ -62,7 +62,7 @@ class user extends database {
 		}
 		$hash = $result['password'];
 		$verified = $result['verified'];
-				if ($verified === '1') {
+		if ($verified === '1') {
 			if (password_verify($password, $hash)) {
 				$status = 'Login successful.';
 				$_SESSION['authenticated'] = $email;
@@ -78,6 +78,19 @@ class user extends database {
 			$status = 'Account not verified/account doesn\'t exist.';
 		}
 		return $status;
+	}
+
+	// grab the whole table for the admin display. TODO: make this check a bit more secure that you're an admin.
+	public function admindata($email) {
+		if ($email === 'fenrirthviti@gmail.com') {
+			$sql = "SELECT * FROM $this->user_table";
+			$result = pg_query($this->link, $sql);
+			$array = [];
+			while ($row = pg_fetch_assoc($result)) {
+				$array[] = $row;
+			}
+			return $array;
+		}
 	}
 
 	// create a new account and send registration verification email
@@ -113,7 +126,7 @@ class user extends database {
 		$headers[] = "From: DM Stream <noreply@rirnef.net>";
 		$headers[] = "Bcc: DM Stream Admin <fenrirthviti@gmail.com>";
 		$headers[] = "Reply-To: issues@rirnef.net";
-		$headers[] = 'X-Mailer: PHP/' . phpversion();		
+		$headers[] = 'X-Mailer: PHP/' . phpversion();
 		mail($email, $subject, $message, implode("\r\n", $headers));
 		return true;
 	}
@@ -215,22 +228,23 @@ class user extends database {
 		}
 		return $status;
 	}
+
 	public function updateStreamkey($input, $function) {
-	if ($function === 'channel') {
-		$params = array($input);
-		$sql = "SELECT channel_name FROM users WHERE stream_key = $1";
-		$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
-		$channelname = $query['channel_name'];
-		return $channelname;
-	} elseif ($function === 'title') {
-		$params = array($input);
-		$sql = "SELECT channel_title FROM users WHERE stream_key = $1";
-		$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
-		$channeltitle = $query['channel_title'];
-		return $channeltitle;
-	} else {
-		return 'Error in updateStreamkey()!';
+		if ($function === 'channel') {
+			$params = array($input);
+			$sql = "SELECT channel_name FROM users WHERE stream_key = $1";
+			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
+			$channelname = $query['channel_name'];
+			return $channelname;
+		} elseif ($function === 'title') {
+			$params = array($input);
+			$sql = "SELECT channel_title FROM users WHERE stream_key = $1";
+			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
+			$channeltitle = $query['channel_title'];
+			return $channeltitle;
+		} else {
+			return 'Error in updateStreamkey()!';
+		}
 	}
-}
 
 }
