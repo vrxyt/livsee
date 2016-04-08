@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.test.css">
 		<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+		<?php if ($page === 'account') { echo '<link rel="stylesheet" type="text/css" href="css/admin.css">'; } ?>
 		<link rel="stylesheet" type="text/css" href="css/app.css">
 		<link rel="stylesheet" type="text/css" href="css/regform.css">
 		<link rel="stylesheet" type="text/css" href="js/vjs/video-js.css">
