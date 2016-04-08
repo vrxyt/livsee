@@ -44,8 +44,8 @@ include 'inc/index/main.php';
 
 // Check if we're trying to watch a stream or video, otherwise load the header page.
 // This keeps the player page clean of any extra junk.
-if (!empty($streamkey)) {include 'inc/streamplayer.php';}
-elseif (!empty($video)) {include 'inc/videoplayer.php';}
+if (!empty($streamkey)) {include 'inc/index/streamplayer.php';}
+elseif (!empty($video)) {include 'inc/index/videoplayer.php';}
 else { include 'inc/index/header.php'; }
 
 // Check which page we're loading
