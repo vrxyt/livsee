@@ -30,12 +30,12 @@ if (!empty($_POST)) {
 // grab account info
 $accountinfo = $user->info($email);
 ?>
-<div class="jumbotron">
+<!--<div class="jumbotron">
 	<div class="container">
 		<h1><i class="fa fa-film"></i> Account Settings</h1>
 	</div>
-</div>
-<div class="container" id="statscontainer">
+</div>-->
+<div class="container" id="acountcontainer">
 	<br />
 	<div id="statsdiv">
 		<h1 class="account-title">Account Information</h1>

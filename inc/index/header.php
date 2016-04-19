@@ -8,7 +8,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/newindex"><i class="fa fa-youtube-play"></i> <?= $sitetitle ?> <span class="subtext"><?= $sitesubtitle ?></span></a>
+				<a class="navbar-brand" href="/"><i class="fa fa-youtube-play"></i> <?= $sitetitle ?> <span class="subtext"><?= $sitesubtitle ?></span></a>
 			</div>
 
 			<div id="navbar-collapse-menu" class="collapse navbar-collapse navbar-right">

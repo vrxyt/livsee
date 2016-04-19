@@ -46,15 +46,16 @@ include 'inc/index/main.php';
 // This keeps the player page clean of any extra junk.
 if (!empty($streamkey)) {include 'inc/index/streamplayer.php';}
 elseif (!empty($video)) {include 'inc/index/videoplayer.php';}
-else { include 'inc/index/header.php'; }
-
-// Check which page we're loading
-if ($page === 'videos') { include 'inc/index/videos.php'; }
-elseif ($page === 'stats') { include 'inc/index/stats.php'; }
-elseif ($page === 'account') { include 'inc/index/account.php'; }
-else { include 'inc/index/channels.php'; }
+else { 
+	include 'inc/index/header.php';
+	// Check which page we're loading
+	if ($page === 'videos') { include 'inc/index/videos.php'; }
+	elseif ($page === 'stats') { include 'inc/index/stats.php'; }
+	elseif ($page === 'account') { include 'inc/index/account.php'; }
+	else { include 'inc/index/channels.php'; }
+	echo '</div><!-- /.wrap -->';
+}
 ?>
-			</div><!-- /.wrap -->	
 			<script>var settings = {player: false}</script>
 		<script src="js/app.js"></script>
     </body>

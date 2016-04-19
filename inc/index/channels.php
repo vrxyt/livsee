@@ -1,8 +1,8 @@
-<div class="jumbotron">
+<!--<div class="jumbotron">
 	<div class="container">
 		<h1><i class="fa fa-video-camera"></i> Live Channels</h1>
 	</div>
-</div>
+</div>-->
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 text-right">
@@ -12,26 +12,17 @@
 			</div>
 		</div>
 	</div>
-	<br />
 	<?php
 	if (count($rtmpinfo["rtmp"]["channels"]) > 0) {
 		$channels = array();
 		foreach ($rtmpinfo["rtmp"]["channels"] as $channelName => $streamkey) {
 			$channels[$channelName] = $streamkey;
-			$channels[$channelName]["screenshot"] = 'img/channel_' . $channelName . '.png';
+			$channels[$channelName]["screenshot"] = 'img/thumb_' . $channelName . '.png';
 			if (!file_exists($channels[$channelName]["screenshot"])) {
 				$channels[$channelName]["screenshot"] = 'img/no-preview.jpg';
 			}
 
 			$mediainfo = array();
-			try {
-
-				// Deactivated for now: too slow to fetch RTMP channel...
-				// $mediainfo = MediaInfo::fetchChannel($channelName);
-			} catch (Exception $e) {
-				print 'Cauth Exception with message ' . $e->getMessage();
-			}
-
 			$channels[$channelName]["mediainfo"] = $mediainfo;
 		}
 		?>
@@ -39,23 +30,21 @@
 			<?php
 			foreach ($channels as $channelName => $streamkey) {
 				$viewcount = file_get_contents($furl . '/nclients?app=live&name=' . $channelName);
+				$cname = $user->updateStreamkey($channelName, 'channel');
+				$ctitle = $user->updateStreamkey($channelName, 'title');
 				$col = 'col-md-6';
 				if (count($rtmpinfo["rtmp"]["channels"]) === 1) {
 					$col.= ' col-md-offset-3';
 				}
-
-				echo '<div class="' . $col . '">' . "\r\n";
-				echo '	<div class="thumbnail">' . "\r\n";
-				echo '		<a href="?channel=' . $channelName . '">' . "\r\n";
-				echo '			<label class="status live"><i class="circle"></i> LIVE</label>' . "\r\n";
-				echo '			<label class="viewcount">Viewers: ' . $viewcount . "</label>\r\n";
-				echo '			<img class="img-responsive" src="' . $streamkey["screenshot"] . '" alt="' . $user->updateStreamkey($channelName, 'channel') . '">' . "\r\n";
-				echo '		</a>' . "\r\n";
-				echo '		<div class="caption">' . "\r\n";
-				echo '			<div class="channel-display"><h3><a href="?channel=' . $channelName . '">' . $user->updateStreamkey($channelName, 'channel') . '</a> </h3></div>';
-				echo '				<div class="channel-title">' . $user->updateStreamkey($channelName, 'title') . '</div>';
-				echo '		</div>' . "\r\n";
-				echo '	</div>' . "\r\n";
+				echo '<div class="grid ' . $col . '">' . "\r\n";
+				echo '		<a href="?channel=' . $channelName . '"><figure class="effect-sarah">';
+				echo "			<img src='" . $streamkey['screenshot'] . "' alt='" . $cname . "'/>\r\n";
+				echo "			<figcaption>\r\n";
+				echo "				<h2>" . $cname . "</h2>\r\n";
+				echo "				<p>" . $ctitle . "</p>\r\n";
+				echo '				<div><label class="viewcount">Viewers: ' . $viewcount . "</label><div>\r\n";
+				echo "			</figcaption>\r\n";
+				echo "		</figure></a>\r\n";
 				echo '</div>' . "\r\n";
 			}
 			?>

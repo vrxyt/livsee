@@ -1,8 +1,8 @@
-	<div class="jumbotron">
+	<!--<div class="jumbotron">
 		<div class="container">
 			<h1><i class="fa fa-film"></i> Recorded Videos</h1>
 		</div>
-	</div>
+	</div>-->
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 text-right">

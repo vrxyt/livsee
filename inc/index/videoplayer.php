@@ -7,6 +7,5 @@
 		   poster="//<?= $surl ?>/img/video_<?php echo str_replace(".mp4", ".png", $video); ?>">
 		<source src="//<?= $surl ?>/rec/<?= $video ?>" type="video/mp4"/>
 	</video>
-
 	<script>var settings = {player: true, video: "<?= $video ?>"};</script>
 </div>
