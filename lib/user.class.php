@@ -107,8 +107,8 @@ class user extends database {
 
 		$authcode = random_int(100000, 999999);
 		$hash = password_hash($password, PASSWORD_DEFAULT);
-		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name) VALUES ($1, $2, $authcode, 0, $3, $4, $5)";
-		$params = array($email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname);
+		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img) VALUES ($1, $2, $authcode, 0, $3, $4, $5, $6)";
+		$params = array($email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png');
 		$result = pg_query_params($this->link, $sql, $params);
 		if ($result === false) {
 			$message = 'Error in: class:user | function:register';
@@ -118,7 +118,7 @@ class user extends database {
 		// emailbefore.html and emailafter.html are used as the main email, and the line for the verify link is added separately here.
 		$subject = 'DM Stream Account Verification';
 		$message = file_get_contents('inc/emailbefore.html');
-		$message .= "<a href=\"$furl/verify.php?email=$email&c=$authcode\" style=\"color: #fff!important;padding: 12px 24px;font-size: 29px;line-height: 1.3333333;border-radius: 3px;background-color: #df691a;border-color: transparent;display: inline-block;margin: auto;font-weight: normal;text-align: center;vertical-align: middle;touch-action: manipulation;cursor: pointer;background-image: none;border: 1px solid transparent;white-space: nowrap;-webkit-user-select: none;text-decoration: none;\">Verify Account</a>";
+		$message .= "<a href=\"$furl/login/verify/$email/$authcode\" style=\"color: #fff!important;padding: 12px 24px;font-size: 29px;line-height: 1.3333333;border-radius: 3px;background-color: #df691a;border-color: transparent;display: inline-block;margin: auto;font-weight: normal;text-align: center;vertical-align: middle;touch-action: manipulation;cursor: pointer;background-image: none;border: 1px solid transparent;white-space: nowrap;-webkit-user-select: none;text-decoration: none;\">Verify Account</a>";
 		$message .= file_get_contents('inc/emailafter.html');
 		$headers = array();
 		$headers[] = "MIME-Version: 1.0";
@@ -198,7 +198,7 @@ class user extends database {
 
 	// Grab account info
 	public function info($email) {
-		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name FROM $this->user_table WHERE email = $1";
+		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img FROM $this->user_table WHERE email = $1";
 		$params = array($email);
 		$info = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 		if ($info === null) {
@@ -232,13 +232,13 @@ class user extends database {
 	public function updateStreamkey($input, $function) {
 		if ($function === 'channel') {
 			$params = array($input);
-			$sql = "SELECT channel_name FROM users WHERE stream_key = $1";
+			$sql = "SELECT channel_name FROM users WHERE display_name = $1";
 			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 			$channelname = $query['channel_name'];
 			return $channelname;
 		} elseif ($function === 'title') {
 			$params = array($input);
-			$sql = "SELECT channel_title FROM users WHERE stream_key = $1";
+			$sql = "SELECT channel_title FROM users WHERE display_name = $1";
 			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 			$channeltitle = $query['channel_title'];
 			return $channeltitle;
