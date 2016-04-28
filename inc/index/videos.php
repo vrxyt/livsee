@@ -78,6 +78,7 @@
 								</thead>
 								<tbody>
 									<?php
+									$tooltipHtml = '';
 									foreach ($videos as $video) {
 										$seed = uniqid();
 										echo '
@@ -90,32 +91,32 @@
 											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/download/' . $video["file"] . '"><i class="material-icons">file_download</i></a></td>
 											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/video/' . $video["file"] . '"><i class="material-icons">play_circle_filled</i></a></td>
 										</tr>
-										<tr>
-											<td colspan="7">
-												<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
-													<p>Video</p>
-													<ul class="mdl-list">
-														<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][0]["codec_name"] . ' ' . $video["mediainfo"]["streams"][0]["profile"] . '</li>
-														<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][0]["bit_rate"]) . 'b/s</li>
-														<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $video["mediainfo"]["streams"][0]["width"] . '*' . $video["mediainfo"]["streams"][0]["height"] . '</li>
-														<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $video["mediainfo"]["streams"][0]["r_frame_rate"] . ' fps</li>
-													</ul>
-													<br />
-													<p>Audio</p>
-													<ul class="mdl-list">
-														<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][1]["codec_name"] . '</li>
-														<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][1]["bit_rate"]) . 'b/s</li>
-														<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $video["mediainfo"]["streams"][1]["sample_rate"] . ' Hz</li>
-														<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $video["mediainfo"]["streams"][1]["channels"] . '</li>
-													</ul>
-												</div>
-											</td>
-										</tr>
+										';
+										
+										$tooltipHtml .= '
+											<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
+												<p>Video</p>
+												<ul class="mdl-list">
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][0]["codec_name"] . ' ' . $video["mediainfo"]["streams"][0]["profile"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][0]["bit_rate"]) . 'b/s</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $video["mediainfo"]["streams"][0]["width"] . '*' . $video["mediainfo"]["streams"][0]["height"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $video["mediainfo"]["streams"][0]["r_frame_rate"] . ' fps</li>
+												</ul>
+												<br />
+												<p>Audio</p>
+												<ul class="mdl-list">
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][1]["codec_name"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][1]["bit_rate"]) . 'b/s</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $video["mediainfo"]["streams"][1]["sample_rate"] . ' Hz</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $video["mediainfo"]["streams"][1]["channels"] . '</li>
+												</ul>
+											</div>
 										';
 									}
 									?>
 								</tbody>
 							</table>
+							<?php echo $tooltipHtml; ?>
 						</div>
 						<div class="mdl-cell mdl-cell--4-col"></div>
 					</div>
