@@ -5,10 +5,17 @@
 			$channels = array();
 			foreach ($rtmpinfo["rtmp"]["channels"] as $channelName => $skey) {
 				$channels[$channelName] = $skey;
-				$channels[$channelName]["screenshot"] = 'profiles/' . $channelName . '/thumb_' . $channelName . '.png';
-				if (file_exists($channels[$channelName]["screenshot"])) { $channels[$channelName]["screenshot"] = '/profiles/' . $channelName . '/thumb_' . $channelName . '.png';
-				} elseif (file_exists('img/thumbs/thumb_' . $channelName . '.png')) { $channels[$channelName]["screenshot"] = '/img/thumbs/thumb_' . $channelName . '.png';
-				} else { $channels[$channelName]["screenshot"] = '/img/no-preview.jpg'; }
+				$screenshotThumbFilename = 'thumb_' . $channelName . '.png';
+				$channels[$channelName]["screenshot"] = 'profiles/' . $channelName . '/' . $screenshotThumbFilename;
+				if (file_exists($channels[$channelName]["screenshot"])) {
+					$channels[$channelName]["screenshot"] = '/' . $channels[$channelName]["screenshot"];
+				}
+				elseif (file_exists('img/' . $screenshoThumbFilename)) {
+					$channels[$channelName]["screenshot"] = '/img/thumbs/' . $screenshotThumbFilename;
+				}
+				else {
+					$channels[$channelName]["screenshot"] = '/img/no-preview.jpg';
+				}
 				$mediainfo = array();
 				$channels[$channelName]["mediainfo"] = $mediainfo;
 			}
@@ -27,21 +34,28 @@
 
 							$cname = $user->updateStreamkey($channelName, 'channel');
 							$ctitle = $user->updateStreamkey($channelName, 'title');
-							echo '<div class="mdl-cell mdl-cell--4-col">' . "\r\n";
-							echo '		<div class="grid"><a href="/watch/' . $channelName . '"><figure class="effect-sarah">';
-							echo "			<img src='" . $skey['screenshot'] . "' alt='" . $cname . "'/>\r\n";
-							echo "			<figcaption>\r\n";
-							echo "				<h2>$cname</h2>\r\n";
-							echo "				<p>$ctitle</p>\r\n";
-							echo "				<label><i class='material-icons'>visibility</i> <span>$viewcount</span></label>\r\n";
-							echo "			</figcaption>\r\n";
-							echo "		</figure></a>\r\n";
-							echo '</div></div>' . "\r\n";
+							echo '
+							<div class="mdl-cell mdl-cell--4-col">
+								<div class="grid">
+									<a href="/watch/' . $channelName . '">
+										<figure class="effect-sarah">
+											<img src="' . $skey['screenshot'] . '" alt="' . $cname . '" />
+											<figcaption>
+												<h2>' . $cname . '</h2>
+												<p>' . $ctitle . '</p>
+												<label><i class="material-icons">visibility</i> <span>' . $viewcount . '</span></label>
+											</figcaption>
+										</figure>
+									</a>
+								</div>
+							</div>
+							';
 						}
 						?>
 
 
-					</div></div>
+					</div>
+				</div>
 				<div class="mdl-tabs__panel" id="list-view">
 					<div class="mdl-grid">
 						<div class="mdl-cell mdl-cell--4-col"></div>
@@ -62,32 +76,34 @@
 									foreach ($channels as $channelName => $skey) {
 										$seed = uniqid();
 										$viewcount = file_get_contents($furl . '/nclients?app=live&name=' . $channelName);
-										echo '<tr>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric"><a href="/watch/' . $channelName . '">' . $user->updateStreamkey($channelName, 'channel') . '</a></td>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric">' . gmdate("H:i:s", ($skey["time"] / 1000)) . '</td>' . "\r\n";
-										echo '	<td>' . $viewcount . ' watching</td>';
-										echo '	<td class="mdl-data-table__cell--non-numeric" id="stream-detail-' . $seed . '">' . "\r\n";
-										echo '		' . $skey["meta"]["video"]["height"] . 'p@' . $skey["meta"]["video"]["frame_rate"] . 'fps' . "\r\n";
-										echo '	</td>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="api/call/goes/here"><i class="material-icons" role="presentation">videocam</i></a></td>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/watch/' . $channelName . '"><i class="material-icons" role="presentation">play_circle_filled</i></a></td>' . "\r\n";
-										echo '</tr>' . "\r\n";
-										echo '<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">';
-										echo '	<p>Video</p>';
-										echo '	<ul class="mdl-list">';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $skey["meta"]["video"]["codec"] . ' ' . $skey["meta"]["video"]["profile"] . '</li>';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($skey["bw_video"]) . 'b/s</li>';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $skey["meta"]["video"]["width"] . '*' . $skey["meta"]["video"]["height"] . '</li>';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $skey["meta"]["video"]["frame_rate"] . ' fps</li>';
-										echo '	</ul>';
-										echo '	<br /><p>Audio</p>';
-										echo '	<ul class="mdl-list">';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $skey["meta"]["audio"]["codec"] . ' ' . $skey["meta"]["audio"]["profile"] . '</li>';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($skey["bw_audio"]) . 'b/s</li>';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $skey["meta"]["audio"]["sample_rate"] . ' Hz</li>';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $skey["meta"]["audio"]["channels"] . '</li>';
-										echo '	</ul>';
-										echo '</div>' . "\r\n";
+										
+										$cname = $user->updateStreamkey($channelName, 'channel');
+										echo '
+										<tr>
+											<td class="mdl-data-table__cell--non-numeric"><a href="/watch/' . $channelName . '">' . $cname . '</a></td>
+											<td class="mdl-data-table__cell--non-numeric">' . gmdate("H:i:s", ($skey["time"] / 1000)) . '</td>
+											<td>' . $viewcount . ' watching</td>
+											<td class="mdl-data-table__cell--non-numeric" id="stream-detail-' . $seed . '">' . $skey["meta"]["video"]["height"] . 'p@' . $skey["meta"]["video"]["frame_rate"] . 'fps</td>
+											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="api/call/goes/here"><i class="material-icons" role="presentation">videocam</i></a></td>
+											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/watch/' . $channelName . '"><i class="material-icons" role="presentation">play_circle_filled</i></a></td>
+										</tr>
+										<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
+											<p>Video</p>
+											<ul class="mdl-list">
+												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $skey["meta"]["video"]["codec"] . ' ' . $skey["meta"]["video"]["profile"] . '</li>
+												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($skey["bw_video"]) . 'b/s</li>
+												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $skey["meta"]["video"]["width"] . '*' . $skey["meta"]["video"]["height"] . '</li>
+												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $skey["meta"]["video"]["frame_rate"] . ' fps</li>
+											</ul>
+											<br />
+											<p>Audio</p>
+											<ul class="mdl-list">
+												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $skey["meta"]["audio"]["codec"] . ' ' . $skey["meta"]["audio"]["profile"] . '</li>
+												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($skey["bw_audio"]) . 'b/s</li>
+												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $skey["meta"]["audio"]["sample_rate"] . ' Hz</li>
+												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $skey["meta"]["audio"]["channels"] . '</li>
+											</ul>
+										</div>';
 									}
 									?>
 								</tbody>
