@@ -40,15 +40,21 @@
 					<div class="mdl-grid">
 						<?php
 						foreach ($videos as $key => $video) {
-							echo '<div class="mdl-cell mdl-cell--4-col">' . "\r\n";
-							echo '	<div class="grid"><a href="/video/' . $video["file"] . '"><figure class="effect-sarah">' . "\r\n";
-							echo '			<img src="' . $video["screenshot"] . '" alt="' . $video["channel"] . '">' . "\r\n";
-							echo "			<figcaption>\r\n";
-							echo "				<h2>" . $video['channel'] . "</h2>\r\n";
-							echo "				<p>" . $video['datetime'] . "</p>\r\n";
-							echo "			</figcaption>\r\n";
-							echo "		</figure></a>\r\n";
-							echo '</div></div>' . "\r\n";
+							echo '
+							<div class="mdl-cell mdl-cell--4-col">
+								<div class="grid">
+									<a href="/video/' . $video["file"] . '">
+										<figure class="effect-sarah">
+											<img src="' . $video["screenshot"] . '" alt="' . $video["channel"] . '">
+											<figcaption>
+												<h2>' . $video['channel'] . '</h2>
+												<p>' . $video['datetime'] . '</p>
+											</figcaption>
+										</figure>
+									</a>
+								</div>
+							</div>
+							';
 						}
 						?>
 
@@ -72,39 +78,45 @@
 								</thead>
 								<tbody>
 									<?php
+									$tooltipHtml = '';
 									foreach ($videos as $video) {
 										$seed = uniqid();
-										echo '<tr>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric">' . $video["channel"] . '</td>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric">' . date("Y-m-d H:i:s", $video["timestamp"]) . '</td>' . "\r\n";
-										echo '	<td>' . date("H:i:s", $video["mediainfo"]["format"]["duration"]) . '</td>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric" id="stream-detail-' . $seed . '">' . "\r\n";
-										echo '		' . $video["mediainfo"]["streams"][0]["height"] . 'p@' . $video["mediainfo"]["streams"][0]["r_frame_rate"] . 'fps' . "\r\n";
-										echo '	</td>' . "\r\n";
-										echo '	<td>' . bytesConvert($video["mediainfo"]["format"]["size"]) . 'B</td>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/download/' . $video["file"] . '"><i class="material-icons">file_download</i></a></td>' . "\r\n";
-										echo '	<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/video/' . $video["file"] . '"><i class="material-icons">play_circle_filled</i></a></td>' . "\r\n";
-										echo '</tr>';
-										echo '<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">';
-										echo '	<p>Video</p>';
-										echo '	<ul class="mdl-list">';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][0]["codec_name"] . ' ' . $video["mediainfo"]["streams"][0]["profile"] . '</li>' . "\r\n";
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][0]["bit_rate"]) . 'b/s</li>' . "\r\n";
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $video["mediainfo"]["streams"][0]["width"] . '*' . $video["mediainfo"]["streams"][0]["height"] . '</li>' . "\r\n";
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $video["mediainfo"]["streams"][0]["r_frame_rate"] . ' fps</li>' . "\r\n";
-										echo '	</ul>' . "\r\n";
-										echo '	<br /><p>Audio</p>';
-										echo '	<ul class="mdl-list">';
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][1]["codec_name"] . '</li>' . "\r\n";
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][1]["bit_rate"]) . 'b/s</li>' . "\r\n";
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $video["mediainfo"]["streams"][1]["sample_rate"] . ' Hz</li>' . "\r\n";
-										echo '		<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $video["mediainfo"]["streams"][1]["channels"] . '</li>' . "\r\n";
-										echo '	</ul>' . "\r\n";
-										echo '</div>' . "\r\n";
+										echo '
+										<tr>
+											<td class="mdl-data-table__cell--non-numeric">' . $video["channel"] . '</td>
+											<td class="mdl-data-table__cell--non-numeric">' . date("Y-m-d H:i:s", $video["timestamp"]) . '</td>
+											<td>' . date("H:i:s", $video["mediainfo"]["format"]["duration"]) . '</td>
+											<td class="mdl-data-table__cell--non-numeric" id="stream-detail-' . $seed . '">' . $video["mediainfo"]["streams"][0]["height"] . 'p@' . $video["mediainfo"]["streams"][0]["r_frame_rate"] . 'fps</td>
+											<td>' . bytesConvert($video["mediainfo"]["format"]["size"]) . 'B</td>
+											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/download/' . $video["file"] . '"><i class="material-icons">file_download</i></a></td>
+											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/video/' . $video["file"] . '"><i class="material-icons">play_circle_filled</i></a></td>
+										</tr>
+										';
+										
+										$tooltipHtml .= '
+											<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
+												<p>Video</p>
+												<ul class="mdl-list">
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][0]["codec_name"] . ' ' . $video["mediainfo"]["streams"][0]["profile"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][0]["bit_rate"]) . 'b/s</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $video["mediainfo"]["streams"][0]["width"] . '*' . $video["mediainfo"]["streams"][0]["height"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $video["mediainfo"]["streams"][0]["r_frame_rate"] . ' fps</li>
+												</ul>
+												<br />
+												<p>Audio</p>
+												<ul class="mdl-list">
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][1]["codec_name"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][1]["bit_rate"]) . 'b/s</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $video["mediainfo"]["streams"][1]["sample_rate"] . ' Hz</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $video["mediainfo"]["streams"][1]["channels"] . '</li>
+												</ul>
+											</div>
+										';
 									}
 									?>
 								</tbody>
 							</table>
+							<?php echo $tooltipHtml; ?>
 						</div>
 						<div class="mdl-cell mdl-cell--4-col"></div>
 					</div>
