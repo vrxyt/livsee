@@ -13330,7 +13330,7 @@ var Flash = (function (_Tech) {
     // Otherwise this adds a CDN url.
     // The CDN also auto-adds a swf URL for that specific version.
     if (!options.swf) {
-      options.swf = 'js/vjs/video-js.swf';
+      options.swf = '/js/vjs/video-js.swf';
     }
 
     // Generate ID for swf object

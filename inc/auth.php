@@ -32,14 +32,14 @@ if (!empty($email) && $user->session_check($email) === false) {
 	session_destroy();
 	setcookie('rememberMe', null, -1, '/');
 	setcookie('email', null, -1, '/');
-	header("Location: login.php");
+	header("Location: /login");
 }
 
 if (!empty($_SESSION['authenticated']) && $user->session_authenticate($_SESSION['authenticated'], $action) === false) {
-	header('Location: login.php');
+	header('Location: /login');
 }
 
 if (empty($_SESSION['authenticated'])) {
-	header('Location: login.php');
+	header('Location: /login');
 }
 
