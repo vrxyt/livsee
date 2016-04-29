@@ -165,9 +165,9 @@ if (!empty($uriVars[1])) {
 
 
 										<div class="form__action">
-											<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="rememberLogin">
-												<input type="checkbox" name="rememberMe" value="true" id="rememberLogin" class="mdl-switch__input">
-												<span class="mdl-switch__label">Remember Me</span>
+											<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="rememberLogin">
+												<input type="checkbox" name="rememberMe" value="true" id="rememberLogin" class="mdl-checkbox__input">
+												<span class="mdl-checkbox__label">Remember Me</span>
 											</label>
 											<button type="submit" name="Submitted" value="Login" form="loginForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
 												Login
@@ -180,6 +180,9 @@ if (!empty($uriVars[1])) {
 													echo '<br />' . $status;
 												}
 												?>
+											</div>
+											<div class="mdl-cell mdl-cell--12-col forgot-pass">
+												<span class="mdl-typography--text-left">Forgot your password? <a href="/lostpass">Click here</a></span>
 											</div>
 										</div>
 									</div>
@@ -212,10 +215,7 @@ if (!empty($uriVars[1])) {
 											</div>
 										</div>
 
-										<div class="form__action">
-											<!--<button type="submit" name="Submitted" value="LostPass" form="registerForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-												Lost Pass
-											</button>-->
+										<div class="form__action-register">
 											<button type="submit" name="Submitted" value="Register" form="registerForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
 												Register
 											</button>
@@ -243,7 +243,6 @@ if (!empty($uriVars[1])) {
 		<!-- inject:js -->
 		<script src="/js/getmdl-select.min.js"></script>
 		<script src="/js/material.js"></script>
-		<script src="/js/widgets/employer-form/employer-form.js"></script>
 		<!-- endinject -->
 
 	</body>
