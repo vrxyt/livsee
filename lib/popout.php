@@ -42,7 +42,6 @@ $streamkey = $uriVars[1];
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-resolution-switcher.css">
-		<link rel="stylesheet" href="/css/lib/getmdl-select.min.css">
 		<link rel="stylesheet" href="/css/application.css">
 		<link rel="stylesheet" href="/css/site.css">
 		<script src="/js/vjs/video-js.js"></script>
@@ -112,8 +111,8 @@ $streamkey = $uriVars[1];
 				</nav>
 			</div>
 
-			<main class="mdl-layout__content fill-popout">
-				<div class="mdl-content fill">
+			<main class="mdl-layout__content-popout">
+				
 					<div class="live-player">
 						<video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered"
 							   data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
@@ -128,7 +127,7 @@ $streamkey = $uriVars[1];
 							videojs('streamPlayer').videoJsResolutionSwitcher();
 						</script>
 					</div>
-				</div>
+				
 			</main>
 		</div>
 		<script src="/js/material.js"></script>
