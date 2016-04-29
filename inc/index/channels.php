@@ -10,7 +10,7 @@
 				if (file_exists($channels[$channelName]["screenshot"])) {
 					$channels[$channelName]["screenshot"] = '/' . $channels[$channelName]["screenshot"];
 				}
-				elseif (file_exists('img/' . $screenshoThumbFilename)) {
+				elseif (file_exists('img/thumbs/' . $screenshotThumbFilename)) {
 					$channels[$channelName]["screenshot"] = '/img/thumbs/' . $screenshotThumbFilename;
 				}
 				else {
