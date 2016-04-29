@@ -168,6 +168,55 @@ class user extends database {
 		return $status;
 	}
 
+	public function resetCode($email, $furl) {
+		$authcode = random_int(100000, 999999);
+		$sql = "UPDATE $this->user_table SET auth_code = $1 WHERE email = $2";
+		$params = array($authcode, $email);
+		$result = pg_query_params($this->link, $sql, $params);
+		if ($result === false) {
+			$message = 'Error in: class:user | function:resetCode';
+			$code = 1;
+			throw new Exception($message, $code);
+		}
+		// emailbefore.html and emailafter.html are used as the main email, and the line for the verify link is added separately here.
+		$subject = 'DM Stream Password Reset';
+		//$message = file_get_contents('inc/emailbefore.html');
+		$message = "Password reset auth code: $authcode<br /><br />Reset form: <a href='$furl/lostpass'>Click here</a>";
+		//$message .= file_get_contents('inc/emailafter.html');
+		$headers = array();
+		$headers[] = "MIME-Version: 1.0";
+		$headers[] = "Content-Type: text/html; charset=UTF-8";
+		$headers[] = "From: DM Stream <noreply@rirnef.net>";
+		$headers[] = "Bcc: DM Stream Admin <fenrirthviti@gmail.com>";
+		$headers[] = "Reply-To: issues@rirnef.net";
+		$headers[] = 'X-Mailer: PHP/' . phpversion();
+		mail($email, $subject, $message, implode("\r\n", $headers));
+		return true;
+	}
+	
+	public function passwordReset($email, $code, $password) {
+		$params = array($email, $code);
+		$sql = "SELECT * FROM $this->user_table WHERE email = $1 AND auth_code = $2";
+		$result = pg_query_params($this->link, $sql, $params);
+		$row_cnt = pg_num_rows($result);
+		if ($row_cnt >= 1) {
+			$hash = password_hash($password, PASSWORD_DEFAULT);
+			$params = array($hash, $email, $code);
+			$sql = "UPDATE $this->user_table SET auth_code = null, password = $1 WHERE email = $2 AND auth_code = $3";
+			$check = pg_query_params($this->link, $sql, $params);
+			if ($check === false) {
+				$message = 'Error in: class:user | function:verify';
+				$code = 2;
+				throw new Exception($message, $code);
+			} else {
+				$status = true;
+			}
+		} else {
+			$status = 'Invalid email/authentication code!';
+		}
+		return $status;
+	}
+	
 	// Check if email exists
 	public function emailcheck($email) {
 		$params = array($email);
