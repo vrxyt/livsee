@@ -186,7 +186,7 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 				if (!empty($streamkey)) { include 'inc/index/streamplayer.php';
 				} elseif (!empty($video)) { include 'inc/index/videoplayer.php';
 				} elseif (file_exists('inc/index/' . $page . '.php') === true) { include 'inc/index/' . $page . '.php';
-				} elseif (empty($page)) { include 'inc/index/channels.php';
+				} elseif (empty($page) || ($page === 'index.php')) { include 'inc/index/channels.php';
 				} else { include 'inc/404.php';	}
 				?>		
 
