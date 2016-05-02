@@ -118,7 +118,7 @@ $color-accent-contrast: $color-dark-contrast !default;
 // text-color-secondary. For light themes, use text-color-primary-inverse
 // and text-color-secondary-inverse.
 
-$text-color-primary: rgba-tpl($color-black, 0.87) !default;
+$text-color-primary: $palette-cyan-500 !default;
 $text-link-color: $color-accent !default;
 
 // Define whether to target elements directly for typographic enhancements.
