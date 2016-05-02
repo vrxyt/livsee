@@ -8,5 +8,5 @@ Current features:
   - Streaming authentication -- Anyone attempting to connect without a valid account/streamkey will be denied
   - On-demand recording (WIP) -- Allows anyone to start recording a stream to the server for playback later. Recorded videos are stored indefinitely.
   - Built on [MDL](https://getmdl.io/index.html)
-  - Full Sass implementation
+  - Full [Sass](http://sass-lang.com/) implementation
   - Uses [video.js](https://github.com/videojs/video.js) player
