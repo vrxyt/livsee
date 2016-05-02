@@ -181,7 +181,7 @@ class user extends database {
 		// emailbefore.html and emailafter.html are used as the main email, and the line for the verify link is added separately here.
 		$subject = 'DM Stream Password Reset';
 		//$message = file_get_contents('inc/emailbefore.html');
-		$message = "Password reset auth code: $authcode<br /><br />Reset form: <a href='$furl/lostpass'>Click here</a>";
+		$message = "Password reset auth code for $email: $authcode<br /><br />Reset form: <a href='$furl/lostpass'>Click here</a>";
 		//$message .= file_get_contents('inc/emailafter.html');
 		$headers = array();
 		$headers[] = "MIME-Version: 1.0";
