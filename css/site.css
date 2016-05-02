@@ -221,3 +221,7 @@ figure.effect-sarah:hover label {
 .dm-logo-header {
 	background-image: url("../img/test_logobg.png")!important;
 }
+
+.forgot-pass {
+	padding-top: 10px;
+}
