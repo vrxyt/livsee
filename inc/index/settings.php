@@ -51,7 +51,7 @@ if (!empty($_POST)) {
 							<li class="mdl-list__item mdl-list__item--two-line">
 								<span class="mdl-list__item-primary-content">
 									<i class="material-icons mdl-list__item-icon">vpn_key</i>
-									<span>Stream Key</span>
+									<span>Stream Key <a href="/guide">(click here for guide)</a></span>
 									<span class="mdl-list__item-sub-title"><?= $accountinfo['stream_key']; ?></span>
 								</span>
 							</li>
