@@ -441,7 +441,7 @@
    Base styles: opinionated defaults
    ========================================================================== */
 html {
-  color: rgba(0, 0, 0, 0.87);
+  color: #00bcd4;
   font-size: 1em;
   line-height: 1.4; }
 
@@ -11315,24 +11315,6 @@ a {
     padding-top: 8px;
     padding-bottom: 0; }
 
-.trending .mdl-card__supporting-text {
-  width: 100%;
-  padding: 8px 0; }
-.trending .mdl-list__item:hover {
-  background-color: rgba(0, 0, 0, 0.2); }
-.trending .mdl-list__item .mdl-list__item-secondary-content {
-  margin: 0; }
-.trending .material-icons {
-  line-height: 0.33333;
-  font-size: 48px; }
-.trending__arrow-up {
-  color: rgb(0, 188, 212); }
-.trending__arrow-down {
-  color: rgb(255, 82, 82); }
-.trending__percent {
-  text-align: right;
-  width: 40px; }
-
 .messages-dropdown .label {
   color: rgba(255, 255, 255, 0.5); }
 .messages-dropdown .mdl-list__item-primary-content {
@@ -11403,70 +11385,6 @@ a {
 .todo .mdl-card__actions {
   margin-top: 20px; }
 
-.pie-chart__container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 228px; }
-  .pie-chart__container svg {
-    min-height: 200px;
-    max-width: 180px; }
-    .pie-chart__container svg .nvd3.nv-pie path {
-      fill-opacity: 1;
-      stroke-width: 0; }
-    .pie-chart__container svg .nvd3.nv-pie .nv-pie-title {
-      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-      fill: rgb(white);
-      font-weight: 300;
-      font-size: 22px !important; }
-  .pie-chart__container .legend {
-    max-width: 140px; }
-
-.line-chart__container {
-  min-height: 280px; }
-  .line-chart__container svg {
-    height: 280px;
-    width: 100%; }
-    .line-chart__container svg .y-axis-label, .line-chart__container svg .x-axis-label {
-      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-      font-size: 12px;
-      font-weight: 300;
-      fill: rgba(255, 255, 255,0.5); }
-    .line-chart__container svg .nv-lineChart .nv-guideline {
-      stroke: rgba(255, 255, 255,0.5);
-      stroke-width: 0.5px; }
-    .line-chart__container svg .nv-lineChart .tick {
-      opacity: 0.1 !important; }
-      .line-chart__container svg .nv-lineChart .tick.zero {
-        opacity: 0.5 !important; }
-        .line-chart__container svg .nv-lineChart .tick.zero line {
-          stroke-opacity: 1 !important; }
-    .line-chart__container svg .nv-lineChart .nv-y .domain {
-      stroke-opacity: 0 !important; }
-    .line-chart__container svg .nv-lineChart .nvd3.nv-scatter .nv-groups .nv-point.hover {
-      stroke-width: 5px; }
-  .line-chart__container .legend {
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px; }
-
-.legend .legend__item {
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  color: rgb(white);
-  margin: 8px 18px;
-  display: inline-block; }
-  .legend .legend__item .legend__text {
-    margin-left: 24px; }
-  .legend .legend__item .legend__mark {
-    width: 8px;
-    height: 8px;
-    margin-top: 4px; }
-
 .account-dropdown .mdl-list__item {
   font-size: 14px; }
   .account-dropdown .mdl-list__item:first-child {
@@ -11497,71 +11415,6 @@ a {
     font-weight: 100;
     color: white; }
 
-.robot {
-  height: 450px; }
-  .robot .mdl-card__supporting-text {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    padding-bottom: 26px; }
-  .robot .mdl-card__title {
-    background: url("../img/robot.png") center center no-repeat;
-    background-size: cover; }
-    .robot .mdl-card__title .mdl-card__title-text {
-      color: rgb(255, 255, 255); }
-
-.cotoneaster {
-  height: 430px; }
-  .cotoneaster .mdl-card__supporting-text {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    padding-bottom: 26px; }
-  .cotoneaster .mdl-card__title {
-    background: url("../img/cotoneaster.jpg") center center no-repeat;
-    background-size: cover; }
-    .cotoneaster .mdl-card__title .mdl-card__title-text {
-      color: rgb(255, 255, 255); }
-
-@media screen and (max-width: 1151px) {
-  .cotoneaster {
-    height: 329px; } }
-.weather {
-  height: 329px; }
-  .weather .mdl-card__supporting-text {
-    color: rgba(255, 255, 255, 0.8);
-    background: url("../img/weather_bck.png") center center no-repeat;
-    background-size: cover;
-    text-align: right;
-    padding-top: 38px;
-    text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4); }
-    .weather .mdl-card__supporting-text .weather-temperature {
-      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-      font-size: 100px;
-      line-height: 1;
-      color: rgba(255, 255, 255, 0.9); }
-      .weather .mdl-card__supporting-text .weather-temperature sup {
-        position: relative;
-        top: 13px; }
-    .weather .mdl-card__supporting-text .weather-description {
-      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-      font-size: 18px;
-      font-weight: 300;
-      position: relative; }
-      .weather .mdl-card__supporting-text .weather-description:before {
-        width: 35px;
-        position: absolute;
-        right: 150px;
-        content: url(../img/cloudy_and_snow.svg); }
-  .weather .mdl-card__title .mdl-card__subtitle-text {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-size: 16px;
-    font-weight: 300; }
-    .weather .mdl-card__title .mdl-card__subtitle-text .material-icons {
-      font-size: 16px;
-      top: 2px;
-      position: relative; }
-
 .employer-form {
   padding: 0;
   width: 350px;
@@ -11580,7 +11433,7 @@ a {
     color: rgba(255, 255, 255, 0.6);
     font-weight: 200; }
   .employer-form .mdl-card__title {
-    background-color: #ff4081;
+    background-color: rgba(0, 0, 0, 0.3);
     height: 66px;
     width: 100%;
     padding-top: 16px;
@@ -11716,7 +11569,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 60px; }
+  margin-top: 30px; }
   .form__action .mdl-checkbox {
     width: auto; }
     .form__action .mdl-checkbox .mdl-checkbox__label {
@@ -11726,6 +11579,22 @@ a {
       font-size: 16px;
       font-weight: 300; }
   .form__action .mdl-button {
+    padding: 0; }
+
+.form__action-register {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 30px; }
+  .form__action-register .mdl-checkbox {
+    width: auto; }
+    .form__action-register .mdl-checkbox .mdl-checkbox__label {
+      margin-left: 10px;
+      font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+      color: white;
+      font-size: 16px;
+      font-weight: 300; }
+  .form__action-register .mdl-button {
     padding: 0; }
 
 .input-group > i {
