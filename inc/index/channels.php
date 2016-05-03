@@ -79,13 +79,18 @@
 										
 										$cname = $user->updateStreamkey($channelName, 'channel');
 										echo '
-										<tr>
+										<tr channel="' . $channelName . '">
 											<td class="mdl-data-table__cell--non-numeric"><a href="/watch/' . $channelName . '">' . $cname . '</a></td>
 											<td class="mdl-data-table__cell--non-numeric">' . gmdate("H:i:s", ($skey["time"] / 1000)) . '</td>
 											<td>' . $viewcount . ' watching</td>
 											<td class="mdl-data-table__cell--non-numeric" id="stream-detail-' . $seed . '">' . $skey["meta"]["video"]["height"] . 'p@' . $skey["meta"]["video"]["frame_rate"] . 'fps</td>
-											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="api/call/goes/here"><i class="material-icons" role="presentation">videocam</i></a></td>
-											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/watch/' . $channelName . '"><i class="material-icons" role="presentation">play_circle_filled</i></a></td>
+											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center">
+												<label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" for="record-toggle_' . $channelName . '">
+													<input type="checkbox" id="record-toggle_' . $channelName . '" class="mdl-icon-toggle__input record-button">
+													<i class="mdl-icon-toggle__label material-icons">fiber_manual_record</i>
+												</label>
+											</td>
+											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/watch/' . $channelName . '"><i class="material-icons" role="presentation">play_arrow</i></a></td>
 										</tr>
 										<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
 											<p>Video</p>

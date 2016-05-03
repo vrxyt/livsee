@@ -1,5 +1,4 @@
 /.well-known/
-/api/
 /img/skype.svg
 /img/test_bg.jpg
 /img/tick-mask.svg
@@ -8,4 +7,3 @@
 /img/tick_dark.svg
 /lib/database.class.php
 /nbproject
-/css/

@@ -11385,6 +11385,19 @@ a {
 .todo .mdl-card__actions {
   margin-top: 20px; }
 
+.robot {
+  height: 450px; }
+  .robot .mdl-card__supporting-text {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    padding-bottom: 26px; }
+  .robot .mdl-card__title {
+    background: url("../img/robot.png") center center no-repeat;
+    background-size: cover; }
+    .robot .mdl-card__title .mdl-card__title-text {
+      color: rgb(255, 255, 255); }
+
 .account-dropdown .mdl-list__item {
   font-size: 14px; }
   .account-dropdown .mdl-list__item:first-child {
