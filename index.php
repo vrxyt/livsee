@@ -200,6 +200,7 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 		<script src="/js/getmdl-select.min.js"></script>
 		<script src="/js/material.js"></script>
 		<script src="/js/jquery.min.js"></script>
+		<script src="/js/channels.js"></script>
 		<?php if (!empty($streamkey)) { ?>
 		<script>
 			var streamPlayer = videojs("streamPlayer");

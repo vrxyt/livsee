@@ -441,7 +441,7 @@
    Base styles: opinionated defaults
    ========================================================================== */
 html {
-  color: #00bcd4;
+  color: rgba(0, 0, 0, 0.87);
   font-size: 1em;
   line-height: 1.4; }
 
@@ -6004,7 +6004,7 @@ input.mdl-button[type="submit"] {
   height: 32px;
   width: 32px;
   min-width: 32px;
-  color: #616161;
+  color: #00bcd4;
   border-radius: 50%;
   padding: 0;
   margin-left: 0;
@@ -6017,15 +6017,15 @@ input.mdl-button[type="submit"] {
     line-height: 32px;
     font-size: 24px; }
   .mdl-icon-toggle.is-checked .mdl-icon-toggle__label {
-    color: 0, 188, 212; }
+    color: #ff4081; }
   .mdl-icon-toggle.is-disabled .mdl-icon-toggle__label {
-    color: rgba(0, 0, 0, 0.26);
+    color: white;
     cursor: auto;
     transition: none; }
   .mdl-icon-toggle.is-focused .mdl-icon-toggle__label {
-    background-color: rgba(0, 0, 0, 0.12); }
+    background-color: #2196f3; }
   .mdl-icon-toggle.is-focused.is-checked .mdl-icon-toggle__label {
-    background-color: rgba(0, 188, 212, 0.26); }
+    background-color: #ff4081; }
 
 .mdl-icon-toggle__ripple-container {
   position: absolute;
@@ -6040,7 +6040,7 @@ input.mdl-button[type="submit"] {
   overflow: hidden;
   -webkit-mask-image: -webkit-radial-gradient(circle, white, black); }
   .mdl-icon-toggle__ripple-container .mdl-ripple {
-    background: #616161; }
+    background: #00bcd4; }
   .mdl-icon-toggle.is-disabled .mdl-icon-toggle__ripple-container {
     cursor: auto; }
   .mdl-icon-toggle.is-disabled .mdl-icon-toggle__ripple-container .mdl-ripple {
