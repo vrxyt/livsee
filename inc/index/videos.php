@@ -10,7 +10,7 @@
 					$skey = $user->updateStreamkey($skey, 'channel');
 					$timestamp = substr($file, strrpos($file, "-") + 1, -4);
 					$datetime = date("Y-m-d H:i:s", $timestamp);
-					$screenshot = 'img/video_' . str_replace('mp4', 'png', $file);
+					$screenshot = 'img/video/video_' . str_replace('mp4', 'png', $file);
 					if (!file_exists($screenshot)) {
 						$screenshot = 'img/no-preview.jpg';
 					}
