@@ -52,7 +52,7 @@ if (empty($key)) {
         exit(1);
 } else {
         //check and verify key against the DB
-        $check = $rtmp->stream_check($key, $SAlogfile);
+        $check = $rtmp->stream_check($key, $name, $SAlogfile);
         if ($check === false) {
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         }
