@@ -51,9 +51,12 @@ if (empty($key)) {
         header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         exit(1);
 } else {
-        //check and verify key against the DB
+        //check and verify key against the DB, then run email notices for on-live
         $check = $rtmp->stream_check($key, $name, $SAlogfile);
         if ($check === false) {
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         }
+		else {
+			$notify = $rtmp->onLive($key, $furl);
+		}
 }

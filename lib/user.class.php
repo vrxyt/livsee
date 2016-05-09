@@ -62,13 +62,16 @@ class user extends database {
 		}
 		$hash = $result['password'];
 		$verified = $result['verified'];
+		$apikey = $result['api_key'];
 		if ($verified === '1') {
 			if (password_verify($password, $hash)) {
 				$status = 'Login successful.';
 				$_SESSION['authenticated'] = $email;
+				$_SESSION['api_key'] = $apikey;
 				if ($_POST['rememberMe'] === 'true') {
 					setcookie('rememberMe', true, time() + 31000000);
 					setcookie('email', $email, time() + 31000000);
+					setcookie('api_key', $apikey, time() + 31000000);
 				}
 				return true;
 			} else {
@@ -139,7 +142,7 @@ class user extends database {
 		$row_cnt = pg_num_rows($result);
 		if ($row_cnt >= 1) {
 
-			// simple function to generate stream key. Doesn't need to be complex as this shouldn't live very long, and not much you can do if you can predict the string.
+			// simple function to generate private keys (stream and api). Doesn't need to be overly complex as this is private, and not much you can do if you can predict the string.
 			function generateRandomString($length = 10) {
 				$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 				$charactersLength = strlen($characters);
@@ -151,9 +154,10 @@ class user extends database {
 			}
 
 			$streamkey = generateRandomString();
+			$apikey = generateRandomString();
 
-			$params = array($streamkey, $email, $code);
-			$sql = "UPDATE $this->user_table SET auth_code = null, verified = 1, stream_key = $1 WHERE email = $2 AND auth_code = $3";
+			$params = array($streamkey, $email, $code, $apikey);
+			$sql = "UPDATE $this->user_table SET auth_code = null, verified = 1, stream_key = $1, api_key = $4 WHERE email = $2 AND auth_code = $3";
 			$check = pg_query_params($this->link, $sql, $params);
 			if ($check === false) {
 				$message = 'Error in: class:user | function:verify';
@@ -190,7 +194,7 @@ class user extends database {
 		mail($email, $subject, $message, implode("\r\n", $headers));
 		return true;
 	}
-	
+
 	public function passwordReset($email, $code, $password) {
 		$params = array($email, $code);
 		$sql = "SELECT * FROM $this->user_table WHERE email = $1 AND auth_code = $2";
@@ -213,7 +217,7 @@ class user extends database {
 		}
 		return $status;
 	}
-	
+
 	// Check if email exists
 	public function emailcheck($email) {
 		$params = array($email);
@@ -244,7 +248,7 @@ class user extends database {
 
 	// Grab account info
 	public function info($email) {
-		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img FROM $this->user_table WHERE email = $1";
+		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img, api_key FROM $this->user_table WHERE email = $1";
 		$params = array($email);
 		$info = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 		if ($info === null) {
@@ -278,19 +282,33 @@ class user extends database {
 	public function updateStreamkey($input, $function) {
 		if ($function === 'channel') {
 			$params = array($input);
-			$sql = "SELECT channel_name FROM users WHERE display_name = $1";
+			$sql = "SELECT channel_name FROM $this->user_table WHERE display_name = $1";
 			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 			$channelname = $query['channel_name'];
 			return $channelname;
 		} elseif ($function === 'title') {
 			$params = array($input);
-			$sql = "SELECT channel_title FROM users WHERE display_name = $1";
+			$sql = "SELECT channel_title FROM $this->user_table WHERE display_name = $1";
 			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 			$channeltitle = $query['channel_title'];
 			return $channeltitle;
 		} else {
 			return 'Error in updateStreamkey()!';
 		}
+	}
+
+	public function verifyAPIkey($key) {
+		$params = array($key);
+		$sql = "SELECT display_name FROM $this->user_table WHERE api_key = $1 AND api_key IS NOT null";
+		$query = pg_query_params($this->link, $sql, $params);
+		$result = pg_fetch_assoc($query);
+		if ($query === false) {
+			$message = 'Error in: class:user | function:verifyAPIkey()';
+			$code = 1;
+			throw new Exception($message, $code);
+		}
+		$row_cnt = pg_num_rows($query);
+		return $row_cnt >= 1 ? true : false;
 	}
 
 }
