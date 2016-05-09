@@ -28,7 +28,7 @@ $furl = $protocol . $surl;
 $SAlogfile = '/var/log/nginx/streamauth.log';
 
 // title at the top of the page.
-$sitetitle = "Len's Streaming Emporium";
-$sitesubtitle = "(A Dancing Mad Production)";
+$sitetitle = "DM Stream"; // max 16 characters
+$sitesubtitle = "(A Dancing Mad Production)"; // currently unused.
 
 
