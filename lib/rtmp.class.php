@@ -25,9 +25,9 @@ class rtmp extends database {
 	/* 	Streamkey Auth Functions	 */
 
 	// Check if the stream key is valid
-	public function stream_check($key, $file) {
-		$params = array($key);
-		$sql = "SELECT * FROM $this->user_table WHERE stream_key = $1";
+	public function stream_check($key, $name, $file) {
+		$params = array($name, $key);
+		$sql = "SELECT * FROM $this->user_table WHERE display_name = $1 AND stream_key = $2 AND stream_key IS NOT null";
 		$query = pg_query_params($this->link, $sql, $params);
 		$row_cnt = pg_num_rows($query);
 		if ($row_cnt >= 1) {
