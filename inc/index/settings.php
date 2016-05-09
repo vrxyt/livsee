@@ -18,7 +18,7 @@
 // run account info update if data was posted
 if (!empty($_POST)) {
 	$channelname = filter_input(INPUT_POST, 'channelname', FILTER_SANITIZE_STRING);
-	$channeltitle = filter_input(INPUT_POST, 'channeltitle', FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_HIGH);
+	$channeltitle = filter_input(INPUT_POST, 'channeltitle', FILTER_SANITIZE_STRING);
 	$displayname = filter_input(INPUT_POST, 'displayname', FILTER_SANITIZE_STRING);
 	$status = $user->update($email, $channelname, $channeltitle, $displayname);
 	// get new account info after the update
@@ -36,25 +36,33 @@ if (!empty($_POST)) {
 			<div class="mdl-card__supporting-text">
 				<form action="" method="POST" class="form" id="settingsForm">
 					<div class="form__article">
-						
+
 
 						<div class="mdl-grid">
 							<ul class="mdl-list fill">
-							<li class="mdl-list__item mdl-list__item--two-line">
-								<span class="mdl-list__item-primary-content">
-									<i class="material-icons mdl-list__item-icon">email</i>
-									<span>Email</span>
-									<span class="mdl-list__item-sub-title"><?= $accountinfo['email']; ?></span>
-								</span>
-							</li>
+								<li class="mdl-list__item mdl-list__item--two-line">
+									<span class="mdl-list__item-primary-content">
+										<i class="material-icons mdl-list__item-icon">email</i>
+										<span>Email</span>
+										<span class="mdl-list__item-sub-title"><?= $accountinfo['email']; ?></span>
+									</span>
+								</li>
 
-							<li class="mdl-list__item mdl-list__item--two-line">
-								<span class="mdl-list__item-primary-content">
-									<i class="material-icons mdl-list__item-icon">vpn_key</i>
-									<span>Stream Key <a href="/guide">(click here for guide)</a></span>
-									<span class="mdl-list__item-sub-title"><?= $accountinfo['stream_key']; ?></span>
-								</span>
-							</li>
+								<li class="mdl-list__item mdl-list__item--two-line">
+									<span class="mdl-list__item-primary-content">
+										<i class="material-icons mdl-list__item-icon">vpn_key</i>
+										<span>Stream Key <a href="/guide">(click here for guide)</a></span>
+										<span class="mdl-list__item-sub-title"><?= $accountinfo['stream_key']; ?></span>
+									</span>
+								</li>
+
+								<li class="mdl-list__item mdl-list__item--two-line">
+									<span class="mdl-list__item-primary-content">
+										<i class="material-icons mdl-list__item-icon">vpn_key</i>
+										<span>API Key <a href="#api_guide_not_ready_yet">(click here for docs)</a></span>
+										<span class="mdl-list__item-sub-title"><?= $accountinfo['api_key']; ?></span>
+									</span>
+								</li>
 							</ul>
 						</div>
 
@@ -64,7 +72,7 @@ if (!empty($_POST)) {
 								<label class="mdl-textfield__label" for="displayName">Display Name</label>
 							</div>
 						</div>
-						
+
 						<div class="mdl-grid">
 							<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 								<input class="mdl-textfield__input" type="text" name="channelname" id="channelName" value="<?= $accountinfo['channel_name'] ?>"/>

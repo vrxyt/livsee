@@ -3,8 +3,6 @@
 class stream extends master {
 	public $rtmp;
 	public $rtmpinfo;
-	public $channel;
-	public $json;
 	
 	function __construct($params) {
 		parent::__construct($params);
@@ -13,12 +11,6 @@ class stream extends master {
 		$GLOBALS['furl'] = $this->furl;
 		$this->rtmp = new rtmp();
 		$this->rtmpinfo = $this->rtmp->checkStreams();
-
-		// Prepare response Data
-		$this->json = array(
-			"data" => array(),
-			"options" => 0
-		);
 
 		// Compute input params
 		$_OPTIONS = array_merge($_GET, $_POST);
@@ -29,26 +21,48 @@ class stream extends master {
 	}
 	
 	public function ping() {
-		$this->channel = $this->params[0];
-		$this->json["data"]["live"] = array_key_exists($this->channel, $this->rtmpinfo["rtmp"]["channels"]) && array_key_exists("publishing", $this->rtmpinfo["rtmp"]["channels"][$this->channel]);
-		$this->json["data"]["recording"] =  array_key_exists($this->channel, $this->rtmpinfo["rtmp"]["channels"]) && array_key_exists("recording", $this->rtmpinfo["rtmp"]["channels"][$this->channel]);
-		return $this->json;
+		if (!empty($this->params[0])) {
+			$channel = $this->params[0];
+			if (!empty($this->rtmpinfo['rtmp']['channels'][$channel])) {
+				$json = [
+					'active' => true,
+					'recording' => $this->rtmpinfo['rtmp']['channels'][$channel]['recording']
+				];
+			} else {
+				$json = [
+					'active' => false,
+					'recording' => false
+				];
+			}
+		} else {
+			$json = [];
+			foreach ($this->rtmpinfo['rtmp']['channels'] as $channel) {
+				$json[$channel['name']] = [
+					'active' => true,
+					'recording' => $channel['recording']
+				];
+			}
+		}
+		return $json;
 	}
 	
-	public function record() {
-		$action = strtolower($this->params[0]);
-		$channel = $this->params[1];
+	public function record_start() {
+		$channel = $this->params[0];
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		switch ($action) {
-			case 'start':
-				curl_setopt($ch, CURLOPT_URL, "$this->furl/control/record/start?app=live&name=" . $channel . "&rec=rec");
-				break;
-			case 'stop':
-				curl_setopt($ch, CURLOPT_URL, "$this->furl/control/record/stop?app=live&name=" . $channel . "&rec=rec");	
-				break;
-		}
+		curl_setopt($ch, CURLOPT_URL, "$this->furl/control/record/start?app=live&name=" . $channel . "&rec=rec");
+		$json = curl_exec($ch);
+		curl_close($ch);
+		return $json;
+	}
+	
+	public function record_stop() {
+		$channel = $this->params[0];
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_URL, "$this->furl/control/record/stop?app=live&name=" . $channel . "&rec=rec");	
 		$json = curl_exec($ch);
 		curl_close($ch);
 		return $json;

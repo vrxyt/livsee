@@ -138,7 +138,7 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 
 			<!-- START NAV DRAWER -->
 			<div class="mdl-layout__drawer">
-				<header class="dm-logo-header">DM Stream</header>
+				<header class="dm-logo-header"><?= $sitetitle ?></header>
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link<?php
 					if ($page === 'channels' || (empty($page) && empty($streamkey))) {
@@ -196,6 +196,7 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 		</div> <!-- END LAYOUT WRAP -->
 
 		<!-- START FOOTER -->
+		<script type='text/javascript'>var api_key = "<?= $apikey ?>";</script>
 		<script src="/js/getmdl-select.min.js"></script>
 		<script src="/js/material.js"></script>
 		<script src="/js/jquery.min.js"></script>
@@ -206,7 +207,7 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 			this.popoutPlayer = function () {
 				streamPlayer.pause();
 				window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
-			}
+			};
 		</script>
 		<?php } ?>
 	</body>
