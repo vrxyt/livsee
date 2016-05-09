@@ -73,7 +73,6 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-resolution-switcher.css">
-		<link rel="stylesheet" href="/css/lib/getmdl-select.min.css">
 		<link rel="stylesheet" href="/css/application.css">
 		<link rel="stylesheet" href="/css/site.css">
 		<script src="/js/vjs/video-js.js"></script>
