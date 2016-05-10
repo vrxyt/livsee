@@ -24,6 +24,7 @@ $rtmpinfo = $rtmpclass->checkStreams();
 $email = filter_var($_SESSION['authenticated'], FILTER_VALIDATE_EMAIL);
 $accountinfo = $user->info($email);
 
+// functions to convert raw bytes/bits to something more readable for stream info
 function bitsConvert($bites, $decimals = 2) {
 	$sz = 'BKMGTP';
 	$factor = floor((strlen($bites) - 1) / 3);
