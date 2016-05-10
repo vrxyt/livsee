@@ -34,13 +34,12 @@
   pointer-events: none;
   @media(max-width: $snackbar-tablet-breakpoint - 1) {
     width: 100%;
-    left: 0;
     min-height: 48px;
     max-height: 80px;
   }
   @media(min-width: $snackbar-tablet-breakpoint) {
-    min-width: 288px;
-    max-width: 568px;
+    min-width: 236px;
+    max-width: 236px;
     border-radius: 2px;
   }
   &--active {

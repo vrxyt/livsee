@@ -57,6 +57,6 @@ if (empty($key)) {
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         }
 		else {
-			$notify = $rtmp->onLive($key, $furl);
+			//$notify = $rtmp->onLive($key, $furl);
 		}
 }

@@ -46,9 +46,14 @@ $uriVars = explode('/', $request, 4);
 // check if we're trying to 
 // watch a video or stream
 $page = $uriVars[0];
-if ($page === 'watch') { $streamkey = $uriVars[1]; }
-if ($page === 'video') { $video = $uriVars[1]; }
-if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_STRING);
+if ($page === 'watch') {
+	$streamkey = $uriVars[1];
+}
+if ($page === 'video') {
+	$video = $uriVars[1];
+}
+if ($page === 'download') {
+	$download = filter_var($uriVars[1], FILTER_SANITIZE_STRING);
 	$file = "/var/tmp/rec/" . $download;
 	if (file_exists($file)) {
 		$size = filesize("./" . basename($file));
@@ -98,11 +103,10 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 						<img src="<?= $accountinfo['profile_img'] ?>">
 					</div>
 
-
-					<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-shadow--2dp account-dropdown" for="icon">
-						<li class="mdl-list__item mdl-list__item--two-line">
-							<span class="mdl-list__item-primary-content">
-								<img class="material-icons mdl-list__item-avatar" src="<?= $accountinfo['profile_img'] ?>">
+					<ul class = "mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-shadow--2dp account-dropdown" for = "icon">
+						<li class = "mdl-list__item mdl-list__item--two-line">
+							<span class = "mdl-list__item-primary-content">
+								<img class = "material-icons mdl-list__item-avatar" src = "<?= $accountinfo['profile_img'] ?>">
 								<span><?= $accountinfo['display_name'] ?></span>
 								<span class="mdl-list__item-sub-title"><?= $accountinfo['email'] ?></span>
 							</span>
@@ -162,6 +166,12 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 							<i class="material-icons" role="presentation">visibility</i>
 							Watching: <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>
 						</a>
+
+						<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised" type="button">Subscribe</button>	
+						<div id="subToast" class="mdl-js-snackbar mdl-snackbar">
+							<div class="mdl-snackbar__text"></div>
+							<button class="mdl-snackbar__action" type="button"></button>
+						</div>
 					<?php } else { ?>
 						<a class="mdl-navigation__link" href="/">
 							<i class="material-icons" role="presentation">visibility</i>
@@ -169,7 +179,7 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 						</a>
 					<?php } ?>
 					<div class="mdl-layout-spacer"></div>
-					<a class="mdl-navigation__link" href="https://github.com/Fenrirthviti/">
+					<a class="mdl-navigation__link" target="_blank" href="https://github.com/Fenrirthviti/">
 						<i class="material-icons" role="presentation">link</i>
 						GitHub
 					</a>
@@ -183,13 +193,18 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 				<?php
 				// Load the appropriate page, but only if it exists
 				// and checking first if trying to watch a stream or play a video
-				if (!empty($streamkey)) { include 'inc/index/streamplayer.php';
-				} elseif (!empty($video)) { include 'inc/index/videoplayer.php';
-				} elseif (file_exists('inc/index/' . $page . '.php') === true) { include 'inc/index/' . $page . '.php';
-				} elseif (empty($page) || ($page === 'index.php')) { include 'inc/index/channels.php';
-				} else { include 'inc/404.php';	}
-				?>		
-
+				if (!empty($streamkey)) {
+					include 'inc/index/streamplayer.php';
+				} elseif (!empty($video)) {
+					include 'inc/index/videoplayer.php';
+				} elseif (file_exists('inc/index/' . $page . '.php') === true) {
+					include 'inc/index/' . $page . '.php';
+				} elseif (empty($page) || ($page === 'index.php')) {
+					include 'inc/index/channels.php';
+				} else {
+					include 'inc/404.php';
+				}
+				?>
 
 			</main>
 			<!-- END CONTENT PAGE-->
@@ -197,20 +212,41 @@ if ($page === 'download') { $download = filter_var($uriVars[1], FILTER_SANITIZE_
 		</div> <!-- END LAYOUT WRAP -->
 
 		<!-- START FOOTER -->
-		<script type='text/javascript'>var api_key = "<?= $apikey ?>";</script>
+		<script type='text/javascript'>var api_key = "<?= $accountinfo['api_key'] ?>";</script>
 		<script src="/js/getmdl-select.min.js"></script>
 		<script src="/js/material.js"></script>
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/channels.js"></script>
 		<?php if (!empty($streamkey)) { ?>
-		<script>
-			var streamPlayer = videojs("streamPlayer");
-			this.popoutPlayer = function () {
-				streamPlayer.pause();
-				window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
-			};
-		</script>
+			<script>
+				var streamPlayer = videojs("streamPlayer");
+				this.popoutPlayer = function () {
+					streamPlayer.pause();
+					window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
+						};
+			</script>
 		<?php } ?>
+		<script>
+			(function () {
+				'use strict';
+				var snackbarContainer = document.querySelector('#subToast');
+				var showToastButton = document.querySelector('#subButton');
+				var handler = function (event) {
+					showToastButton.style.backgroundColor = '';
+				};
+				showToastButton.addEventListener('click', function () {
+					'use strict';
+					showToastButton.style.backgroundColor = '#00bcd4';
+					var data = {
+						message: 'Subscribed to <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>!',
+						timeout: 20000,
+						actionHandler: handler,
+						actionText: 'Undo'
+					};
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
+				});
+			}());
+		</script>
 	</body>
 </html>
 <!-- END FOOTER -->

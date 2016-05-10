@@ -8,17 +8,19 @@ $(function() {
 	var heartbeatXHR;
 	setInterval(function() {
 		if (!pauseHeartbeat) {
-			heartbeatXHR = $.getJSON('/api/stream/info', function(info) {
+			heartbeatXHR = $.getJSON('/api/' + api_key + '/stream/ping', function(info) {
 				$('.record-button').each(function() {
 					var channel = $(this).parent('label').parent('td').parent('tr').attr('channel');
-					if (info.rtmp.channels[channel].recording === true && $(this).not(':checked')) {
-						$(this).prop('checked', true);
-						$(this).parent('label').addClass('is-checked');
-						$(this).next('i').text('stop');
-					} else if (info.rtmp.channels[channel].recording === false && $(this).is(':checked')) {
-						$(this).prop('checked', false);
-						$(this).parent('label').removeClass('is-checked');
-						$(this).next('i').text(recIconName);
+					if (typeof info[channel] !== 'undefined') {
+						if (info[channel].recording === true && $(this).not(':checked')) {
+							$(this).prop('checked', true);
+							$(this).parent('label').addClass('is-checked');
+							$(this).next('i').text('stop');
+						} else if (info[channel].recording === false && $(this).is(':checked')) {
+							$(this).prop('checked', false);
+							$(this).parent('label').removeClass('is-checked');
+							$(this).next('i').text(recIconName);
+						}
 					}
 				});
 			});
@@ -33,7 +35,7 @@ $(function() {
 		var icon = $(this).next('i');
 		if ($(this).is(':checked')) {
 			icon.text('stop');
-			$.getJSON('/api/stream/record/start/' + channel, function(recordingPath) {
+			$.getJSON('/api/' + api_key + '/stream/record-start/' + channel, function(recordingPath) {
 				if (recordingPath === "") {
 					console.log('Error starting recording');
 				} else {
@@ -43,7 +45,7 @@ $(function() {
 			});
 		} else {
 			icon.text(recIconName);
-			$.getJSON('/api/stream/record/stop/' + channel, function(recordingPath) {
+			$.getJSON('/api/' + api_key + '/stream/record-stop/' + channel, function(recordingPath) {
 				if (recordingPath === "") {
 					console.log('Error stopping recording');
 				} else {
