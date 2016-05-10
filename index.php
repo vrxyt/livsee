@@ -1,5 +1,5 @@
 <?php
-// includes site vars
+// includes site vars - test
 include 'inc/config.php';
 
 // enable if error reporting is on
