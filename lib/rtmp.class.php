@@ -20,6 +20,7 @@
 class rtmp extends database {
 
 	public $user_table = 'users';
+	public $sub_table = 'subscribers';
 	public $rtmpinfo = array();
 
 	/* 	Streamkey Auth Functions	 */
@@ -41,19 +42,15 @@ class rtmp extends database {
 		}
 	}
 
-	public function onLive($key, $furl) {
+	public function onLive($key, $name, $furl) {
 		$params = array($key);
-		$sql = "SELECT subscribers, display_name FROM $this->user_table WHERE stream_key = $1 AND stream_key IS NOT null";
-		$result = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
-		$subscribers = empty($result['subscribers']) ? 'No Subscribers' : $result['subscribers'];
-		$name = $result['display_name'];
+		$sql = "SELECT subscriber FROM $this->sub_table WHERE host_account = (SELECT email FROM $this->user_table WHERE stream_key = $1 LIMIT 1)";
+		$result = pg_query_params($this->link, $sql, $params);
 		$timestamp = new DateTime();
 		$timestamp = $timestamp->format('Y-m-d H:i:s');
 		$timestamp = $name . " went live: $timestamp\r\n";
-		$write = $timestamp . 'Notified: ' . $subscribers . "\r\n";
-		file_put_contents("/var/log/nginx/on-live_notice.log", $write, FILE_APPEND | LOCK_EX);
-		$subs = explode(',', $subscribers);
-		foreach ($subs as $sub) {
+		$write = $timestamp . 'Notified: ';		
+		while ($row = pg_fetch_assoc($result)) {
 			$subject = $GLOBALS['sitetitle'] . ' - ' . $name . ' went live!';
 			$message = "$name just started streaming.<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
 			$headers = array();
@@ -63,8 +60,11 @@ class rtmp extends database {
 			$headers[] = "Bcc: DM Stream Admin <fenrirthviti@gmail.com>";
 			$headers[] = "Reply-To: issues@rirnef.net";
 			$headers[] = 'X-Mailer: PHP/' . phpversion();
-			mail($sub, $subject, $message, implode("\r\n", $headers));
+			mail($row['subscriber'], $subject, $message, implode("\r\n", $headers));
+			$write .= $row['subscriber'] . ',';
 		}
+		$write .= "\r\n";
+		file_put_contents("/var/log/nginx/on-live_notice.log", $write, FILE_APPEND | LOCK_EX);
 	}
 
 	/* Stream stuff */
