@@ -1,5 +1,6 @@
 <?php
-/*    ******************   *
+
+/* * *****************   *
  *    /lib/database.class.php    *
  *    ******************   */
 
@@ -8,18 +9,23 @@
 
 class database {
 
-// Connection params
+	// Connection params
 	private $host = 'localhost';
 	private $port = '5432';
 	private $user = '';
 	private $password = '';
 	private $dbname = '';
-// This can be accessed by the database class and any class that extends database by using $this->link
+	
+	// This can be accessed by the database class and any class that extends database by using $this->link
 	public $link;
+	
+	// set up our table names
+	public $user_table = 'users';
+	public $sub_table = 'subscribers';
 
 	public function __construct() {
 
-// Open database connection
+	// Open database connection
 		$this->link = pg_connect("host=$this->host port=$this->port dbname=$this->dbname user=$this->user password=$this->password");
 		if (!$this->link) {
 			$message = "A connection error occured. ";
@@ -27,10 +33,4 @@ class database {
 			throw new Exception($message);
 		}
 	}
-
-	public function __destruct() {
-		// Close database connection -- NOTE: Apparently not needed?
-		//if ($this->link) { pg_close($this->link); }
-	}
-
 }

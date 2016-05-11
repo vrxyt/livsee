@@ -19,8 +19,6 @@
 
 class rtmp extends database {
 
-	public $user_table = 'users';
-	public $sub_table = 'subscribers';
 	public $rtmpinfo = array();
 
 	/* 	Streamkey Auth Functions	 */

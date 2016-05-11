@@ -167,7 +167,7 @@ if ($page === 'download') {
 							Watching: <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>
 						</a>
 
-						<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised" type="button">Subscribe</button>	
+						<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised sub-button" channel="<?= $streamkey; ?>" type="button">Subscribe</button>	
 						<div id="subToast" class="mdl-js-snackbar mdl-snackbar">
 							<div class="mdl-snackbar__text"></div>
 							<button class="mdl-snackbar__action" type="button"></button>
@@ -212,7 +212,10 @@ if ($page === 'download') {
 		</div> <!-- END LAYOUT WRAP -->
 
 		<!-- START FOOTER -->
-		<script type='text/javascript'>var api_key = "<?= $accountinfo['api_key'] ?>";</script>
+		<script type='text/javascript'>
+			var api_key = "<?= $accountinfo['api_key'] ?>";
+			<?php if (!empty($streamkey)) { ?> var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>"; <?php } ?>
+		</script>
 		<script src="/js/getmdl-select.min.js"></script>
 		<script src="/js/material.js"></script>
 		<script src="/js/jquery.min.js"></script>
@@ -226,27 +229,6 @@ if ($page === 'download') {
 						};
 			</script>
 		<?php } ?>
-		<script>
-			(function () {
-				'use strict';
-				var snackbarContainer = document.querySelector('#subToast');
-				var showToastButton = document.querySelector('#subButton');
-				var handler = function (event) {
-					showToastButton.style.backgroundColor = '';
-				};
-				showToastButton.addEventListener('click', function () {
-					'use strict';
-					showToastButton.style.backgroundColor = '#00bcd4';
-					var data = {
-						message: 'Subscribed to <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>!',
-						timeout: 20000,
-						actionHandler: handler,
-						actionText: 'Undo'
-					};
-					snackbarContainer.MaterialSnackbar.showSnackbar(data);
-				});
-			}());
-		</script>
 	</body>
 </html>
 <!-- END FOOTER -->

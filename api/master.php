@@ -2,13 +2,15 @@
 
 class master {
 	public $params;
+	public $key;
 	public $surl;
 	public $furl;
-	public function __construct($params) {
+	public function __construct($key, $params) {
 		$protocol = $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 		$this->surl = $_SERVER['HTTP_HOST'];
 		$this->furl = $protocol . $this->surl;
 		$this->params = $params;
+		$this->key = $key;
 	}
 	
 	public function isJson($string) {

@@ -8,6 +8,9 @@
  * /api/<api_key>/stream/ping/<channelname> - returns stream live and recording status for a specific channel
  * /api/<api_key>/stream/record-start/<channelname> - starts recording the specified channel
  * /api/<api_key>/stream/record-stop/<channelname> - stops recording the specified channel
+ * /api/<api_key>/subscription/add/<channelname> - Add current user (verified through API key) as a subscriber to specified channel
+ * /api/<api_key>/subscription/remove/<channelname> - Remove current user (verified through API key) as a subsriber to specified channel
+ * /api/<api_key>/subscription/list - Show list of all current subscriptions for current user (verified through API key)
  * 
  */
 error_reporting(E_ALL);ini_set('display_errors', 1);
@@ -38,6 +41,12 @@ if (count($uriVars) === 5) {
 // verify the api key
 if (!$user->verifyAPIkey($key)) { die (json_encode(array('code' => 1, 'error' => 'Invalid API Key'))); }
 
+// Replace restricted keywords with valid function names
+$transform = [
+	'list' => '_list'
+];
+$method = str_replace(array_keys($transform), array_values($transform), $method);
+
 // Replace hyphens (from URL) with underscores (used in methods) to allow prettier URLs
 $method = str_replace('-', '_', $method);
  
@@ -57,7 +66,7 @@ if (!class_exists($class)) {
 
 // Call class/method specified in URL
 try {
-    $obj = new $class($params);
+    $obj = new $class($key, $params);
     if (!method_exists($obj, $method)) {
         die (json_encode(array('code' => 3, 'error' => "Method '$method' for class '$class' is not defined.")));
     }

@@ -4,8 +4,8 @@ class stream extends master {
 	public $rtmp;
 	public $rtmpinfo;
 	
-	function __construct($params) {
-		parent::__construct($params);
+	function __construct($key, $params) {
+		parent::__construct($key, $params);
 		
 		// Check stream information
 		$GLOBALS['furl'] = $this->furl;

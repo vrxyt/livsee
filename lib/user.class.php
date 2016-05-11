@@ -18,8 +18,6 @@
 
 class user extends database {
 
-	public $user_table = 'users';
-
 	/* 	Login Functions	 */
 
 	// Check if the cookie is valid. If valid, set as session. This prevents deleted users with a cookie from being able to log in the site.
