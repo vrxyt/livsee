@@ -290,6 +290,12 @@ class user extends database {
 			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 			$channeltitle = $query['channel_title'];
 			return $channeltitle;
+		} elseif ($function === 'email') {
+			$params = array($input);
+			$sql = "SELECT email FROM $this->user_table WHERE display_name = $1";
+			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
+			$email = $query['email'];
+			return $email;
 		} else {
 			return 'Error in updateStreamkey()!';
 		}

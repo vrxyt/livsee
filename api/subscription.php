@@ -45,7 +45,8 @@ class subscription extends master {
 		while ($row = pg_fetch_assoc($result)) {
 			if ($row['host_account'] === $account) {
 				$subscribers[] = $row['subscriber'];
-			} else {
+			} 
+			if ($row['subscriber'] === $account) {
 				$subscribed[] = $row['host_account'];
 			}
 		}
@@ -53,7 +54,7 @@ class subscription extends master {
 			'subscribed' => $subscribed,
 			'subscribers' => $subscribers
 		];
-		return $json;
+		return json_encode($json);
 	}
 
 }

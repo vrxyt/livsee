@@ -9,9 +9,15 @@ if ($debug === true) {
 }
 
 // includes
-function __autoload($class) {
-	include '../lib/' . $class . '.class.php';
-}
+spl_autoload_register(function ($class) {
+	if ($class !== 'index') {
+		if ($class !== 'index' && file_exists('../api/' . strtolower($class) . '.php')) {
+			include '../api/' . strtolower($class) . '.php';
+		} elseif (file_exists('../lib/' . strtolower($class) . '.class.php')) {
+			include '../lib/' . strtolower($class) . '.class.php';
+		}
+	}
+});
 
 // verify we're logged in
 require '../inc/auth.php';
@@ -30,6 +36,18 @@ $uriVars = explode('/', $request, 4);
 
 $page = $uriVars[0];
 $streamkey = $uriVars[1];
+$subemail = $user->updateStreamkey($streamkey, 'email');
+// Set up data for checking subscription status
+$sub = new subscription($accountinfo['api_key'], [$email]);
+$list = $sub->_list();
+$subarray = json_decode($list);
+if (in_array($subemail, $subarray->subscribed)) {
+	$substatus = 'Unsubscribe';
+	$subcolor = 'style="background-color: rgb(0, 188, 212)"';
+} else {
+	$substatus = 'Subscribe';
+	$subcolor = '';
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -107,35 +125,47 @@ $streamkey = $uriVars[1];
 						Watching: <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>
 					</a>
 
+					<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised" channel="<?= $streamkey; ?>" type="button" <?= $subcolor ?>><?= $substatus ?></button>	
+					<div id="subToast" class="mdl-js-snackbar mdl-snackbar">
+						<div class="mdl-snackbar__text"></div>
+						<button class="mdl-snackbar__action" type="button"></button>
+					</div>
+
 					<div class="mdl-layout-spacer"></div>
 				</nav>
 			</div>
 
 			<main class="mdl-layout__content-popout">
-				
-					<div class="live-player">
-						<video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered"
-							   data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
-							   id="streamPlayer"
-							   width="100%" height="100%"
-							   poster="//<?= $surl ?>/img/channel_<?= $streamkey ?>.png"
-							   >
-							<source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
-							<source src="rtmp://<?= $surl ?>/live/<?= $streamkey ?>" type="rtmp/flv" label='Flash'/>
-						</video>
-						<script>
-							videojs('streamPlayer').videoJsResolutionSwitcher();
-						</script>
-					</div>
-				
+
+				<div class="live-player">
+					<video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered"
+						   data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
+						   id="streamPlayer"
+						   width="100%" height="100%"
+						   poster="//<?= $surl ?>/img/channel_<?= $streamkey ?>.png"
+						   >
+						<source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
+						<source src="rtmp://<?= $surl ?>/live/<?= $streamkey ?>" type="rtmp/flv" label='Flash'/>
+					</video>
+					<script>
+						videojs('streamPlayer').videoJsResolutionSwitcher();
+					</script>
+				</div>
+
 			</main>
 		</div>
+		<script type='text/javascript'>
+			var api_key = "<?= $accountinfo['api_key'] ?>";
+			<?php if (!empty($streamkey)) { ?> var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>"; <?php } ?>
+		</script>
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/channels.js"></script>
 		<script src="/js/material.js"></script>
 		<script>
-							function closepopoutPlayer() {
-								window.open("<?= $furl ?>/channels");
-								window.close();
-							}
+			function closepopoutPlayer() {
+				window.open("<?= $furl ?>/channels");
+				window.close();
+			}
 		</script>
 	</body>
 </html>

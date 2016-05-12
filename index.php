@@ -9,9 +9,15 @@ if ($debug === true) {
 }
 
 // includes
-function __autoload($class) {
-	include 'lib/' . $class . '.class.php';
-}
+spl_autoload_register(function ($class) {
+	if ($class !== 'index') {
+		if ($class !== 'index' && file_exists('api/' . strtolower($class) . '.php')) {
+			include 'api/' . strtolower($class) . '.php';
+		} elseif (file_exists('lib/' . strtolower($class) . '.class.php')) {
+			include 'lib/' . strtolower($class) . '.class.php';
+		}
+	}
+});
 
 // verify we're logged in
 require 'inc/auth.php';
@@ -48,6 +54,18 @@ $uriVars = explode('/', $request, 4);
 $page = $uriVars[0];
 if ($page === 'watch') {
 	$streamkey = $uriVars[1];
+	$subemail = $user->updateStreamkey($streamkey, 'email');
+	// Set up data for checking subscription status
+	$sub = new subscription($accountinfo['api_key'], [$email]);
+	$list = $sub->_list();
+	$subarray = json_decode($list);
+	if (in_array($subemail, $subarray->subscribed)) {
+		$substatus = 'Unsubscribe';
+		$subcolor = 'style="background-color: rgb(0, 188, 212)"';
+	} else {
+		$substatus = 'Subscribe';
+		$subcolor = '';
+	}
 }
 if ($page === 'video') {
 	$video = $uriVars[1];
@@ -167,7 +185,7 @@ if ($page === 'download') {
 							Watching: <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>
 						</a>
 
-						<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised sub-button" channel="<?= $streamkey; ?>" type="button">Subscribe</button>	
+						<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised" channel="<?= $streamkey; ?>" type="button" <?= $subcolor ?>><?= $substatus ?></button>	
 						<div id="subToast" class="mdl-js-snackbar mdl-snackbar">
 							<div class="mdl-snackbar__text"></div>
 							<button class="mdl-snackbar__action" type="button"></button>
@@ -214,12 +232,13 @@ if ($page === 'download') {
 		<!-- START FOOTER -->
 		<script type='text/javascript'>
 			var api_key = "<?= $accountinfo['api_key'] ?>";
-			<?php if (!empty($streamkey)) { ?> var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>"; <?php } ?>
+<?php if (!empty($streamkey)) { ?> var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>"; <?php } ?>
 		</script>
-		<script src="/js/getmdl-select.min.js"></script>
-		<script src="/js/material.js"></script>
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/channels.js"></script>
+		<script src="/js/getmdl-select.min.js"></script>
+		<script src="/js/material.js"></script>
+
 		<?php if (!empty($streamkey)) { ?>
 			<script>
 				var streamPlayer = videojs("streamPlayer");

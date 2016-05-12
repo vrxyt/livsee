@@ -56,43 +56,51 @@ $(function () {
 		}
 	});
 
-	$('.sub-button').click(function () {
+	'use strict';
+	var snackbarContainer = document.querySelector('#subToast');
+	var showToastButton = document.querySelector('#subButton');
+	showToastButton.addEventListener('click', function () {
+		var button = $(this);
 		var channel = $(this).attr('channel');
-		if ($(this).is(':checked')) {
+		var action = $(this).text();
+		'use strict';
+		if (action === 'Unsubscribe') {
+			console.log('Action = Unsubscribe')
 			$.getJSON('/api/' + api_key + '/subscription/remove/' + channel, function (result) {
 				if (result === false) {
 					console.log('Error unsubscribing');
 				} else {
 					console.log(result);
+					button.text('Subscribe');
+					showToastButton.style.backgroundColor = '';
+					var data = {
+						message: 'Unsubscribed from ' + stream_key + '.',
+						timeout: 5000,
+					};
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				}
 			});
-		} else {
+		} else if (action === 'Subscribe') {
+			console.log('Action = Subscribe')
 			$.getJSON('/api/' + api_key + '/subscription/add/' + channel, function (result) {
 				if (result === false) {
 					console.log('Error subscribing' + result);
+					var data = {
+						message: 'Error subscribing (probably already subscribed)!',
+						timeout: 5000,
+					};
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				} else {
 					console.log(result);
+					button.text('Unsubscribe');
+					showToastButton.style.backgroundColor = '#00bcd4';
+					var data = {
+						message: 'Subscribed to ' + stream_key + '!',
+						timeout: 5000,
+					};
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				}
 			});
 		}
 	});
-	(function () {
-		'use strict';
-		var snackbarContainer = document.querySelector('#subToast');
-		var showToastButton = document.querySelector('#subButton');
-		var handler = function (event) {
-			showToastButton.style.backgroundColor = '';
-		};
-		showToastButton.addEventListener('click', function () {
-			'use strict';
-			showToastButton.style.backgroundColor = '#00bcd4';
-			var data = {
-				message: 'Subscribed to ' + stream_key + '!',
-				timeout: 20000,
-				actionHandler: handler,
-				actionText: 'Undo'
-			};
-			snackbarContainer.MaterialSnackbar.showSnackbar(data);
-		});
-	}());
 });
