@@ -241,11 +241,20 @@ if ($page === 'download') {
 
 		<?php if (!empty($streamkey)) { ?>
 			<script>
-				var streamPlayer = videojs("streamPlayer");
-				this.popoutPlayer = function () {
-					streamPlayer.pause();
-					window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
-						};
+			var streamPlayer = videojs("streamPlayer");
+			this.popoutPlayer = function () {
+				streamPlayer.pause();
+				window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
+					};
+					streamPlayer.on('pause', function () {
+						this.bigPlayButton.show();
+
+						// Now the issue is that we need to hide it again if we start playing
+						// So every time we do this, we can create a one-time listener for play events.
+						video.one('play', function () {
+							this.bigPlayButton.hide();
+						});
+					});
 			</script>
 		<?php } ?>
 	</body>

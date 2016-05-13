@@ -225,3 +225,7 @@ figure.effect-sarah:hover label {
 .forgot-pass {
 	padding-top: 10px;
 }
+
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+  display: block;
+}
