@@ -56,6 +56,7 @@ $(function () {
 		}
 	});
 
+	// sub button functions
 	'use strict';
 	var snackbarContainer = document.querySelector('#subToast');
 	var showToastButton = document.querySelector('#subButton');
