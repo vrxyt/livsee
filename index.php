@@ -102,6 +102,7 @@ if ($page === 'download') {
 		<script src="/js/vjs/video-js.js"></script>
 		<script src="/js/vjs/videojs-resolution-switcher.js"></script>
 		<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
+	</head>
 	<body>
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header"><!-- START LAYOUT WRAP -->
 			<!-- START NAV HEADER -->

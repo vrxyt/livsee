@@ -89,6 +89,7 @@ if (!empty($uriVars[1])) {
 		<link rel="stylesheet" href="/css/lib/getmdl-select.min.css">
 		<link rel="stylesheet" href="/css/application.css">
 		<link rel="stylesheet" href="/css/site.css">
+	</head>
 	<body>
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 			<header class="mdl-layout__header">

@@ -65,6 +65,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 		<script src="/js/vjs/video-js.js"></script>
 		<script src="/js/vjs/videojs-resolution-switcher.js"></script>
 		<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
+	</head>
 	<body>
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 			<header class="mdl-layout__header">
