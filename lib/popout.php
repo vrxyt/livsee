@@ -140,7 +140,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 				<div class="live-player">
 					<video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered"
 						   data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
-						   id="streamPlayer"
+						   id="popoutPlayer"
 						   width="100%" height="100%"
 						   poster="//<?= $surl ?>/img/channel_<?= $streamkey ?>.png"
 						   >
@@ -148,7 +148,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 						<source src="rtmp://<?= $surl ?>/live/<?= $streamkey ?>" type="rtmp/flv" label='Flash'/>
 					</video>
 					<script>
-						videojs('streamPlayer').videoJsResolutionSwitcher();
+						videojs('popoutPlayer').videoJsResolutionSwitcher();
 					</script>
 				</div>
 
