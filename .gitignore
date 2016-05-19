@@ -1,12 +1,13 @@
 /.well-known/
 /img/skype.svg
 /img/test_bg.jpg
-/img/tick-mask.svg
 /img/watch_white.svg
 /img/tick.svg
-/img/tick_dark.svg
 /lib/database.class.php
 /nbproject
 /nbproject/customs.json
 /nbproject/project.xml
 /nbproject/project.properties
+/img/video/
+/img/thumbs/
+/img/channel/
