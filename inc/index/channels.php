@@ -9,11 +9,9 @@
 				$channels[$channelName]["screenshot"] = 'profiles/' . $channelName . '/' . $screenshotThumbFilename;
 				if (file_exists($channels[$channelName]["screenshot"])) {
 					$channels[$channelName]["screenshot"] = '/' . $channels[$channelName]["screenshot"];
-				}
-				elseif (file_exists('img/thumbs/' . $screenshotThumbFilename)) {
+				} elseif (file_exists('img/thumbs/' . $screenshotThumbFilename)) {
 					$channels[$channelName]["screenshot"] = '/img/thumbs/' . $screenshotThumbFilename;
-				}
-				else {
+				} else {
 					$channels[$channelName]["screenshot"] = '/img/no-preview.jpg';
 				}
 				$mediainfo = array();
@@ -63,8 +61,8 @@
 							<table class="mdl-data-table mdl-js-data-table full-width">
 								<thead>
 									<tr>
-										<th class="mdl-data-table__cell--non-numeric part-width">Channel</th>
-										<th class="mdl-data-table__cell--non-numeric part-width">Duration</th>
+										<th class="mdl-data-table__cell--non-numeric">Channel</th>
+										<th class="mdl-data-table__cell--non-numeric">Duration</th>
 										<th class="mdl-data-table__cell--non-numeric">Viewers</th>
 										<th class="mdl-data-table__cell--non-numeric">Definition</th>
 										<th class="mdl-data-table__cell--non-numeric">Record</th>
@@ -76,7 +74,7 @@
 									foreach ($channels as $channelName => $skey) {
 										$seed = uniqid();
 										$viewcount = file_get_contents($furl . '/nclients?app=live&name=' . $channelName);
-										
+
 										$cname = $user->updateStreamkey($channelName, 'channel');
 										echo '
 										<tr channel="' . $channelName . '">
@@ -117,9 +115,9 @@
 						<div class="mdl-cell mdl-cell--4-col"></div>
 					</div>
 				</div>
-	<?php
-} else {
-	?>
+				<?php
+			} else {
+				?>
 				<div class="mdl-grid">
 					<div class="mdl-grid mdl-cell--4-col">
 						<div class="mdl-card mdl-shadow--2dp">
@@ -127,7 +125,7 @@
 								<h2 class="mdl-card__title-text">No channels available.</h2>
 							</div>
 							<div class="mdl-card__supporting-text">
-								There is currently no one streaming. This page will (eventually when I fix it!) automatically refresh when someone goes live, or you can click the refresh button below to check manually.
+								There is currently no one streaming. This page will (eventually, when I fix it!) automatically refresh when someone goes live, or you can click the refresh button below to check manually.
 							</div>
 							<div class="mdl-card__actions mdl-card--border">
 								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"href="/channels"><i class="material-icons">refresh</i> Refresh</a>
@@ -136,9 +134,9 @@
 						</div>
 					</div>
 				</div>
-	<?php
-}
-?>
+				<?php
+			}
+			?>
 		</div>
 	</div>
 </div>
