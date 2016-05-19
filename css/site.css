@@ -207,10 +207,6 @@ figure.effect-sarah:hover label {
 	width: 224px;
 }
 
-.part-width {
-	width: 50%;
-}
-
 .live-player {
     width: 100%; 
     height: 100%; 
@@ -224,8 +220,4 @@ figure.effect-sarah:hover label {
 
 .forgot-pass {
 	padding-top: 10px;
-}
-
-.vjs-paused.vjs-has-started .vjs-big-play-button {
-  display: block;
 }
