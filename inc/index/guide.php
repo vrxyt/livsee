@@ -2,8 +2,7 @@
 	<div class="mdl-card__title">
 		<span class="mdl-color-text--cyan-500">How to Configure OBS Studio</span>
 	</div>
-
-
+	
 	<div class="mdl-card__supporting-text">
 		<div class="mdl-grid">
 			<ul class='mdl-list'>

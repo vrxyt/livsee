@@ -1,4 +1,7 @@
 <?php
+// start the session, in case we're already logged in
+session_start();
+
 // includes site vars
 include 'inc/config.php';
 
@@ -8,20 +11,25 @@ if ($debug === true) {
 	ini_set('display_errors', 1);
 }
 
-// start the session, in case we're already logged in (currently broke, future enhancements)
-session_start();
-
 //includes
-function __autoload($class) {
-	include 'lib/' . $class . '.class.php';
-}
+spl_autoload_register(function ($class) {
+	if ($class !== 'index') {
+		if ($class !== 'index' && file_exists('lib/' . strtolower($class) . '.class.php')) {
+			include 'lib/' . strtolower($class) . '.class.php';
+		}
+	}
+});
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $submitted = filter_input(INPUT_POST, 'Submitted', FILTER_SANITIZE_STRING);
 
 if (empty($_SESSION['authenticated']) && !empty($_COOKIE['rememberMe']) && !empty($_COOKIE['email'])) {
 	$_SESSION['authenticated'] = $_COOKIE['email'];
-	header('Location: /channels');
+	if (!empty($_SESSION['dest_url'])) {
+		header('Location: ' . $_SESSION['dest_url']);
+	} else {
+		header('Location: /channels');
+	}
 }
 
 if ($submitted === 'Login') {
@@ -30,9 +38,14 @@ if ($submitted === 'Login') {
 	$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 	$status = $user->login($email, $password);
 	if ($status === true) {
-		header('Location: /channels');
+		if (!empty($_SESSION['dest_url'])) {
+			header('Location: ' . $_SESSION['dest_url']);
+		} else {
+			header('Location: /channels');
+		}
 	}
 }
+
 if ($submitted === 'Register') {
 	$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 	$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
@@ -48,9 +61,6 @@ if ($submitted === 'Register') {
 			$status = '<br />Account created.<br />Please check your email for verification.<br /><br />Note: Email may be in spam.';
 		}
 	}
-}
-if ($submitted === 'LostPass') {
-	$status = 'This should take you to password reset form';
 }
 
 // check if we're trying to verify an account
@@ -84,6 +94,7 @@ if (!empty($uriVars[1])) {
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>DM Stream Login</title>
+		<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="/css/lib/getmdl-select.min.css">

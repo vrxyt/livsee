@@ -27,19 +27,23 @@ if (session_status() == PHP_SESSION_NONE) {
 $user = new user();
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $email = filter_input(INPUT_COOKIE, 'email', FILTER_SANITIZE_STRING);
+$refer = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
 
 if (!empty($email) && $user->session_check($email) === false) {
 	session_destroy();
 	setcookie('rememberMe', null, -1, '/');
 	setcookie('email', null, -1, '/');
+	if ($refer != '/favicon.ico') {	$_SESSION['dest_url'] = $refer; }
 	header("Location: /login");
 }
 
 if (!empty($_SESSION['authenticated']) && $user->session_authenticate($_SESSION['authenticated'], $action) === false) {
+	if ($refer != '/favicon.ico') {	 $_SESSION['dest_url'] = $refer; }
 	header('Location: /login');
 }
 
 if (empty($_SESSION['authenticated'])) {
+	if ($refer != '/favicon.ico') {	$_SESSION['dest_url'] = $refer; }
 	header('Location: /login');
 }
 

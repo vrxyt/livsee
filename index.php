@@ -8,7 +8,7 @@ if ($debug === true) {
 	ini_set('display_errors', 1);
 }
 
-// includes
+// class includes
 spl_autoload_register(function ($class) {
 	if ($class !== 'index') {
 		if ($class !== 'index' && file_exists('api/' . strtolower($class) . '.php')) {
@@ -93,6 +93,7 @@ if ($page === 'download') {
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>DM Stream Site</title>
+		<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">

@@ -31,4 +31,5 @@ $SAlogfile = '/var/log/nginx/streamauth.log';
 $sitetitle = "DM Stream"; // max 16 characters
 $sitesubtitle = "(A Dancing Mad Production)"; // currently unused.
 
-
+$admin_account = 'fenrirthviti@gmail.com'; // this is a terrible way to do this, will fix.
+$site_recpath = '/var/tmp/rec/'; // path to saved recordings
