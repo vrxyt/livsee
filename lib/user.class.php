@@ -84,7 +84,7 @@ class user extends database {
 	// grab the whole table for the admin display. TODO: make this check a bit more secure that you're an admin.
 	public function admindata($email) {
 		if ($email === 'fenrirthviti@gmail.com') {
-			$sql = "SELECT * FROM $this->user_table";
+			$sql = "SELECT email, verified, stream_key, api_key, channel_name, display_name FROM $this->user_table";
 			$result = pg_query($this->link, $sql);
 			$array = [];
 			while ($row = pg_fetch_assoc($result)) {
