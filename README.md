@@ -29,5 +29,17 @@ Config information:
 
   - All nginx conf files can be found in /src/nginx
     - NOTE: This is a fairly complex nginx setup. Please make sure you read all the conf files and make the necessary directory/config changes to them
+
   - NOTE: Many of the administration features will require manual database manipulation currently. There is not much that will need to be done, but be aware there is no admin console currently. It is planned for future updates, but has not been a priority.
 
+Installtion:
+  - Install nginx with nginx-rtmp-module, http-ssl-module, and http_xslt_module (see above).
+    - Verify all config files are updated to the paths you want to use. Check every file, there is a lot to update (see above).
+  - Install pgsql and set up your database user.
+  - Import the sql files from /src/pgsql to your database. This will set up the two required tables
+  - Edit /lib/database.class.php with your DB info
+  - Edit /inc/config.php to your liking
+  - Copy everything but /src and /scss to your server. 
+    - If you wish to use Sass to edit the site layouts/colors, all the files are in /src/css and the main file is /scss/application.css
+    - Otherwise, just copy /css to use the pre-compiled versions. /css/site.css is required either way.
+  - Probably lots of other stuff I'm forgetting.
