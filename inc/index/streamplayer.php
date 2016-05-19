@@ -2,7 +2,8 @@
 	<div class="mdl-content fill">
 		<div class="live-player">
 			<video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered"
-				   data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
+				   data-setup='{"controls": true, "preload": "auto"}'
+				   autoplay
 				   id="streamPlayer"
 				   width="100%" height="100%"
 				   poster="//<?= $surl ?>/img/channel/channel_<?= $streamkey ?>.png"
