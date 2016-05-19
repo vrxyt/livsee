@@ -1239,3 +1239,7 @@ video::-webkit-media-text-track-display {
   line-height: 1.5;
   padding: 20px 24px;
   z-index: 1; }
+
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+  display: block;
+}
