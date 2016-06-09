@@ -2,7 +2,7 @@
 	<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top mdl-cell--stretch">
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<?php
-			$videos = glob("/var/tmp/rec/*.mp4");
+			$videos = glob("$site_recpath*.mp4");
 			if (count($videos) > 0) {
 				foreach ($videos as $key => $video) {
 					$file = substr($video, strrpos($video, "/") + 1);
