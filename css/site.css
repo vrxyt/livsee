@@ -28,7 +28,6 @@
 }
 
 .grid figure figcaption {
-	padding: 2em;
 	color: #fff;
 	text-shadow: 0px 0px 10px #000, 0px 0px 10px #000;
 	text-transform: uppercase;
@@ -64,6 +63,7 @@
 .grid figure h2 {
 	word-spacing: -0.15em;
 	font-weight: 300;
+	font-size: 30px;
 }
 
 .grid figure h2 span {
@@ -112,7 +112,7 @@ figure.effect-sarah figcaption {
 figure.effect-sarah h2 {
 	position: relative;
 	overflow: hidden;
-	padding: 0.5em 0;
+	padding: 20px 25px 15px 25px
 }
 
 figure.effect-sarah h2::after {
@@ -135,7 +135,7 @@ figure.effect-sarah:hover h2::after {
 }
 
 figure.effect-sarah p {
-	padding: 1em 0;
+	padding: 10px 25px;
 	opacity: 0;
 	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
 	transition: opacity 0.35s, transform 0.35s;
@@ -150,7 +150,9 @@ figure.effect-sarah:hover p {
 }
 
 figure.effect-sarah label {
-	position: relative;
+	position: absolute;
+	right: 55px;
+	bottom: 10px;
 	padding: 2px;
 	height: 30px;
 	opacity: 0;

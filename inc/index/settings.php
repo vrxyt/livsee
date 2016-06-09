@@ -31,13 +31,10 @@ if (!empty($_POST)) {
 			<div class="mdl-card__title">
 				<span>Account Settings</span>
 			</div>
-
-
 			<div class="mdl-card__supporting-text">
 				<form action="" method="POST" class="form" id="settingsForm">
 					<div class="form__article">
-
-
+						
 						<div class="mdl-grid">
 							<ul class="mdl-list fill">
 								<li class="mdl-list__item mdl-list__item--two-line">
@@ -47,7 +44,6 @@ if (!empty($_POST)) {
 										<span class="mdl-list__item-sub-title"><?= $accountinfo['email']; ?></span>
 									</span>
 								</li>
-
 								<li class="mdl-list__item mdl-list__item--two-line">
 									<span class="mdl-list__item-primary-content">
 										<i class="material-icons mdl-list__item-icon">vpn_key</i>
@@ -55,7 +51,6 @@ if (!empty($_POST)) {
 										<span class="mdl-list__item-sub-title"><?= $accountinfo['stream_key']; ?></span>
 									</span>
 								</li>
-
 								<li class="mdl-list__item mdl-list__item--two-line">
 									<span class="mdl-list__item-primary-content">
 										<i class="material-icons mdl-list__item-icon">vpn_key</i>
@@ -87,12 +82,12 @@ if (!empty($_POST)) {
 							</div>
 						</div>
 
-
 						<div class="form__action">
 							<button type="submit" name="Submitted" value="Submit" form="settingsForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
 								Update
 							</button>
 						</div>
+						
 						<div class="mdl-grid">
 							<div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
 								<?php
@@ -101,15 +96,14 @@ if (!empty($_POST)) {
 								}
 								?>
 							</div>
-						</div>
+						</div>						
 					</div>
 				</form>
 			</div>
 		</div>
 
-
 		<?php
-		if ($accountinfo['email'] === 'fenrirthviti@gmail.com') {
+		if ($accountinfo['email'] === $admin_account) {
 			$results = $user->admindata($accountinfo['email'])
 			?>
 			<div class="mdl-grid">
