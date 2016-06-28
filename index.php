@@ -112,7 +112,7 @@ if ($page === 'download') {
 					<div class="mdl-layout-spacer"></div>
 
 					<?php if (!empty($streamkey)) { ?>
-						<a class="mdl-navigation__link" onclick="popoutPlayer()" href="">
+						<a class="mdl-navigation__link force_link" onclick="popoutPlayer()">
 							<i class="material-icons" role="presentation">video_label</i>
 							Switch to Popout Player
 						</a>

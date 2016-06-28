@@ -223,3 +223,7 @@ figure.effect-sarah:hover label {
 .forgot-pass {
 	padding-top: 10px;
 }
+
+.force_link {
+	cursor: pointer;
+}
