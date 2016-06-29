@@ -104,7 +104,7 @@ class user extends database {
 			return 'Display name already exists!';
 		}
 
-		$authcode = random_int(100000, 999999);
+		$authcode = bin2hex(random_bytes(32));
 		$hash = password_hash($password, PASSWORD_DEFAULT);
 		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img) VALUES ($1, $2, $authcode, 0, $3, $4, $5, $6)";
 		$params = array($email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png');
@@ -169,7 +169,7 @@ class user extends database {
 	}
 
 	public function resetCode($email, $furl) {
-		$authcode = random_int(100000, 999999);
+		$authcode = bin2hex(random_bytes(32));
 		$sql = "UPDATE $this->user_table SET auth_code = $1 WHERE email = $2";
 		$params = array($authcode, $email);
 		$result = pg_query_params($this->link, $sql, $params);
