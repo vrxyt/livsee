@@ -23,6 +23,7 @@ Config information:
     - NGINX with nginx-rtmp-module, http-ssl-module, and http_xslt_module
     - postgresql
     - PHP7 (I believe it should run on PHP5, but I have not tested)
+    - JavaScript
   - This is the config string I used for nginx:
 
   `--prefix=/etc/nginx --user=nginx --group=nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock --with-http_ssl_module --with-ipv6 --add-module=/home/streaming/nginx-build/nginx-rtmp-module-1.1.7 --with-http_xslt_module --with-openssl=/home/streaming/openssl-build/openssl-1.0.2g`
