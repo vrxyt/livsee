@@ -54,9 +54,7 @@ class user extends database {
 		$sql = "SELECT * FROM $this->user_table WHERE email = $1";
 		$result = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 		if ($result === false) {
-			$message = 'Error in: class:user | function:login';
-			$code = 1;
-			throw new Exception($message, $code);
+			return 'Account does not exist. Please register first.';
 		}
 		$hash = $result['password'];
 		$verified = $result['verified'];
@@ -76,7 +74,7 @@ class user extends database {
 				$status = 'Login failed.';
 			}
 		} else {
-			$status = 'Account not verified/account doesn\'t exist.';
+			$status = 'Account not verified. Please check your email.';
 		}
 		return $status;
 	}
