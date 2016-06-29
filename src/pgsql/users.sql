@@ -6,7 +6,7 @@ CREATE TABLE users
 (
   email text NOT NULL,
   password text,
-  auth_code integer,
+  auth_code text,
   verified integer,
   channel_name text,
   channel_title text,

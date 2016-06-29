@@ -106,8 +106,8 @@ class user extends database {
 
 		$authcode = bin2hex(random_bytes(32));
 		$hash = password_hash($password, PASSWORD_DEFAULT);
-		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img) VALUES ($1, $2, $authcode, 0, $3, $4, $5, $6)";
-		$params = array($email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png');
+		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img) VALUES ($1, $2, $7, 0, $3, $4, $5, $6)";
+		$params = array($email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png', $authcode);
 		$result = pg_query_params($this->link, $sql, $params);
 		if ($result === false) {
 			$message = 'Error in: class:user | function:register';
@@ -179,7 +179,7 @@ class user extends database {
 			throw new Exception($message, $code);
 		}
 		$subject = 'DM Stream Password Reset';
-		$message = "Password reset auth code for $email: $authcode<br /><br />Reset form: <a href='$furl/lostpass'>Click here</a>";
+		$message = "Password reset auth code for $email:<br /><br /><b>$authcode</b><br /><br />Reset form: <a href='$furl/lostpass'>Click here</a>";
 		$headers = array();
 		$headers[] = "MIME-Version: 1.0";
 		$headers[] = "Content-Type: text/html; charset=UTF-8";
