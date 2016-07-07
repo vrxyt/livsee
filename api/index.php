@@ -4,8 +4,8 @@
  * Functions list:
  * 
  * /api/<api_key>/stream/info - returns all active stream information
- * /api/<api_key>/stream/ping - returns recording status for all current live channels
- * /api/<api_key>/stream/ping/<channelname> - returns stream live and recording status for a specific channel
+ * /api/<api_key>/stream/ping - returns recording status, stream URL, and watch URL for all current live channels
+ * /api/<api_key>/stream/ping/<channelname> - returns stream live status, recording status, stream URL, and watch URL for a specific channel
  * /api/<api_key>/stream/record-start/<channelname> - starts recording the specified channel
  * /api/<api_key>/stream/record-stop/<channelname> - stops recording the specified channel
  * /api/<api_key>/subscription/add/<channelname> - Add current user (verified through API key) as a subscriber to specified channel
