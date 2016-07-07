@@ -26,12 +26,14 @@ class stream extends master {
 			if (!empty($this->rtmpinfo['rtmp']['channels'][$channel])) {
 				$json = [
 					'active' => true,
-					'recording' => $this->rtmpinfo['rtmp']['channels'][$channel]['recording']
+					'recording' => $this->rtmpinfo['rtmp']['channels'][$channel]['recording'],
+					'stream' => $this->rtmpinfo['rtmp']['channels'][$channel]['stream'],
+					'URL' => $this->rtmpinfo['rtmp']['channels'][$channel]['URL']
 				];
 			} else {
 				$json = [
 					'active' => false,
-					'recording' => false
+					'recording' => false,
 				];
 			}
 		} else {
@@ -39,7 +41,9 @@ class stream extends master {
 			foreach ($this->rtmpinfo['rtmp']['channels'] as $channel) {
 				$json[$channel['name']] = [
 					'active' => true,
-					'recording' => $channel['recording']
+					'recording' => $channel['recording'],
+					'stream' => $this->rtmpinfo['rtmp']['channels'][$channel["name"]]['stream'],
+					'URL' => $this->rtmpinfo['rtmp']['channels'][$channel["name"]]['URL']
 				];
 			}
 		}

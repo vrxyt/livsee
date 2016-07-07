@@ -47,7 +47,7 @@ class rtmp extends database {
 		$timestamp = new DateTime();
 		$timestamp = $timestamp->format('Y-m-d H:i:s');
 		$timestamp = $name . " went live: $timestamp\r\n";
-		$write = $timestamp . 'Notified: ';		
+		$write = $timestamp . 'Notified: ';
 		while ($row = pg_fetch_assoc($result)) {
 			$subject = $GLOBALS['sitetitle'] . ' - ' . $name . ' went live!';
 			$message = "$name just started streaming.<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
@@ -85,6 +85,7 @@ class rtmp extends database {
 	private function fetchChannels() {
 		$this->rtmpinfo["rtmp"]["lastUpdate"] = time();
 		$this->rtmpinfo["rtmp"]["channels"] = array();
+		$surl = $_SERVER['HTTP_HOST'];
 		$rtmp = json_decode(json_encode((array) simplexml_load_file($GLOBALS['furl'] . '/stat.xml')), TRUE);
 
 		if (!empty($rtmp["server"]["application"][1]["live"]["stream"])) {
@@ -96,6 +97,8 @@ class rtmp extends database {
 				}
 				$this->rtmpinfo["rtmp"]["channels"][$channel["name"]] = $channel;
 				$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["recording"] = rtmp::isRecordingChannel($channel["name"]);
+				$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["stream"] = 'rtmp://' . $surl . '/live/' . $channel["name"];
+				$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["URL"] = $GLOBALS["furl"] . '/watch/' . $channel["name"];
 			} else {
 				foreach ($rtmp["server"]["application"][1]["live"]["stream"] as $key => $channel) {
 					if (empty($channel["name"])) {
@@ -103,6 +106,8 @@ class rtmp extends database {
 					}
 					$this->rtmpinfo["rtmp"]["channels"][$channel["name"]] = $channel;
 					$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["recording"] = rtmp::isRecordingChannel($channel["name"]);
+					$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["stream"] = 'rtmp://' . $surl . '/live/' . $channel["name"];
+					$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["URL"] = $GLOBALS["furl"] . '/watch/' . $channel["name"];
 				}
 			}
 		}
