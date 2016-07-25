@@ -45,8 +45,11 @@ if ($submitted === 'getCode') {
 	$user = new user();
 	$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 	$getcode = $user->resetCode($email, $furl);
-	if ($getcode === true) { $status = 'Code sent! Check your email.';
-	} else { $status = $getcode; }
+	if ($getcode === true) {
+		$status = 'Code sent! Check your email.';
+	} else {
+		$status = $getcode;
+	}
 }
 ?>
 <html lang="en">
@@ -102,56 +105,95 @@ if ($submitted === 'getCode') {
 
 			<main class="mdl-layout__content mdl-color--grey-100">
 				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-					<div class="mdl-card mdl-shadow--2dp employer-form">
-						<div class="mdl-card__title">
-							<span>Password Reset</span>
+					<div class="mdl-card mdl-shadow--2dp employer-form" action="">
+						<div class="mdl-card__title-login">
+
+							<div class="mdl-tabs__tab-bar-login">
+								<a href="#reset" class="mdl-tabs__tab is-active">Reset Password</a>
+								<a href="#code" class="mdl-tabs__tab">Get Code</a>
+							</div>
+
 						</div>
 
-						<div class="mdl-card__supporting-text">
-							<span>If you need a reset code, enter your email only and click "Get Code" below.<br /><br />Otherwise, enter your email, code, and new password to reset your password.</span><br /><br />
-							<form action="" method="POST" class="form" id="resetForm">
-								<div class="form__article">
-									<div class="mdl-grid">
-										<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-											<input class="mdl-textfield__input" type="email" name="email" id="emailAddress" required/>
-											<label class="mdl-textfield__label" for="emailAddress">Email Address</label>
-										</div>
-									</div>
-
-									<div class="mdl-grid">
-										<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-											<input class="mdl-textfield__input" type="text" name="authCode" id="authCode"/>
-											<label class="mdl-textfield__label" for="authCode">Authentication Code</label>
-										</div>
-									</div>
-
-									<div class="mdl-grid">
-										<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-											<input class="mdl-textfield__input" type="password" name="password" id="Password"/>
-											<label class="mdl-textfield__label" for="Password">New Password</label>
-										</div>
-									</div>
 
 
-									<div class="form__action">
-										<button type="submit" name="Submitted" value="getCode" form="resetForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-											Get Code
-										</button>
-										<button type="submit" name="Submitted" value="Reset" form="resetForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-											Reset
-										</button>
-									</div>
-									<div class="mdl-grid">
-										<div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
-											<?php
-											if (!empty($status)) {
-												echo '<br />' . $status;
-											}
-											?>
+						<div class="mdl-tabs__panel is-active" id="reset">
+							<div class="mdl-card__supporting-text">
+								<span>Enter your email, authentication code, and new password below. If you need a code, click on <b>Get Code</b> above</span>
+								<form action="" method="POST" class="form" id="resetForm">
+									<div class="form__article">
+										<div class="mdl-grid">
+											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<input class="mdl-textfield__input" type="email" name="email" id="emailAddress" required/>
+												<label class="mdl-textfield__label" for="emailAddress">Email Address</label>
+											</div>
+										</div>
+
+										<div class="mdl-grid">
+											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<input class="mdl-textfield__input" type="text" name="authCode" id="authCode" required/>
+												<label class="mdl-textfield__label" for="authCode">Authentication Code</label>
+											</div>
+										</div>
+
+										<div class="mdl-grid">
+											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<input class="mdl-textfield__input" type="password" name="password" id="Password" required/>
+												<label class="mdl-textfield__label" for="Password">New Password</label>
+											</div>
+										</div>
+
+
+
+
+										<div class="form__action">
+											<button type="submit" name="Submitted" value="Reset" form="resetForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+												Reset
+											</button>
+										</div>
+										<div class="mdl-grid">
+											<div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+												<?php
+												if (!empty($status)) {
+													echo '<br />' . $status;
+												}
+												?>
+											</div>
 										</div>
 									</div>
-								</div>
-							</form>
+								</form>
+							</div>
+						</div>
+
+						<div class="mdl-tabs__panel" id="code">
+							<div class="mdl-card__supporting-text">
+								<span>Enter your email address and click Get Code to be sent a password reset code.</span>
+								<form action="" method="POST" class="form" id="codeForm">
+									<div class="form__article">
+										<div class="mdl-grid">
+											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+												<input class="mdl-textfield__input" type="email" name="email" id="emailAddress" required/>
+												<label class="mdl-textfield__label" for="emailAddress">Email Address</label>
+											</div>
+										</div>
+										<div class="form__action">
+											<button type="submit" name="Submitted" value="getCode" form="codeForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+												Get Code
+											</button>
+										</div>
+										<div class="mdl-grid">
+											<div class="mdl-cell mdl-cell--12-col mdl-typography--text-center">
+												<?php
+												if (!empty($status)) {
+													echo '<br />' . $status;
+												}
+												?>
+											</div>
+										</div>
+
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
