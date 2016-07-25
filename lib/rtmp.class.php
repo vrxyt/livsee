@@ -55,7 +55,6 @@ class rtmp extends database {
 			$headers[] = "MIME-Version: 1.0";
 			$headers[] = "Content-Type: text/html; charset=UTF-8";
 			$headers[] = "From: DM Stream <noreply@rirnef.net>";
-			$headers[] = "Bcc: DM Stream Admin <fenrirthviti@gmail.com>";
 			$headers[] = "Reply-To: issues@rirnef.net";
 			$headers[] = 'X-Mailer: PHP/' . phpversion();
 			mail($row['subscriber'], $subject, $message, implode("\r\n", $headers));
