@@ -4,7 +4,7 @@
 	</div>
 	<div class="mdl-card__supporting-text">
 		<div>
-			Looks like you took a wrong turn! Sorry, this page doesn't exist. If you arrived here from a saved bookmark, make sure you update your bookmarks!
+			Looks like you took a wrong turn! Sorry, this page does not exist. If you arrived here from a saved bookmark, make sure you update your bookmarks!
 		</div>
 		<a href="/">Go back home</a>
 	</div>
