@@ -40,7 +40,7 @@ class rtmp extends database {
 		}
 	}
 
-	public function onLive($key, $name, $furl) {
+	public function onLive($key, $name, $furl, $logfile, $from_email, $reply_email) {
 		$params = array($key);
 		$sql = "SELECT subscriber FROM $this->sub_table WHERE host_account = (SELECT email FROM $this->user_table WHERE stream_key = $1 LIMIT 1)";
 		$result = pg_query_params($this->link, $sql, $params);
@@ -50,23 +50,23 @@ class rtmp extends database {
 		$write = $timestamp . 'Notified: ';
 		while ($row = pg_fetch_assoc($result)) {
 			$subject = $GLOBALS['sitetitle'] . ' - ' . $name . ' went live!';
-			$message = "$name just started streaming.<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
+			$message = "$name just started streaming at " . $timestamp->format('Y-m-d H:i:s') . ".<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
 			$headers = array();
 			$headers[] = "MIME-Version: 1.0";
 			$headers[] = "Content-Type: text/html; charset=UTF-8";
-			$headers[] = "From: DM Stream <noreply@rirnef.net>";
-			$headers[] = "Reply-To: issues@rirnef.net";
+			$headers[] = "From: $from_email";
+			$headers[] = "Reply-To: $reply_email";
 			$headers[] = 'X-Mailer: PHP/' . phpversion();
 			mail($row['subscriber'], $subject, $message, implode("\r\n", $headers));
 			$write .= $row['subscriber'] . ',';
 		}
 		$write .= "\r\n";
-		file_put_contents("/var/log/nginx/on-live_notice.log", $write, FILE_APPEND | LOCK_EX);
+		file_put_contents($logfile . "on-live_notice.log", $write, FILE_APPEND | LOCK_EX);
 	}
 
 	/* Stream stuff */
 
-	// this is all gross, needs fixing.
+	// Not happy with this, but it works.
 	public function checkStreams($forceCheck = true) {
 		if (!isset($this->rtmpinfo["rtmp"])) {
 			$this->rtmpinfo["rtmp"] = array(

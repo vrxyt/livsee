@@ -40,23 +40,24 @@ $getstring = $timestamp;
 $getstring .= print_r($_GET, true);
 
 // write connection attempt to log, regardless of success
-file_put_contents($SAlogfile, $getstring, FILE_APPEND | LOCK_EX);
+file_put_contents($logfile . "streamauth.log", $getstring, FILE_APPEND | LOCK_EX);
 
 //check if querystrings exist or not
 if (empty($key)) {
         //no querystrings or wrong syntax
         $current = "ERROR: Invalid query input.\n";
-        file_put_contents($SAlogfile, $current, FILE_APPEND | LOCK_EX);
+        file_put_contents($logfile . "streamauth.log", $current, FILE_APPEND | LOCK_EX);
         echo "wrong query input";
         header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         exit(1);
 } else {
         //check and verify key against the DB, then run email notices for on-live
-        $check = $rtmp->stream_check($key, $name, $SAlogfile);
+        $check = $rtmp->stream_check($key, $name, $logfile . "streamauth.log");
         if ($check === false) {
                 header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
         }
 		else {
-			$notify = $rtmp->onLive($key, $name, $furl);
+			// kinda messy to pass needed vars from config.php, but cleaner than $GLOBALS
+			$notify = $rtmp->onLive($key, $name, $furl, $logfile, $from_email, $reply_email);
 		}
 }
