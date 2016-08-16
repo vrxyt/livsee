@@ -114,17 +114,18 @@ class user extends database {
 			$code = 1;
 			throw new Exception($message, $code);
 		}
-		// emailbefore.html and emailafter.html are used as the main email, and the line for the verify link is added separately here.
+		// edit emailtemplate.php as needed to change desired emails sent out
 		$subject = 'DM Stream Account Verification';
-		$message = file_get_contents('inc/emailbefore.html');
-		$message .= "<a href=\"$furl/login/verify/$email/$authcode\" style=\"color: #fff!important;padding: 12px 24px;font-size: 29px;line-height: 1.3333333;border-radius: 3px;background-color: #df691a;border-color: transparent;display: inline-block;margin: auto;font-weight: normal;text-align: center;vertical-align: middle;touch-action: manipulation;cursor: pointer;background-image: none;border: 1px solid transparent;white-space: nowrap;-webkit-user-select: none;text-decoration: none;\">Verify Account</a>";
-		$message .= file_get_contents('inc/emailafter.html');
-		$headers = array();
+		ob_start();
+        include 'inc/emailtemplate.php';
+        $message = ob_get_contents();
+        ob_end_clean();
+        $headers = array();
 		$headers[] = "MIME-Version: 1.0";
 		$headers[] = "Content-Type: text/html; charset=UTF-8";
-		$headers[] = "From: DM Stream <noreply@rirnef.net>";
-		$headers[] = "Bcc: DM Stream Admin <fenrirthviti@gmail.com>";
-		$headers[] = "Reply-To: issues@rirnef.net";
+		$headers[] = "From: " . $GLOBALS['from_email'];
+		$headers[] = "Bcc: ". $GLOBALS['bcc_email'];
+		$headers[] = "Reply-To: " . $GLOBALS['reply_email'];
 		$headers[] = 'X-Mailer: PHP/' . phpversion();
 		mail($email, $subject, $message, implode("\r\n", $headers));
 		return true;
