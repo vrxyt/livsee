@@ -50,7 +50,7 @@ class rtmp extends database {
 		$write = $timestamp . 'Notified: ';
 		while ($row = pg_fetch_assoc($result)) {
 			$subject = $GLOBALS['sitetitle'] . ' - ' . $name . ' went live!';
-			$message = "$name just started streaming at " . $timestamp->format('Y-m-d H:i:s') . ".<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
+			$message = $timestamp . "<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
 			$headers = array();
 			$headers[] = "MIME-Version: 1.0";
 			$headers[] = "Content-Type: text/html; charset=UTF-8";
