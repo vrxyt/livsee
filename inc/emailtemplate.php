@@ -39,7 +39,7 @@ include 'config.php';
                             <p style="font-size: 14px;font-weight: normal;margin-bottom: 10px;">Did you click it yet? No? Why are you reading this then, go click!</p>
                             <p style="font-size: 14px;font-weight: normal;margin-bottom: 10px;">If you did click it, you should be all set!</p>
                             <p style="font-size: 14px;font-weight: normal;margin-bottom: 10px;">If you clicked it, and you received any errors, please email the below:</p>
-                            <p class="text-center" style="font-size: 14px;font-weight: bold;margin-bottom: 10px;text-align: center;"><a href="mailto:issues@rirnef.net" style="color: #00bad5;">issues@rirnef.net</a></p>
+                            <p class="text-center" style="font-size: 14px;font-weight: bold;margin-bottom: 10px;text-align: center;"><a href="mailto:<?= $reply_email ?>" style="color: #00bad5;"><?= $reply_email ?></a></p>
                         </td>
                     </tr>
                 </table>
