@@ -66,7 +66,7 @@ $(function () {
 		var action = $(this).text();
 		'use strict';
 		if (action === 'Unsubscribe') {
-			console.log('Action = Unsubscribe')
+			console.log('Action = Unsubscribe');
 			$.getJSON('/api/' + api_key + '/subscription/remove/' + channel, function (result) {
 				if (result === false) {
 					console.log('Error unsubscribing');
@@ -82,7 +82,7 @@ $(function () {
 				}
 			});
 		} else if (action === 'Subscribe') {
-			console.log('Action = Subscribe')
+			console.log('Action = Subscribe');
 			$.getJSON('/api/' + api_key + '/subscription/add/' + channel, function (result) {
 				if (result === false) {
 					console.log('Error subscribing' + result);
