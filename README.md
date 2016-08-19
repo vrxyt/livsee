@@ -22,7 +22,7 @@ Config information:
   - This site uses: 
     - NGINX with nginx-rtmp-module, http-ssl-module, and http_xslt_module
     - postgresql
-    - PHP7 (I believe it should run on PHP5, but I have not tested)
+    - PHP7 (I believe it should run on PHP5.4+, but I have not tested)
     - JavaScript
   - This is the config string I used for nginx:
 
