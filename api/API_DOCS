@@ -2,12 +2,15 @@ API notes
 
 Functions list:
 
+Stream functions:
 /api/<api_key>/stream/info - returns all active stream information
 /api/<api_key>/stream/ping - returns recording status, stream URL, and watch URL for all current live channels
 /api/<api_key>/stream/ping/<displayname> - returns stream live status, recording status, stream URL, and watch URL for a specific channel
 /api/<api_key>/stream/record-start/<displayname> - starts recording the specified channel
 /api/<api_key>/stream/record-stop/<displayname> - stops recording the specified channel
+
+Subscription functions:
 /api/<api_key>/subscription/add/<displayname> - Add current user (verified through API key) as a subscriber to specified channel
 /api/<api_key>/subscription/remove/<displayname> - Remove current user (verified through API key) as a subsriber to specified channel
-/api/<api_key>/subscription/list/<displayname> - Show list of all current subscriptions for the specific channel (subscribers and subscribed). If no user is specified, will show your own subscriptions. **TODO - make this only able to show your own subs
+/api/<api_key>/subscription/list - Show list of all current subscriptions for your account (subscribers and subscribed). Account shown is tied to API key
 
