@@ -79,9 +79,9 @@ class user extends database {
 		return $status;
 	}
 
-	// grab the whole table for the admin display. TODO: make this check a bit more secure that you're an admin.
+	// grab the whole table for the admin display. TODO - make this check a bit more secure that you're an admin.
 	public function admindata($email) {
-		if ($email === 'fenrirthviti@gmail.com') {
+		if ($email === $GLOBALS['admin_account']) {
 			$sql = "SELECT email, verified, stream_key, api_key, channel_name, display_name FROM $this->user_table";
 			$result = pg_query($this->link, $sql);
 			$array = [];
@@ -115,7 +115,7 @@ class user extends database {
 			throw new Exception($message, $code);
 		}
 		// edit emailtemplate.php as needed to change desired emails sent out
-		$subject = 'DM Stream Account Verification';
+		$subject = $GLOBALS['sitename'] . ' Account Verification';
 		ob_start();
         include 'inc/emailtemplate.php';
         $message = ob_get_contents();
@@ -184,7 +184,7 @@ class user extends database {
 		$headers = array();
 		$headers[] = "MIME-Version: 1.0";
 		$headers[] = "Content-Type: text/html; charset=UTF-8";
-		$headers[] = "From: DM Stream <noreply@rirnef.net>";
+        $headers[] = "From: " . $GLOBALS['from_email'];
 		$headers[] = "Reply-To: issues@rirnef.net";
 		$headers[] = 'X-Mailer: PHP/' . phpversion();
 		mail($email, $subject, $message, implode("\r\n", $headers));
