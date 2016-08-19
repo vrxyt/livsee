@@ -56,7 +56,7 @@ if ($page === 'watch') {
 	$streamkey = $uriVars[1];
 	$subemail = $user->updateStreamkey($streamkey, 'email');
 	// Set up data for checking subscription status
-	$sub = new subscription($accountinfo['api_key'], [$email]);
+	$sub = new subscription($accountinfo['api_key'], $streamkey);
 	$list = $sub->_list();
 	$subarray = json_decode($list);
 	if (in_array($subemail, $subarray->subscribed)) {

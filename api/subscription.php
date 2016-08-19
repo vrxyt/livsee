@@ -34,18 +34,9 @@ class subscription extends master
     public function _list()
     {
         // verify we're checking an actual channel
-        // ** TODO **
-        //  - Make this assign channel based on API key so users can only see their own sub status
-        //  - Make this more robust for a sub management page
-        if (empty($this->params[0])) {
-            $params = [$this->key];
-            $account = 'api_key';
-        }
-        else {
-            $params = [filter_var($this->params[0], FILTER_SANITIZE_STRING)];
-            $account = 'display_name';
-        }
-        $sql = "SELECT " . $this->db->user_table . ".email, " . $this->db->sub_table . ".host_account, " . $this->db->sub_table . ".subscriber FROM " . $this->db->user_table . " JOIN " . $this->db->sub_table . " ON " . $this->db->sub_table . ".host_account = " . $this->db->user_table . ".email OR " . $this->db->sub_table . ".subscriber = " . $this->db->user_table . ".email WHERE " . $account . " = $1";
+        // ** TODO - Make this more robust for a sub management page
+        $params = [$this->key];
+        $sql = "SELECT " . $this->db->user_table . ".email, " . $this->db->sub_table . ".host_account, " . $this->db->sub_table . ".subscriber FROM " . $this->db->user_table . " JOIN " . $this->db->sub_table . " ON " . $this->db->sub_table . ".host_account = " . $this->db->user_table . ".email OR " . $this->db->sub_table . ".subscriber = " . $this->db->user_table . ".email WHERE api_key = $1";
         $result = pg_query_params($this->db->link, $sql, $params);
         $subscribed = [];
         $subscribers = [];
