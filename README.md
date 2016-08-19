@@ -1,4 +1,4 @@
-## nginx-rtmp-module front-end
+## Rachni - an nginx-rtmp-module front-end
 
 Author: Joel Bethke (joel.bethke@gmail.com)
 
@@ -19,7 +19,7 @@ Planned features:
   - See [GitHub Issues](https://github.com/Fenrirthviti/stream-site/issues) page for details or to make any feature requests.
 
 Config information:
-  - This site uses: 
+  - This site uses (and requires): 
     - NGINX with nginx-rtmp-module, http-ssl-module, and http_xslt_module
     - postgresql
     - PHP7 (I believe it should run on PHP5.4+, but I have not tested)
@@ -35,7 +35,7 @@ Config information:
 
 Installtion:
   - Install nginx with nginx-rtmp-module, http-ssl-module, and http_xslt_module (see above).
-    - Verify all config files are updated to the paths you want to use. Check every file, there is a lot to update (see above).
+    - Verify all config files are updated to the paths you want to use. Check every file, there is a lot to configure.
   - Install pgsql and set up your database user.
   - Import the sql files from /src/pgsql to your database. This will set up the two required tables
   - Edit /lib/database.class.php with your DB info
