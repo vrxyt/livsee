@@ -37,7 +37,8 @@ Installtion:
   - Install nginx with nginx-rtmp-module, http-ssl-module, and http_xslt_module (see above).
     - Verify all config files are updated to the paths you want to use. Check every file, there is a lot to configure.
   - Install pgsql and set up your database user.
-  - Import the sql files from /src/pgsql to your database. This will set up the two required tables
+  - Import the sql files from /src/pgsql to your database. This will set up the two required tables.
+    - Make sure you update line 18 in subscribers.sql and line 23 of users.sql to your database user account.
   - Edit /lib/database.class.php with your DB info
   - Edit /inc/config.php to your liking
   - Copy everything but /src and /scss to your server. 
