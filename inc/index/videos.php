@@ -116,7 +116,7 @@
 									?>
 								</tbody>
 							</table>
-							<?php echo $tooltipHtml; ?>
+							<?= $tooltipHtml; ?>
 						</div>
 						<div class="mdl-cell mdl-cell--4-col"></div>
 					</div>
