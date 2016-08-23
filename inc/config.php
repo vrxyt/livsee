@@ -26,16 +26,19 @@ $furl = $protocol . $surl;
 
 // sets the site log file location. Can be changed to anything you want.
 $logfile = '/var/log/rachni/';
+$site_recpath = '/var/tmp/rec/'; // path to saved recordings
+
+// enable/disable registration. TODO - Move this to the database
+$reg_open = false;
 
 // title at the top of the page.
 $sitetitle = "DM Stream"; // max 16 characters
-$sitesubtitle = "Len's Streaming Site"; // currently only used for email template
 
+// Email settings
+$sitesubtitle = "Len's Streaming Site"; // currently only used for email template
 $admin_account = 'fenrirthviti@gmail.com'; // this is a terrible way to do this, will fix.
 
 // Sets the from/reply email address for notification emails. Edit as needed, following the proper "DisplayName <email@address.com>" syntax. Display name is optional
 $from_email = $sitetitle . ' <noreply@rirnef.net>';
 $reply_email = 'issues@rirnef.net';
 $bcc_email = $sitetitle . ' Admin <' . $admin_account .'>';
-
-$site_recpath = '/var/tmp/rec/'; // path to saved recordings
