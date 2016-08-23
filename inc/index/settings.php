@@ -10,8 +10,10 @@
  * 
  * TODO:
  *
- *     -Password change/reset
- *     -Possible custom channel page images?
+ *		-Password change/reset
+ *		-Custom channel page images
+ *		-Custom profile images
+ * 		-Better admin function
  *
  */
 
@@ -54,7 +56,7 @@ if (!empty($_POST)) {
 								<li class="mdl-list__item mdl-list__item--two-line">
 									<span class="mdl-list__item-primary-content">
 										<i class="material-icons mdl-list__item-icon">vpn_key</i>
-										<span>API Key <a href="#api_guide_not_ready_yet">(click here for docs)</a></span>
+										<span>API Key <a href="https://github.com/Fenrirthviti/stream-site/blob/master/api/API_DOCS" target="_blank">(click here for docs)</a></span>
 										<span class="mdl-list__item-sub-title"><?= $accountinfo['api_key']; ?></span>
 									</span>
 								</li>
