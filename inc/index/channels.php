@@ -71,6 +71,7 @@
 								</thead>
 								<tbody>
 									<?php
+									$tooltipHtml = '';
 									foreach ($channels as $channelName => $skey) {
 										$seed = uniqid();
 										$viewcount = file_get_contents($furl . '/nclients?app=live&name=' . $channelName);
@@ -90,6 +91,9 @@
 											</td>
 											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/watch/' . $channelName . '"><i class="material-icons" role="presentation">play_arrow</i></a></td>
 										</tr>
+										';
+
+										$tooltipHtml .= '
 										<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
 											<p>Video</p>
 											<ul class="mdl-list">
@@ -106,11 +110,13 @@
 												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $skey["meta"]["audio"]["sample_rate"] . ' Hz</li>
 												<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $skey["meta"]["audio"]["channels"] . '</li>
 											</ul>
-										</div>';
+										</div>
+										';
 									}
 									?>
 								</tbody>
 							</table>
+							<?= $tooltipHtml ?>
 						</div>
 						<div class="mdl-cell mdl-cell--4-col"></div>
 					</div>

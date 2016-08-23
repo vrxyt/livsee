@@ -25,7 +25,7 @@
 					</span>
 				</li>
 				<li class="mdl-list__item">
-					<span class="mdl-list__item-primary-content">Note: if you update your Display Name, you will need to update it in OBS. The value display on this page is generated dynamically</span>
+					<span class="mdl-list__item-primary-content">Note: if you update your Display Name, you will need to update it in OBS. The value displayed on this page is generated dynamically</span>
 				</li>
 			</ul>
 		</div>
