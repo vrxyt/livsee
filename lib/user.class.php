@@ -115,7 +115,7 @@ class user extends database {
 			throw new Exception($message, $code);
 		}
 		// edit emailtemplate.php as needed to change desired emails sent out
-		$subject = $GLOBALS['sitename'] . ' Account Verification';
+		$subject = $GLOBALS['sitetitle'] . ' Account Verification';
 		ob_start();
         include 'inc/emailtemplate.php';
         $message = ob_get_contents();
@@ -179,7 +179,7 @@ class user extends database {
 			$code = 1;
 			throw new Exception($message, $code);
 		}
-		$subject = 'DM Stream Password Reset';
+		$subject = $GLOBALS ["sitetitle"] . ' Password Reset';
 		$message = "Password reset auth code for $email:<br /><br /><b>$authcode</b><br /><br />Reset form: <a href='$furl/lostpass'>Click here</a>";
 		$headers = array();
 		$headers[] = "MIME-Version: 1.0";

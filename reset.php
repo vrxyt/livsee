@@ -57,7 +57,7 @@ if ($submitted === 'getCode') {
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>DM Stream Password Reset</title>
+		<title><?= $sitetitle ?> Password Reset</title>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="/css/application.css">
@@ -94,7 +94,7 @@ if ($submitted === 'getCode') {
 			</header>
 
 			<div class="mdl-layout__drawer">
-				<header>DM Stream</header>
+				<header><?= $sitetitle ?></header>
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link mdl-navigation__link--current" href="/">
 						<i class="material-icons" role="presentation">person</i>

@@ -55,7 +55,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Watching <?= $streamkey ?> - DM Stream Site</title>
+		<title>Watching <?= $streamkey ?> - <?= $sitetitle ?></title>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
@@ -114,7 +114,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 				</div>
 			</header>
 			<div class="mdl-layout__drawer">
-				<header class="dm-logo-header">DM Stream</header>
+				<header class="dm-logo-header"><?= $sitetitle ?></header>
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link" onclick="closepopoutPlayer()" href="">
 						<i class="material-icons" role="presentation">arrow_back</i>

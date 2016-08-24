@@ -7,7 +7,7 @@ include 'config.php';
 <head>
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>DM Stream Account Verification</title>
+    <title><?= $sitetitle ?> Account Verification</title>
 </head>
 <body style="font-family: Arial, sans-serif;line-height: 1.6em;font-size: 100%;background-color: #2b2b2b;color: #fff;-webkit-font-smoothing: antialiased;height: 100%;-webkit-text-size-adjust: none;margin: 0;padding: 0;width: 100% !important;">
 <table class="body-wrap" style="padding: 20px;width: 100%;">
