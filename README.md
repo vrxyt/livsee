@@ -1,10 +1,12 @@
+![Preview Image](http://i.imgur.com/21TkJbb.png)
+
 ## Rachni - an nginx-rtmp-module front-end
 
 Authors: Joel Bethke (joel.bethke@gmail.com), Andrew May
         
 Credits: Special thanks to HDXX for helping sort out some installation/dependency issues.
 
-This site aims to be a easy-to-use front-end for the nginx-rtmp-module. A few screenshots can be found here: http://imgur.com/a/Q90JG
+This site aims to be a easy-to-use front-end for the nginx-rtmp-module. A few more screenshots can be found here: http://imgur.com/a/Q90JG
 There is no demo currently, but I am working on standing something up.
 
 Current features:
