@@ -4,7 +4,8 @@ Authors: Joel Bethke (joel.bethke@gmail.com), Andrew May
         
 Credits: Special thanks to HDXX for helping sort out some installation/dependency issues.
 
-This site aims to be a easy-to-use front-end for the nginx-rtmp-module.
+This site aims to be a easy-to-use front-end for the nginx-rtmp-module. A few screenshots can be found here: http://imgur.com/a/Q90JG
+There is no demo currently, but I am working on standing something up.
 
 Current features:
   - Account System -- Lets users sign up for the site, with email verification to activate accounts. Allows for password resets. Other account features are planned (see GitHub Issues)
