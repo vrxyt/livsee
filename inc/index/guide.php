@@ -7,7 +7,7 @@
 		<div class="mdl-grid">
 			<ul class='mdl-list'>
 				<li class="mdl-list__item">
-					<span class="mdl-list__item-primary-content">Open OBS Studio, and click on&nbsp;<b>Settings</b></span>
+					<span class="mdl-list__item-primary-content">Open <a href="https://obsproject.com" target="_blank"> OBS Studio</a>, and click on&nbsp;<b>Settings</b></span>
 				</li>
 				<li class="mdl-list__item">
 					<span class="mdl-list__item-primary-content">Click on the&nbsp;<b>Stream tab</b></span>
