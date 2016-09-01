@@ -9695,7 +9695,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   .mdl-textfield.is-focused .mdl-textfield__input {
     outline: none; }
   .mdl-textfield.is-invalid .mdl-textfield__input {
-    border-color: #d50000;
+    border-color: #ff4081;
     box-shadow: none; }
   fieldset[disabled] .mdl-textfield .mdl-textfield__input, .mdl-textfield.is-disabled .mdl-textfield__input {
     background-color: transparent;
@@ -9736,7 +9736,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   .mdl-textfield--floating-label.is-focused .mdl-textfield__expandable-holder .mdl-textfield__label, .mdl-textfield--floating-label.is-dirty .mdl-textfield__expandable-holder .mdl-textfield__label, .mdl-textfield--floating-label.has-placeholder .mdl-textfield__expandable-holder .mdl-textfield__label {
     top: -16px; }
   .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
-    color: #d50000;
+    color: #ff4081;
     font-size: 12px; }
   .mdl-textfield__label:after {
     background-color: rgb(0, 188, 212);
@@ -9754,10 +9754,10 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
     visibility: visible;
     width: 100%; }
   .mdl-textfield.is-invalid .mdl-textfield__label:after {
-    background-color: #d50000; }
+    background-color: #ff4081; }
 
 .mdl-textfield__error {
-  color: #d50000;
+  color: #ff4081;
   position: absolute;
   font-size: 12px;
   margin-top: 3px;
