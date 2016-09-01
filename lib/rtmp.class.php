@@ -86,10 +86,18 @@ class rtmp extends database {
 		$this->rtmpinfo["rtmp"]["channels"] = array();
 		$surl = $_SERVER['HTTP_HOST'];
 		$rtmp = json_decode(json_encode((array) simplexml_load_file($GLOBALS['furl'] . '/stat.xml')), TRUE);
-
-		if (!empty($rtmp["server"]["application"][1]["live"]["stream"])) {
-			if (array_key_exists("name", $rtmp["server"]["application"][1]["live"]["stream"])) {
-				$channel = $rtmp["server"]["application"][1]["live"]["stream"];
+		$live = null;
+		foreach ($rtmp["server"]["application"] as $i => $application) {
+			if (is_numeric($i) && $application["name"] === "live") {
+				$live = $application;
+			} else if (!is_numeric($i)) {
+				$live = $rtmp["server"]["application"];
+			}
+		}
+		//echo '<pre>';print_r($live);echo '</pre>';
+		if (!empty($live["live"]["stream"])) {
+			if (array_key_exists("name", $live["live"]["stream"])) {
+				$channel = $live["live"]["stream"];
 
 				if (empty($channel["name"])) {
 					$channel["name"] = "default";
@@ -99,7 +107,7 @@ class rtmp extends database {
 				$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["stream"] = 'rtmp://' . $surl . '/live/' . $channel["name"];
 				$this->rtmpinfo["rtmp"]["channels"][$channel["name"]]["URL"] = $GLOBALS["furl"] . '/watch/' . $channel["name"];
 			} else {
-				foreach ($rtmp["server"]["application"][1]["live"]["stream"] as $key => $channel) {
+				foreach ($live["live"]["stream"] as $key => $channel) {
 					if (empty($channel["name"])) {
 						$channel["name"] = "default";
 					}
