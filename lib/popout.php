@@ -143,7 +143,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 						   data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
 						   id="popoutPlayer"
 						   width="100%" height="100%"
-						   poster="//<?= $surl ?>/img/channel_<?= $streamkey ?>.png"
+						   poster="//<?= $surl ?>/img/channel/channel_<?= $streamkey ?>.png"
 						   >
 						<source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
 						<source src="rtmp://<?= $surl ?>/live/<?= $streamkey ?>" type="rtmp/flv" label='Flash'/>
