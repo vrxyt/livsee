@@ -160,7 +160,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 			<?php if (!empty($streamkey)) { ?> var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>"; <?php } ?>
 		</script>
 		<script src="/js/jquery.min.js"></script>
-		<script src="/js/channels.js"></script>
+		<script src="/js/rachni.js"></script>
 		<script src="/js/material.js"></script>
 		<script>
 			function closepopoutPlayer() {
