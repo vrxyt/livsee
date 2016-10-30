@@ -1,21 +1,5 @@
-<div class="mdl-grid mdl-grid--no-spacing fill">
-    <div class="mdl-cell mdl-cell--9-col fill">
-        <div class="live-player">
-            <video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered"
-                   data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
-                   id="streamPlayer"
-                   width="100%" height="100%"
-                   poster="//<?= $surl ?>/img/channel/channel_<?= $streamkey ?>.png"
-            >
-                <source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
-                <source src="rtmp://<?= $surl ?>/live/<?= $streamkey ?>" type="rtmp/flv" label='Flash'/>
-            </video>
-            <script>
-                videojs('streamPlayer').videoJsResolutionSwitcher();
-            </script>
-        </div>
-    </div>
-    <div class="mdl-cell mdl-cell--3-col mdl-card mdl-shadow--2dp employer-form">
+<div class="mdl-grid mdl-grid fill">
+    <div class="mdl-cell mdl-card mdl-shadow--2dp employer-form">
         <div class="mdl-card__title">
             <span class="mdl-color-text--cyan-500">Channel Chat</span>
         </div>
