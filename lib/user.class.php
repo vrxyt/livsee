@@ -243,9 +243,9 @@ class user extends database {
 	}
 
 	// Grab account info
-	public function info($email) {
-		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img, api_key FROM $this->user_table WHERE email = $1";
-		$params = array($email);
+	public function info($value, $field = 'email') {
+		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img, api_key FROM $this->user_table WHERE $field = $1";
+		$params = array($value);
 		$info = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 		if ($info === null) {
 			$message = 'Error in: class:user | function:info';

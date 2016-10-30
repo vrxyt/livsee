@@ -29,8 +29,11 @@ function __autoload($class) {
 }
 
 $rtmp = new rtmp();
+$user = new user();
 $key = filter_input(INPUT_GET, 'key', FILTER_SANITIZE_STRING);
 $name = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_STRING);
+$accountinfo = $user->info($name, 'display_name');
+$stream_title = $accountinfo['channel_title'];
 
 $timestamp = new DateTime();
 $timestamp = $timestamp->format('Y-m-d H:i:s');
@@ -58,6 +61,6 @@ if (empty($key)) {
         }
 		else {
 			// kinda messy to pass needed vars from config.php, but cleaner than $GLOBALS
-			$notify = $rtmp->onLive($key, $name, $furl, $logfile, $from_email, $reply_email);
+			$notify = $rtmp->onLive($key, $name, $stream_title, $furl, $logfile, $from_email, $reply_email);
 		}
 }

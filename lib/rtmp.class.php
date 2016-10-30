@@ -40,7 +40,7 @@ class rtmp extends database {
 		}
 	}
 
-	public function onLive($key, $name, $furl, $logfile, $from_email, $reply_email) {
+	public function onLive($key, $name, $stream_title, $furl, $logfile, $from_email, $reply_email) {
 		$params = array($key);
 		$sql = "SELECT subscriber FROM $this->sub_table WHERE host_account = (SELECT email FROM $this->user_table WHERE stream_key = $1 LIMIT 1)";
 		$result = pg_query_params($this->link, $sql, $params);
@@ -50,7 +50,7 @@ class rtmp extends database {
 		$write = $timestamp . 'Notified: ';
 		while ($row = pg_fetch_assoc($result)) {
 			$subject = $GLOBALS['sitetitle'] . ' - ' . $name . ' went live!';
-			$message = $timestamp . "<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
+            $message = $timestamp . "<br /><br />Stream Title: $stream_title<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
 			$headers = array();
 			$headers[] = "MIME-Version: 1.0";
 			$headers[] = "Content-Type: text/html; charset=UTF-8";
