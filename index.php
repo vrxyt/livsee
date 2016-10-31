@@ -245,7 +245,7 @@ if ($page === 'download') {
 
     <?php if (!empty($streamkey)) { ?>
     var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>";
-    var current_channel = stream_key;
+    var current_channel = '<?= $streamkey; ?>';
     <?php } else { ?>
     var current_channel = 'Test';
     <?php } ?>
