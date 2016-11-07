@@ -255,7 +255,7 @@ if ($page === 'download') {
     var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>";
     var current_channel = '<?= $streamkey; ?>';
     <?php } else { ?>
-    var current_channel = 'Test';
+    var current_channel = 'GlobalChatChannel';
     <?php } ?>
 </script>
 <script src="/js/jquery.min.js"></script>
