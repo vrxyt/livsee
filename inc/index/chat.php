@@ -1,10 +1,10 @@
 <div class="mdl-grid mdl-grid fill">
-    <div class="mdl-cell mdl-card mdl-shadow--2dp employer-form">
+    <div class="mdl-cell mdl-card mdl-shadow--2dp employer-form" style="width: 75%">
         <div class="mdl-card__title">
             <span class="mdl-color-text--cyan-500">Channel Chat</span>
         </div>
 
-        <div class="mdl-card__supporting-text">
+        <div class="mdl-card__supporting-text full-height">
             <div id="output" style="height: 100%;overflow-y: scroll">
 
             </div>
