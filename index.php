@@ -103,9 +103,7 @@ if ($page === 'download') {
     <link rel="stylesheet" type="text/css" href="/js/vjs/videojs-resolution-switcher.css">
     <link rel="stylesheet" href="/css/application.css">
     <link rel="stylesheet" href="/css/site.css">
-    <script src="/js/vjs/video-js.js"></script>
-    <script src="/js/vjs/videojs-resolution-switcher.js"></script>
-    <script src="/js/vjs/videojs-contrib-hls.min.js"></script>
+    <link rel="stylesheet" href="/js/jqui/jquery-ui.min.css">
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header"><!-- START LAYOUT WRAP -->
@@ -118,6 +116,10 @@ if ($page === 'download') {
                 <a class="mdl-navigation__link force_link" onclick="popoutPlayer()">
                     <i class="material-icons" role="presentation">video_label</i>
                     Switch to Popout Player
+                </a>
+                <a class="mdl-navigation__link" id="toggleChat" href="#">
+                    <i class="material-icons" role="presentation">chat</i>
+                    Show/Hide Chat
                 </a>
             <?php } ?>
 
@@ -247,6 +249,15 @@ if ($page === 'download') {
 </div> <!-- END LAYOUT WRAP -->
 
 <!-- START FOOTER -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/getmdl-select.min.js"></script>
+<script src="/js/material.js"></script>
+<script src="/js/date.format.min.js"></script>
+<script src="/js/rachni.js"></script>
+<script src="/js/vjs/video-js.js"></script>
+<script src="/js/vjs/videojs-resolution-switcher.js"></script>
+<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
+<script src="/js/jqui/jquery-ui.min.js"></script>
 <script type='text/javascript'>
     var api_key = "<?= $accountinfo['api_key'] ?>";
     var display_name = "<?= $accountinfo['display_name'] ?>";
@@ -257,32 +268,25 @@ if ($page === 'download') {
     <?php } else { ?>
     var current_channel = 'GlobalChatChannel';
     <?php } ?>
-</script>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/getmdl-select.min.js"></script>
-<script src="/js/material.js"></script>
-<script src="/js/date.format.min.js"></script>
-<script src="/js/rachni.js"></script>
 
+    <?php if (!empty($streamkey)) { ?>
+    var streamPlayer = videojs("streamPlayer");
+    this.popoutPlayer = function () {
+        streamPlayer.pause();
+        window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
+    };
+    streamPlayer.on('pause', function () {
+        this.bigPlayButton.show();
 
-<?php if (!empty($streamkey)) { ?>
-    <script>
-        var streamPlayer = videojs("streamPlayer");
-        this.popoutPlayer = function () {
-            streamPlayer.pause();
-            window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
-        };
-        streamPlayer.on('pause', function () {
-            this.bigPlayButton.show();
-
-            // Now the issue is that we need to hide it again if we start playing
-            // So every time we do this, we can create a one-time listener for play events.
-            video.one('play', function () {
-                this.bigPlayButton.hide();
-            });
+        // Now the issue is that we need to hide it again if we start playing
+        // So every time we do this, we can create a one-time listener for play events.
+        video.one('play', function () {
+            this.bigPlayButton.hide();
         });
-    </script>
-<?php } ?>
+    });
+
+    <?php } ?>
+</script>
 </body>
 </html>
 <!-- END FOOTER -->

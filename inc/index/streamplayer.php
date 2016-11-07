@@ -1,5 +1,5 @@
 <div class="mdl-grid mdl-grid--no-spacing fill">
-    <div class="mdl-cell mdl-cell--9-col fill">
+    <div class="mdl-cell mdl-cell--9-col fill" id="videoBox">
         <div class="live-player">
             <video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered"
                    data-setup='{"controls": true, "autoplay": true, "preload": "auto"}'
@@ -15,7 +15,7 @@
             </script>
         </div>
     </div>
-    <div class="mdl-cell mdl-cell--3-col mdl-card mdl-shadow--2dp employer-form">
+    <div class="mdl-cell mdl-cell--3-col mdl-card mdl-shadow--2dp employer-form" id="channelchat">
         <div class="mdl-card__title">
             <span class="mdl-color-text--cyan-500">Channel Chat</span>
         </div>
