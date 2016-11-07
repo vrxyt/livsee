@@ -7,17 +7,17 @@ $(function () {
         /** CHAT FUNCTIONS **/
 
         // Join
-        $.ajax({
-            url: "https://dev.rirnef.net/api/" + api_key + "/chat/join/" + current_channel,
-            dataType: 'json',
-        });
+            $.ajax({
+                url: "/api/" + api_key + "/chat/join/" + current_channel,
+                dataType: 'json',
+            });
 
         // Leave
         $(window).on('beforeunload', function () {
-            $.ajax({
-                url: "https://dev.rirnef.net/api/" + api_key + "/chat/leave/" + current_channel,
-                dataType: 'json',
-            });
+                $.ajax({
+                    url: "/api/" + api_key + "/chat/leave/" + current_channel,
+                    dataType: 'json',
+                });
         });
 
         var chatbox = $('#output');
@@ -25,7 +25,7 @@ $(function () {
         var lastid = 0;
         setInterval(function () {
             $.ajax({
-                url: "https://dev.rirnef.net/api/" + api_key + "/chat/read/" + current_channel,
+                url: "/api/" + api_key + "/chat/read/" + current_channel,
                 dataType: 'json',
             }).done(function (getLines) {
                 var scrollHeight = $('#output').prop('scrollHeight') - $('#output').height();
@@ -39,7 +39,9 @@ $(function () {
                         var date = new Date(timestampInMilliSeconds);
                         var formattedDate = date.format('h:i a');
                         if (type === 'SYSTEM') {
-                            $('#output').append(" <span style='color: #b3b3b3;font-style: italic'>(" + formattedDate + ') ' + line.sender + ' ' + line.message + '</span><br />');
+                            if(jp_status === 't') {
+                                $('#output').append(" <span style='color: #b3b3b3;'>(" + formattedDate + ')<span style="font-style: italic"> ' + line.sender + ' ' + line.message + '</span></span><br />');
+                            }
                         } else {
                             $('#output').append('(' + formattedDate + ") <span style='color: #00bcd4; font-weight: bold'>" + line.sender + ':</span> ' + line.message + '<br />');
                         }
@@ -73,7 +75,7 @@ inputform.submit(function (event) {
     //console.log(data);
     $.ajax({
         type: "POST",
-        url: "https://dev.rirnef.net/api/" + api_key + "/chat/write/",
+        url: "/api/" + api_key + "/chat/write/",
         data: data,
         dataType: 'json',
     });
