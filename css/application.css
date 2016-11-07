@@ -11178,8 +11178,7 @@ main {
   background-color: rgba(0, 0, 0, 0.3); }
 
 .mdl-card__supporting-text {
-  width: calc(100% - 32px);
-  height: 100%; }
+  width: calc(100% - 32px); }
 
 .mdl-card__actions {
   background-color: rgba(255, 255, 255,0.05); }
@@ -11533,6 +11532,86 @@ a {
     font-weight: 300; }
 .employer-form__contacts div i {
   color: white; }
+
+.login-form {
+  padding: 0;
+  width: 350px;
+  background-color: #4e4e4e;
+  margin: 16px auto; }
+  .login-form .mdl-radio {
+    width: 20%;
+    margin-top: 22px;
+    margin-bottom: 22px;
+    color: white; }
+    .login-form .mdl-radio span:first-of-type {
+      margin-left: 10px; }
+  .login-form .form__article > span {
+    float: left;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 200; }
+  .login-form .mdl-card__title {
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 66px;
+    width: 100%;
+    padding-top: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 0;
+    display: block;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif; }
+    .login-form .mdl-card__title h2:first-of-type {
+      font-size: 24px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.2em;
+      margin-top: 0;
+      margin-bottom: 0; }
+    .login-form .mdl-card__title .mdl-card__subtitle {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.2);
+      line-height: 1.2em; }
+  .login-form .mdl-card__title-login {
+    background-color: "255,64,129";
+    height: 48px;
+    width: 100%;
+    padding-bottom: 0;
+    display: block; }
+  .login-form .mdl-card__title-login h2:first-of-type {
+    font-size: 24px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0; }
+  .login-form .mdl-card__title-login .mdl-card__subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.2);
+    line-height: 1.2em; }
+  .login-form button.mdl-button.mdl-button--colored {
+    width: 68px;
+    height: 32px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 400;
+    color: white;
+    background-color: rgb(0, 188, 212); }
+    .login-form button.mdl-button.mdl-button--colored:disabled {
+      background-color: gray;
+      color: rgba(255, 255, 255, 0.6); }
+  .login-form label {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6); }
+  .login-form .form__action .mdl-checkbox .mdl-ripple {
+    background: rgb(0, 188, 212); }
+  .login-form .form__action .mdl-checkbox.is-checked .mdl-checkbox__box-outline {
+    border-color: rgb(0, 188, 212); }
+    .login-form .form__action .mdl-checkbox.is-checked .mdl-checkbox__box-outline .mdl-checkbox__tick-outline {
+      background-color: rgb(0, 188, 212);
+      background-image: url("../img/tick_dark.svg?embed"); }
 
 .form .mdl-grid {
   padding: 0; }

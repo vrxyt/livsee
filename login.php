@@ -101,7 +101,6 @@ if (!empty($uriVars[1])) {
 	<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet' type='text/css'>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="/css/lib/getmdl-select.min.css">
 	<link rel="stylesheet" href="/css/application.css">
 	<link rel="stylesheet" href="/css/site.css">
 </head>
@@ -147,7 +146,7 @@ if (!empty($uriVars[1])) {
 
 	<main class="mdl-layout__content mdl-color--grey-100">
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-			<div class="mdl-card mdl-shadow--2dp employer-form" action="">
+			<div class="mdl-card mdl-shadow--2dp login-form" action="">
 				<div class="mdl-card__title-login">
 
 					<div class="mdl-tabs__tab-bar-login">
