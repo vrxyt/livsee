@@ -22,7 +22,9 @@ if (!empty($_POST)) {
 	$channelname = filter_input(INPUT_POST, 'channelname', FILTER_SANITIZE_STRING);
 	$channeltitle = filter_input(INPUT_POST, 'channeltitle', FILTER_SANITIZE_STRING);
 	$displayname = filter_input(INPUT_POST, 'displayname', FILTER_SANITIZE_STRING);
-	$status = $user->update($email, $channelname, $channeltitle, $displayname);
+	$chatjp = filter_input(INPUT_POST, 'chatjp', FILTER_VALIDATE_BOOLEAN);
+	$chatjp = $chatjp ? 't':'f';
+	$status = $user->update($email, $channelname, $channeltitle, $displayname, $chatjp);
 	// get new account info after the update
 	$accountinfo = $user->info($email);
 }
@@ -82,6 +84,13 @@ if (!empty($_POST)) {
 								<input class="mdl-textfield__input" type="text" name="channeltitle" id="channelTitle" value="<?= $accountinfo['channel_title'] ?>"/>
 								<label class="mdl-textfield__label" for="channelTitle">Channel Title</label>
 							</div>
+						</div>
+
+						<div class="mdl-grid">
+							<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="chatjp">
+								<input type="checkbox" id="chatjp" class="mdl-switch__input" name="chatjp" value=true <?php if ($accountinfo['chat_jp_setting'] === 't') { echo 'checked'; }?>>
+								<span class="mdl-switch__label">Show Join/Part in Chats</span>
+							</label>
 						</div>
 
 						<div class="form__action">

@@ -186,6 +186,14 @@ if ($page === 'download') {
                 <i class="material-icons" role="presentation">video_library</i>
                 Videos
             </a>
+            <a class="mdl-navigation__link<?php
+            if ($page === 'chat') {
+                echo ' mdl-navigation__link--current';
+            }
+            ?>" href="/chat">
+                <i class="material-icons" role="presentation">chat</i>
+                Global Chat
+            </a>
             <?php if (!empty($streamkey)) { ?>
                 <a class="mdl-navigation__link mdl-navigation__link--current mdl-typography--text-nowrap-ellipsis"
                    href="/watch/<?= $streamkey; ?>">
@@ -242,7 +250,7 @@ if ($page === 'download') {
 <script type='text/javascript'>
     var api_key = "<?= $accountinfo['api_key'] ?>";
     var display_name = "<?= $accountinfo['display_name'] ?>";
-
+    var jp_status = "<?= $accountinfo['chat_jp_setting'] ?>";
     <?php if (!empty($streamkey)) { ?>
     var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>";
     var current_channel = '<?= $streamkey; ?>';

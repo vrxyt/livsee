@@ -244,7 +244,7 @@ class user extends database {
 
 	// Grab account info
 	public function info($value, $field = 'email') {
-		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img, api_key FROM $this->user_table WHERE $field = $1";
+		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img, api_key, chat_jp_setting FROM $this->user_table WHERE $field = $1";
 		$params = array($value);
 		$info = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 		if ($info === null) {
@@ -256,13 +256,13 @@ class user extends database {
 	}
 
 	// updates channel_name, channel_title, and display_name.
-	public function update($email, $channelname, $channeltitle, $displayname) {
+	public function update($email, $channelname, $channeltitle, $displayname, $chatjp) {
 		$dncheck = $this->dncheck($email, $displayname);
 		if ($dncheck === true) {
 			$status = 'Display name already exists!';
 		} else {
-			$sql = "UPDATE $this->user_table SET channel_name = $1, channel_title = $2, display_name = $3 WHERE email = $4";
-			$params = array($channelname, $channeltitle, $displayname, $email);
+			$sql = "UPDATE $this->user_table SET channel_name = $1, channel_title = $2, display_name = $3, chat_jp_setting = '$chatjp' WHERE email = $4";
+            $params = array($channelname, $channeltitle, $displayname, $email);
 			$result = pg_query_params($this->link, $sql, $params);
 			if ($result === false) {
 				$message = 'Error in: class:user | function:update';
