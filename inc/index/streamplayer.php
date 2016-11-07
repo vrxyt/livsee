@@ -7,8 +7,8 @@
                    width="100%" height="100%"
                    poster="//<?= $surl ?>/img/channel/channel_<?= $streamkey ?>.png"
             >
-                <source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
                 <source src="rtmp://<?= $surl ?>/live/<?= $streamkey ?>" type="rtmp/flv" label='Flash'/>
+                <source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
             </video>
             <script>
                 videojs('streamPlayer').videoJsResolutionSwitcher();
@@ -20,7 +20,7 @@
             <span class="mdl-color-text--cyan-500">Channel Chat</span>
         </div>
 
-        <div class="mdl-card__supporting-text">
+        <div class="mdl-card__supporting-text full-height">
             <div id="output" style="height: 100%;overflow-y: scroll">
 
             </div>
