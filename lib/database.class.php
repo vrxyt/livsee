@@ -22,6 +22,7 @@ class database {
 	// set up our table names
 	public $user_table = 'users';
 	public $sub_table = 'subscribers';
+	public $chat_table = 'chat';
 
 	public function __construct() {
 
