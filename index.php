@@ -270,6 +270,7 @@ if ($page === 'download') {
     <?php } ?>
 
     <?php if (!empty($streamkey)) { ?>
+    videojs('streamPlayer').videoJsResolutionSwitcher();
     var streamPlayer = videojs("streamPlayer");
     this.popoutPlayer = function () {
         streamPlayer.pause();

@@ -8,11 +8,8 @@
                    poster="//<?= $surl ?>/img/channel/channel_<?= $streamkey ?>.png"
             >
                 <source src="rtmp://<?= $surl ?>/live/<?= $streamkey ?>" type="rtmp/flv" label='Flash'/>
-                <source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/>
+                <!--<source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/> Removed until proper switching can be sorted.-->
             </video>
-            <script>
-                videojs('streamPlayer').videoJsResolutionSwitcher();
-            </script>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--3-col mdl-card mdl-shadow--2dp employer-form" id="channelchat">
