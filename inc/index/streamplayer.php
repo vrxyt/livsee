@@ -18,7 +18,7 @@
         </div>
 
         <div class="mdl-card__supporting-text full-height">
-            <div id="output" style="height: 100%;overflow-y: scroll">
+            <div id="output" style="height: 100%;overflow-y: scroll;">
 
             </div>
         </div>
@@ -26,7 +26,7 @@
 
         <form action="" method="POST" class="form" id="chatMessage">
 
-            <div class="chatinput" style="position:relative">
+            <div class="chatinput" style="position:relative;">
 
                 <div class="mdl-grid--no-spacing chatbox">
                     <div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

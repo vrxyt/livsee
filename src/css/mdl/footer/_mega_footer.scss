@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 @import "../variables";
 @import "../mixins";
 
@@ -23,7 +22,6 @@
   color: $footer-color;
   background-color: $footer-bg-color;
 }
-
 
 .mdl-mega-footer--top-section:after,
 .mdl-mega-footer--middle-section:after,
@@ -59,22 +57,22 @@
 @media screen and (min-width: 760px) {
   .mdl-mega-footer--left-section,
   .mdl-mega-footer__left-section {
-    float: left;
+	float: left;
   }
 
   .mdl-mega-footer--right-section,
   .mdl-mega-footer__right-section {
-    float: right;
+	float: right;
   }
 
   .mdl-mega-footer--right-section a,
   .mdl-mega-footer__right-section a {
-    display: inline-block;
+	display: inline-block;
 
-    margin-left: $footer-min-padding;
+	margin-left: $footer-min-padding;
 
-    line-height: $footer-btn-size;
-    vertical-align: middle;
+	line-height: $footer-btn-size;
+	vertical-align: middle;
   }
 }
 
@@ -101,43 +99,43 @@
 @media screen and (min-width: 760px) {
   .mdl-mega-footer--drop-down-section,
   .mdl-mega-footer__drop-down-section {
-    width: 33%;
+	width: 33%;
   }
 
   .mdl-mega-footer--drop-down-section:nth-child(1),
   .mdl-mega-footer--drop-down-section:nth-child(2),
   .mdl-mega-footer__drop-down-section:nth-child(1),
   .mdl-mega-footer__drop-down-section:nth-child(2) {
-    float: left;
+	float: left;
   }
 
   .mdl-mega-footer--drop-down-section:nth-child(3),
   .mdl-mega-footer__drop-down-section:nth-child(3) {
-    float: right;
+	float: right;
 
-    &:after {
-      clear: right;
-    }
+	&:after {
+	  clear: right;
+	}
   }
 
   .mdl-mega-footer--drop-down-section:nth-child(4),
   .mdl-mega-footer__drop-down-section:nth-child(4) {
-    clear: right;
-    float: right;
+	clear: right;
+	float: right;
   }
 
   .mdl-mega-footer--middle-section:after,
   .mdl-mega-footer__middle-section:after {
-    content: '';
+	content: '';
 
-    display: block;
+	display: block;
 
-    clear: both;
+	clear: both;
   }
 
   .mdl-mega-footer--bottom-section,
   .mdl-mega-footer__bottom-section {
-    padding-top: 0;
+	padding-top: 0;
   }
 }
 
@@ -148,9 +146,9 @@
   .mdl-mega-footer__drop-down-section,
   .mdl-mega-footer__drop-down-section:nth-child(3),
   .mdl-mega-footer__drop-down-section:nth-child(4) {
-    width: 24%;
+	width: 24%;
 
-    float: left;
+	float: left;
   }
 }
 
@@ -161,8 +159,7 @@
   height: $footer-heading-line-height + ($footer-min-padding * 2);
 
   padding: ($footer-min-padding * 2);
-  margin: 0;
-  margin-top: -$footer-min-padding;
+  margin: -$footer-min-padding 0 0;
 
   cursor: pointer;
 
@@ -171,8 +168,8 @@
 
   & + .mdl-mega-footer--heading:after,
   & + .mdl-mega-footer__heading:after {
-    font-family: 'Material Icons';
-    content: '\E5CE'
+	font-family: 'Material Icons';
+	content: '\E5CE'
   }
 }
 
@@ -185,13 +182,13 @@
   & ~ .mdl-mega-footer__link-list,
   & + .mdl-mega-footer--heading + .mdl-mega-footer--link-list,
   & + .mdl-mega-footer__heading + .mdl-mega-footer__link-list {
-    display: none;
+	display: none;
   }
 
   & + .mdl-mega-footer--heading:after,
   & + .mdl-mega-footer__heading:after {
-    font-family: 'Material Icons';
-    content: '\E5CF'
+	font-family: 'Material Icons';
+	content: '\E5CF'
   }
 }
 
@@ -203,7 +200,7 @@
   padding-right: $footer-heading-line-height + $footer-min-padding;
   margin-bottom: $footer-min-padding;
 
-  box-sizing:border-box;
+  box-sizing: border-box;
 
   font-size: $footer-heading-font-size;
   line-height: $footer-heading-line-height;
@@ -237,14 +234,13 @@
 .mdl-mega-footer__link-list {
   list-style: none;
 
-  margin: 0;
   padding: 0;
 
-  margin-bottom: $footer-min-padding * 2;
+  margin: 0 0 $footer-min-padding * 2;
   &:after {
-    clear: both;
-    display: block;
-    content: '';
+	clear: both;
+	display: block;
+	content: '';
   }
 }
 
@@ -264,29 +260,29 @@
 @media screen and (min-width: 760px) {
   .mdl-mega-footer--heading-checkbox,
   .mdl-mega-footer__heading-checkbox {
-    display: none;
+	display: none;
 
-    & + .mdl-mega-footer--heading:after,
-    & + .mdl-mega-footer__heading:after {
-      content: '';
-    }
+	& + .mdl-mega-footer--heading:after,
+	& + .mdl-mega-footer__heading:after {
+	  content: '';
+	}
   }
   .mdl-mega-footer--heading-checkbox:checked,
   .mdl-mega-footer__heading-checkbox:checked {
-    // WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10
-    // break consecutive "+" operators in some cases. Therefore, we need to use
-    // both here to cover all the bases.
-    & ~ .mdl-mega-footer--link-list,
-    & ~ .mdl-mega-footer__link-list,
-    & + .mdl-mega-footer__heading + .mdl-mega-footer__link-list,
-    & + .mdl-mega-footer--heading + .mdl-mega-footer--link-list {
-      display: block;
-    }
+	// WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10
+	// break consecutive "+" operators in some cases. Therefore, we need to use
+	// both here to cover all the bases.
+	& ~ .mdl-mega-footer--link-list,
+	& ~ .mdl-mega-footer__link-list,
+	& + .mdl-mega-footer__heading + .mdl-mega-footer__link-list,
+	& + .mdl-mega-footer--heading + .mdl-mega-footer--link-list {
+	  display: block;
+	}
 
-    & + .mdl-mega-footer--heading:after,
-    & + .mdl-mega-footer__heading:after {
-      content: '';
-    }
+	& + .mdl-mega-footer--heading:after,
+	& + .mdl-mega-footer__heading:after {
+	  content: '';
+	}
   }
 }
 
@@ -309,13 +305,11 @@
   margin-right: $footer-min-padding;
 }
 
-
-
 @media screen and (min-width: 760px) {
   .mdl-logo {
-    float: left;
+	float: left;
 
-    margin-bottom: 0;
-    margin-right: $footer-min-padding;
+	margin-bottom: 0;
+	margin-right: $footer-min-padding;
   }
 }

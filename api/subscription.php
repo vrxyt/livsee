@@ -1,18 +1,27 @@
 <?php
 
+/**
+ * Class subscription
+ */
 class subscription extends master
 {
 
     public $db;
 
+    /**
+     * subscription constructor.
+     * @param $key
+     * @param $params
+     */
     function __construct($key, $params)
     {
         parent::__construct($key, $params);
-
-        // Open database connection
         $this->db = new database();
     }
 
+    /**
+     * @return bool
+     */
     public function add()
     {
         $host = filter_var($this->params[0], FILTER_SANITIZE_STRING);
@@ -22,6 +31,9 @@ class subscription extends master
         return @!pg_query_params($this->db->link, $sql, $params) ? false : true;
     }
 
+    /**
+     * @return bool
+     */
     public function remove()
     {
         $host = filter_var($this->params[0], FILTER_SANITIZE_STRING);
@@ -31,6 +43,9 @@ class subscription extends master
         return @!pg_query_params($this->db->link, $sql, $params) ? false : true;
     }
 
+    /**
+     * @return string
+     */
     public function _list()
     {
         // verify we're checking an actual channel

@@ -1,20 +1,10 @@
 <?php
-/* API notes
- * 
- * Functions list:
- * 
- * /api/<api_key>/stream/info - returns all active stream information
- * /api/<api_key>/stream/ping - returns recording status, stream URL, and watch URL for all current live channels
- * /api/<api_key>/stream/ping/<channelname> - returns stream live status, recording status, stream URL, and watch URL for a specific channel
- * /api/<api_key>/stream/record-start/<channelname> - starts recording the specified channel
- * /api/<api_key>/stream/record-stop/<channelname> - stops recording the specified channel
- * /api/<api_key>/subscription/add/<channelname> - Add current user (verified through API key) as a subscriber to specified channel
- * /api/<api_key>/subscription/remove/<channelname> - Remove current user (verified through API key) as a subsriber to specified channel
- * /api/<api_key>/subscription/list/<channelname> - Show list of all current subscriptions for the specific channel (subscribers and subscribed). **TODO - make this only able to show your own subs
- * 
- */
+
+/* API notes - Please see API_DOCS in /api */
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
 // Disable caching so AJAX doesn't grab old data and set content type as JSON
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Thu, 01 Jan 1970 00:00:00 GMT');

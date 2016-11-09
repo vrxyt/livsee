@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 @import "../variables";
 
 .mdl-icon-toggle {
@@ -33,18 +32,18 @@
   line-height: $icon-toggle-size;
 
   .mdl-icon-toggle.is-upgraded & {
-    // Hide input element, while still making it respond to focus.
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    border: none;
+	// Hide input element, while still making it respond to focus.
+	position: absolute;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+	-ms-appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	border: none;
   }
 }
 
@@ -67,29 +66,28 @@
   color 0.2s $animation-curve-default;
 
   &.material-icons {
-    line-height: $icon-toggle-size;
-    font-size: $icon-toggle-font-size;
+	line-height: $icon-toggle-size;
+	font-size: $icon-toggle-font-size;
   }
 
   .mdl-icon-toggle.is-checked & {
-    color: $icon-toggle-checked-color;
+	color: $icon-toggle-checked-color;
   }
 
   .mdl-icon-toggle.is-disabled & {
-    color: $icon-toggle-disabled-color;
-    cursor: auto;
-    transition: none;
+	color: $icon-toggle-disabled-color;
+	cursor: auto;
+	transition: none;
   }
 
   .mdl-icon-toggle.is-focused & {
-    background-color: $icon-toggle-focus-color;
+	background-color: $icon-toggle-focus-color;
   }
 
   .mdl-icon-toggle.is-focused.is-checked & {
-    background-color: $icon-toggle-checked-focus-color;
+	background-color: $icon-toggle-checked-focus-color;
   }
 }
-
 
 .mdl-icon-toggle__ripple-container {
   position: absolute;
@@ -108,14 +106,14 @@
   -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
 
   & .mdl-ripple {
-    background: $icon-toggle-color;
+	background: $icon-toggle-color;
   }
 
   .mdl-icon-toggle.is-disabled & {
-    cursor: auto;
+	cursor: auto;
   }
 
   .mdl-icon-toggle.is-disabled & .mdl-ripple {
-    background: transparent;
+	background: transparent;
   }
 }

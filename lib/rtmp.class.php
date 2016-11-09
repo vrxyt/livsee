@@ -17,15 +17,24 @@
  *
  */
 
+/**
+ * Class rtmp
+ */
 class rtmp extends database {
 
-	public $rtmpinfo = array();
+	public $rtmpinfo = [];
 
 	/* 	Streamkey Auth Functions	 */
 
 	// Check if the stream key is valid
+	/**
+	 * @param $key
+	 * @param $name
+	 * @param $file
+	 * @return bool
+	 */
 	public function stream_check($key, $name, $file) {
-		$params = array($name, $key);
+		$params = [$name, $key];
 		$sql = "SELECT * FROM $this->user_table WHERE display_name = $1 AND stream_key = $2 AND stream_key IS NOT null";
 		$query = pg_query_params($this->link, $sql, $params);
 		$row_cnt = pg_num_rows($query);
@@ -40,8 +49,17 @@ class rtmp extends database {
 		}
 	}
 
+	/**
+	 * @param $key
+	 * @param $name
+	 * @param $stream_title
+	 * @param $furl
+	 * @param $logfile
+	 * @param $from_email
+	 * @param $reply_email
+	 */
 	public function onLive($key, $name, $stream_title, $furl, $logfile, $from_email, $reply_email) {
-		$params = array($key);
+		$params = [$key];
 		$sql = "SELECT subscriber FROM $this->sub_table WHERE host_account = (SELECT email FROM $this->user_table WHERE stream_key = $1 LIMIT 1)";
 		$result = pg_query_params($this->link, $sql, $params);
 		$timestamp = date("F j, g:i a");
@@ -50,7 +68,7 @@ class rtmp extends database {
 		while ($row = pg_fetch_assoc($result)) {
 			$subject = $GLOBALS['sitetitle'] . ' - ' . $name . ' went live!';
             $message = $timestamp . "<br /><br />Stream Title: $stream_title<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
-			$headers = array();
+			$headers = [];
 			$headers[] = "MIME-Version: 1.0";
 			$headers[] = "Content-Type: text/html; charset=UTF-8";
 			$headers[] = "From: $from_email";
@@ -66,12 +84,16 @@ class rtmp extends database {
 	/* Stream stuff */
 
 	// Not happy with this, but it works.
+	/**
+	 * @param bool $forceCheck
+	 * @return array
+	 */
 	public function checkStreams($forceCheck = true) {
 		if (!isset($this->rtmpinfo["rtmp"])) {
-			$this->rtmpinfo["rtmp"] = array(
+			$this->rtmpinfo["rtmp"] = [
 				"lastUpdate" => 0,
-				"channels" => array()
-			);
+				"channels" => []
+			];
 		}
 
 		if ($forceCheck || time() - $this->rtmpinfo["rtmp"]["lastUpdate"] > 5) {
@@ -80,9 +102,12 @@ class rtmp extends database {
 		return $this->rtmpinfo;
 	}
 
+	/**
+	 * @return array
+	 */
 	private function fetchChannels() {
 		$this->rtmpinfo["rtmp"]["lastUpdate"] = time();
-		$this->rtmpinfo["rtmp"]["channels"] = array();
+		$this->rtmpinfo["rtmp"]["channels"] = [];
 		$surl = $_SERVER['HTTP_HOST'];
 		$rtmp = json_decode(json_encode((array) simplexml_load_file($GLOBALS['furl'] . '/stat.xml')), TRUE);
 		$live = null;
@@ -120,6 +145,10 @@ class rtmp extends database {
 		return $this->rtmpinfo;
 	}
 
+	/**
+	 * @param $channelName
+	 * @return bool
+	 */
 	private static function isRecordingChannel($channelName) {
 		return (count(glob("/var/tmp/rec/" . $channelName . "*.flv")) > 0);
 	}

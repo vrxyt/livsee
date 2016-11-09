@@ -2,7 +2,7 @@
 	<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top mdl-cell--stretch">
 		<?php
 		if (count($rtmpinfo["rtmp"]["channels"]) > 0) {
-			$channels = array();
+			$channels = [];
 			foreach ($rtmpinfo["rtmp"]["channels"] as $channelName => $skey) {
 				$channels[$channelName] = $skey;
 				$screenshotThumbFilename = 'thumb_' . $channelName . '.png';
@@ -14,7 +14,7 @@
 				} else {
 					$channels[$channelName]["screenshot"] = '/img/no-preview.jpg';
 				}
-				$mediainfo = array();
+				$mediainfo = [];
 				$channels[$channelName]["mediainfo"] = $mediainfo;
 			}
 			?>

@@ -4,8 +4,7 @@
   border-radius: 2px;
   height: $label-height;
   padding: $label-padding;
-  margin: 0;
-  margin-left: auto;
+  margin: 0 0 0 auto;
   font-size: 12px;
   @include typo-label();
   &--mini {

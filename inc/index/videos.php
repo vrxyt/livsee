@@ -15,7 +15,7 @@
 						$screenshot = 'img/no-preview.jpg';
 					}
 
-					$mediainfo = array();
+					$mediainfo = [];
 					try {
 						$mediainfo = mediainfo::fetchVideo($video);
 

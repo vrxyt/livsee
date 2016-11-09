@@ -1,4 +1,4 @@
-<div class="mdl-card mdl-shadow--2dp employer-form" style="width: 700px">
+<div class="mdl-card mdl-shadow--2dp employer-form" style="width: 700px;">
 	<div class="mdl-card__title">
 		<span class="mdl-color-text--cyan-500">How to Configure OBS Studio</span>
 	</div>

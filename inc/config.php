@@ -41,4 +41,4 @@ $admin_account = 'fenrirthviti@gmail.com'; // this is a terrible way to do this,
 // Sets the from/reply email address for notification emails. Edit as needed, following the proper "DisplayName <email@address.com>" syntax. Display name is optional
 $from_email = $sitetitle . ' <noreply@rirnef.net>';
 $reply_email = 'issues@rirnef.net';
-$bcc_email = $sitetitle . ' Admin <' . $admin_account .'>';
+$bcc_email = $sitetitle . ' Admin <' . $admin_account . '>';

@@ -77,8 +77,8 @@
     width: 100%;
     display: block;
     content: " ";
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
     position: absolute;
     background: $tab-highlight-color;
     animation: border-expand 0.2s cubic-bezier(0.4, 0.0, 0.4, 1) 0.01s alternate forwards;
@@ -90,8 +90,8 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    left: 0px;
-    top: 0px;
+    left: 0;
+    top: 0;
     z-index: 1;
     overflow: hidden;
 

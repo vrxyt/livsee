@@ -3792,7 +3792,7 @@ var SeekBar = function (_Slider) {
 
     // Don't let video end while scrubbing.
     if (newTime === this.player_.duration()) {
-      newTime = newTime - 0.1;
+      newTime -= 0.1;
     }
 
     // Set new time (tell player to seek to new time)
@@ -11333,7 +11333,7 @@ var Slider = function (_Component) {
     var attributes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     // Add the slider element class to all sub classes
-    props.className = props.className + ' vjs-slider';
+    props.className += ' vjs-slider';
     props = (0, _object2['default'])({
       tabIndex: 0
     }, props);

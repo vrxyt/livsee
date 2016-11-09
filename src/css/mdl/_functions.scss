@@ -27,8 +27,8 @@
  */
 @function rgba-tpl($color, $alpha) {
   @if type-of($color) == color {
-    @return rgba($color, $alpha);
+	@return rgba($color, $alpha);
   } @else {
-    @return unquote("rgba(#{$color}, #{$alpha})");
+	@return unquote("rgba(#{$color}, #{$alpha})");
   }
 }

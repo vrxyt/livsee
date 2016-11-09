@@ -31,6 +31,11 @@ $email = filter_var($_SESSION['authenticated'], FILTER_VALIDATE_EMAIL);
 $accountinfo = $user->info($email);
 
 // functions to convert raw bytes/bits to something more readable for stream info
+/**
+ * @param $bites
+ * @param int $decimals
+ * @return string
+ */
 function bitsConvert($bites, $decimals = 2)
 {
     $sz = 'BKMGTP';
@@ -38,6 +43,11 @@ function bitsConvert($bites, $decimals = 2)
     return sprintf("%.{$decimals}f", $bites / pow(1000, $factor)) . @$sz[$factor];
 }
 
+/**
+ * @param $bytes
+ * @param int $decimals
+ * @return string
+ */
 function bytesConvert($bytes, $decimals = 2)
 {
     $sz = 'BKMGTP';
@@ -271,8 +281,8 @@ if ($page === 'download') {
     <?php } ?>
 
     <?php if (!empty($streamkey)) { ?>
-    videojs('streamPlayer').persistvolume({namespace: "Rachni-Volume-Control"});
     var streamPlayer = videojs("streamPlayer");
+    streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
     this.popoutPlayer = function () {
         streamPlayer.pause();
         window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
@@ -282,7 +292,7 @@ if ($page === 'download') {
 
         // Now the issue is that we need to hide it again if we start playing
         // So every time we do this, we can create a one-time listener for play events.
-        video.one('play', function () {
+        streamPlayer.one('play', function () {
             this.bigPlayButton.hide();
         });
     });

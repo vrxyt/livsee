@@ -12,6 +12,9 @@ if ($debug === true) {
 session_start();
 
 //includes
+/**
+ * @param $class
+ */
 function __autoload($class) {
 	include 'lib/' . $class . '.class.php';
 }

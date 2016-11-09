@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 @import "../variables";
 @import "../mixins";
 
@@ -33,7 +32,7 @@
   padding: 0;
 
   &.is-upgraded {
-    padding-left: $checkbox-button-size + $checkbox-padding;
+	padding-left: $checkbox-button-size + $checkbox-padding;
   }
 }
 
@@ -41,18 +40,18 @@
   line-height: $checkbox-label-height;
 
   .mdl-checkbox.is-upgraded & {
-    // Hide input element, while still making it respond to focus.
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    border: none;
+	// Hide input element, while still making it respond to focus.
+	position: absolute;
+	width: 0;
+	height: 0;
+	margin: 0;
+	padding: 0;
+	opacity: 0;
+	-ms-appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	border: none;
   }
 }
 
@@ -77,13 +76,13 @@
   z-index: 2;
 
   .mdl-checkbox.is-checked & {
-    border: 2px solid $checkbox-color;
+	border: 2px solid $checkbox-color;
   }
 
   fieldset[disabled] .mdl-checkbox &,
   .mdl-checkbox.is-disabled & {
-    border: 2px solid $checkbox-disabled-color;
-    cursor: auto;
+	border: 2px solid $checkbox-disabled-color;
+	cursor: auto;
   }
 }
 
@@ -102,13 +101,13 @@
   background-color: transparent;
 
   .mdl-checkbox.is-focused & {
-    box-shadow: 0 0 0px ($checkbox-button-size / 2) rgba(0, 0, 0, 0.1);
-    background-color: rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 0 ($checkbox-button-size / 2) rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.1);
   }
 
   .mdl-checkbox.is-focused.is-checked & {
-    box-shadow: 0 0 0px ($checkbox-button-size / 2) $checkbox-focus-color;
-    background-color: $checkbox-focus-color;
+	box-shadow: 0 0 0 ($checkbox-button-size / 2) $checkbox-focus-color;
+	background-color: $checkbox-focus-color;
   }
 }
 
@@ -125,12 +124,12 @@
   transition-property: background;
 
   .mdl-checkbox.is-checked & {
-    background: $checkbox-color url("#{$checkbox-image-path}/tick.svg?embed");
+	background: $checkbox-color url("#{$checkbox-image-path}/tick.svg?embed");
   }
 
   fieldset[disabled] .mdl-checkbox.is-checked &,
   .mdl-checkbox.is-checked.is-disabled & {
-    background: $checkbox-disabled-color url("#{$checkbox-image-path}/tick.svg?embed");
+	background: $checkbox-disabled-color url("#{$checkbox-image-path}/tick.svg?embed");
   }
 }
 
@@ -143,8 +142,8 @@
 
   fieldset[disabled] .mdl-checkbox &,
   .mdl-checkbox.is-disabled & {
-    color: $checkbox-disabled-color;
-    cursor: auto;
+	color: $checkbox-disabled-color;
+	cursor: auto;
   }
 }
 
@@ -165,16 +164,16 @@
   -webkit-mask-image: -webkit-radial-gradient(circle, white, black);
 
   & .mdl-ripple {
-    background: $checkbox-color;
+	background: $checkbox-color;
   }
 
   fieldset[disabled] .mdl-checkbox &,
   .mdl-checkbox.is-disabled & {
-    cursor: auto;
+	cursor: auto;
   }
 
   fieldset[disabled] .mdl-checkbox & .mdl-ripple,
   .mdl-checkbox.is-disabled & .mdl-ripple {
-    background: transparent;
+	background: transparent;
   }
 }

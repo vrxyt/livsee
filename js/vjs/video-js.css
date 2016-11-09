@@ -349,7 +349,7 @@ body.vjs-full-window {
   text-align: center;
   width: 300px;
   height: 150px;
-  margin: 0px auto; }
+  margin: 0 auto; }
 
 .vjs-no-js a,
 .vjs-no-js a:visited {
@@ -480,7 +480,7 @@ body.vjs-full-window {
   bottom: 0;
   width: 10em;
   left: -3em;
-  height: 0em;
+  height: 0;
   margin-bottom: 1.5em;
   border-top-color: rgba(43, 51, 63, 0.7); }
 
@@ -618,7 +618,7 @@ body.vjs-full-window {
 .video-js .vjs-control:focus:before,
 .video-js .vjs-control:hover:before,
 .video-js .vjs-control:focus {
-  text-shadow: 0em 0em 1em white; }
+  text-shadow: 0 0 1em white; }
 
 .video-js .vjs-control-text {
   border: 0;
@@ -795,7 +795,7 @@ body.vjs-full-window {
   background-color: rgba(115, 133, 159, 0.5); }
 
 .video-js .vjs-slider:focus {
-  text-shadow: 0em 0em 1em white;
+  text-shadow: 0 0 1em white;
   -webkit-box-shadow: 0 0 1em #fff;
   -moz-box-shadow: 0 0 1em #fff;
   box-shadow: 0 0 1em #fff; }
@@ -1059,7 +1059,7 @@ video::-webkit-media-text-track-display {
 
 .vjs-playback-rate .vjs-menu {
   width: 4em;
-  left: 0em; }
+  left: 0; }
 
 .vjs-error .vjs-error-display .vjs-modal-dialog-content {
   font-size: 1.4em;

@@ -120,9 +120,8 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
       height: 12px;
       box-sizing: border-box;
       border-radius: 50%;
-      background-image: none;
-      background: $range-color;
-      border: none;
+	  background: none;
+	  border: none;
       // -moz-range-thumb doesn't currently support transitions.
     }
 
@@ -135,15 +134,13 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
     }
 
     &:active::-webkit-slider-thumb {
-      background-image: none;
-      background: $range-color;
-      transform: scale(1.5);
+	  background: none;
+	  transform: scale(1.5);
     }
 
     &:active::-moz-range-thumb {
-      background-image: none;
-      background: $range-color;
-      transform: scale(1.5);
+	  background: none;
+	  transform: scale(1.5);
     }
 
     &::-ms-thumb {

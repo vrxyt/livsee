@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class master
+ */
 class master
 {
     public $params;
@@ -7,6 +10,11 @@ class master
     public $surl;
     public $furl;
 
+    /**
+     * master constructor.
+     * @param $key
+     * @param $params
+     */
     public function __construct($key, $params)
     {
         $protocol = $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
@@ -16,6 +24,10 @@ class master
         $this->key = $key;
     }
 
+    /**
+     * @param $string
+     * @return bool
+     */
     public function isJson($string)
     {
         if (!is_string($string)) {

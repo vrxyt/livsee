@@ -24,6 +24,9 @@
  */
 
 require_once '../inc/config.php';
+/**
+ * @param $class
+ */
 function __autoload($class) {
         include '../lib/' . $class . '.class.php';
 }

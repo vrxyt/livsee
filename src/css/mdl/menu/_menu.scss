@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 @import "../variables";
 @import "../mixins";
 
@@ -31,8 +30,8 @@
 
   &.is-visible,
   &.is-animating {
-    z-index: 999;
-    visibility: visible;
+	z-index: 999;
+	visibility: visible;
   }
 }
 
@@ -53,25 +52,25 @@
   @include shadow-2dp();
   will-change: transform;
   transition: transform $menu-expand-duration $animation-curve-default,
-      opacity $menu-fade-duration $animation-curve-default;
+  opacity $menu-fade-duration $animation-curve-default;
   z-index: -1;
 
   .mdl-menu__container.is-visible & {
-    opacity: 1;
-    transform: scale(1);
-    z-index: 999;
+	opacity: 1;
+	transform: scale(1);
+	z-index: 999;
   }
 
   &.mdl-menu--bottom-right {
-    transform-origin: 100% 0;
+	transform-origin: 100% 0;
   }
 
   &.mdl-menu--top-left {
-    transform-origin: 0 100%;
+	transform-origin: 0 100%;
   }
 
   &.mdl-menu--top-right {
-    transform-origin: 100% 100%;
+	transform-origin: 100% 100%;
   }
 }
 
@@ -90,35 +89,35 @@
   z-index: -1;
 
   .mdl-menu__container.is-visible & {
-    opacity: 1;
-    z-index: 999;
+	opacity: 1;
+	z-index: 999;
   }
 
   &.is-animating {
-    transition: opacity $menu-fade-duration $animation-curve-default,
-        clip $menu-expand-duration $animation-curve-default;
+	transition: opacity $menu-fade-duration $animation-curve-default,
+	clip $menu-expand-duration $animation-curve-default;
   }
 
   &.mdl-menu--bottom-right {
-    left: auto;
-    right: 0;
+	left: auto;
+	right: 0;
   }
 
   &.mdl-menu--top-left {
-    top: auto;
-    bottom: 0;
+	top: auto;
+	bottom: 0;
   }
 
   &.mdl-menu--top-right {
-    top: auto;
-    left: auto;
-    bottom: 0;
-    right: 0;
+	top: auto;
+	left: auto;
+	bottom: 0;
+	right: 0;
   }
 
   &.mdl-menu--unaligned {
-    top: auto;
-    left: auto;
+	top: auto;
+	left: auto;
   }
 }
 
@@ -144,56 +143,55 @@
   user-select: none;
 
   .mdl-menu__container.is-visible & {
-    opacity: 1;
+	opacity: 1;
   }
 
   &::-moz-focus-inner {
-    border: 0;
+	border: 0;
   }
 
   &--full-bleed-divider {
-    border-bottom: 1px solid $default-item-divider-color;
+	border-bottom: 1px solid $default-item-divider-color;
   }
 
   &[disabled], &[data-mdl-disabled] {
-    color: $disabled-item-text-color;
-    background-color: transparent;
-    cursor: auto;
+	color: $disabled-item-text-color;
+	background-color: transparent;
+	cursor: auto;
 
-    &:hover {
-      background-color: transparent;
-    }
+	&:hover {
+	  background-color: transparent;
+	}
 
-    &:focus {
-      background-color: transparent;
-    }
+	&:focus {
+	  background-color: transparent;
+	}
 
-    & .mdl-ripple {
-      background: transparent;
-    }
+	& .mdl-ripple {
+	  background: transparent;
+	}
   }
 
   &:hover {
-    background-color: $default-item-hover-bg-color;
+	background-color: $default-item-hover-bg-color;
   }
 
   &:focus {
-    outline: none;
-    background-color: $default-item-focus-bg-color;
+	outline: none;
+	background-color: $default-item-focus-bg-color;
   }
 
   &:active {
-    background-color: $default-item-active-bg-color;
+	background-color: $default-item-active-bg-color;
   }
 }
-
 
 .mdl-menu__item--ripple-container {
   display: block;
   height: 100%;
-  left: 0px;
+  left: 0;
   position: absolute;
-  top: 0px;
+  top: 0;
   width: 100%;
   z-index: 0;
   overflow: hidden;
