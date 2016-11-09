@@ -245,3 +245,9 @@ figure.effect-sarah:hover label {
 .chatbox {
     padding:0 45px 0 20px;
 }
+
+#output a {
+    color: rgb(96, 196, 150);
+    font-size: 14px;
+    text-decoration: none;
+}

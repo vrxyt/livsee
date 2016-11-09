@@ -31,6 +31,10 @@ $(function () {
     var chatbox = $('#output');
     var inputform = $('#chatMessage');
     var lastid = 0;
+    function urlify(text) {
+        var regex = /(https?:\/\/[^\s]+)/g;
+        return text.replace(regex, '<a href="$1">$1</a>')
+    };
     setInterval(function () {
             $.ajax({
                 url: "/api/" + api_key + "/chat/read/" + current_channel,
@@ -48,10 +52,10 @@ $(function () {
                         var formattedDate = date.format('h:i a');
                         if (type === 'SYSTEM') {
                             if (jp_status === 't') {
-                                $('#output').append(" <span style='color: #b3b3b3;'>(" + formattedDate + ')<span style="font-style: italic"> ' + line.sender + ' ' + line.message + '</span></span><br />');
+                                $('#output').append(" <span style='color: #b3b3b3;'>(" + formattedDate + ')<span style="font-style: italic"> ' + line.sender + ' ' + urlify(line.message) + '</span></span><br />');
                             }
                         } else {
-                            $('#output').append('(' + formattedDate + ") <span style='color: #00bcd4; font-weight: bold'>" + line.sender + ':</span> ' + line.message + '<br />');
+                            $('#output').append('(' + formattedDate + ") <span style='color: #00bcd4; font-weight: bold'>" + line.sender + ':</span> ' + urlify(line.message) + '<br />');
                         }
                         //console.log('Line ID: ' + id);
                         //console.log('Last ID: ' + lastid);
