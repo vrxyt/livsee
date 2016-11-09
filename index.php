@@ -249,14 +249,15 @@ if ($page === 'download') {
 </div> <!-- END LAYOUT WRAP -->
 
 <!-- START FOOTER -->
+<script src="/js/vjs/video-js.js"></script>
+<script src="/js/vjs/videojs-persistvolume.js"></script>
+<script src="/js/vjs/videojs-resolution-switcher.js"></script>
+<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/getmdl-select.min.js"></script>
 <script src="/js/material.js"></script>
 <script src="/js/date.format.min.js"></script>
 <script src="/js/rachni.js"></script>
-<script src="/js/vjs/video-js.js"></script>
-<script src="/js/vjs/videojs-resolution-switcher.js"></script>
-<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
 <script src="/js/jqui/jquery-ui.min.js"></script>
 <script type='text/javascript'>
     var api_key = "<?= $accountinfo['api_key'] ?>";
@@ -270,7 +271,7 @@ if ($page === 'download') {
     <?php } ?>
 
     <?php if (!empty($streamkey)) { ?>
-    videojs('streamPlayer').videoJsResolutionSwitcher();
+    videojs('streamPlayer').persistvolume({namespace: "Rachni-Volume-Control"});
     var streamPlayer = videojs("streamPlayer");
     this.popoutPlayer = function () {
         streamPlayer.pause();

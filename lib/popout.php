@@ -62,9 +62,6 @@ if (in_array($subemail, $subarray->subscribed)) {
 		<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-resolution-switcher.css">
 		<link rel="stylesheet" href="/css/application.css">
 		<link rel="stylesheet" href="/css/site.css">
-		<script src="/js/vjs/video-js.js"></script>
-		<script src="/js/vjs/videojs-resolution-switcher.js"></script>
-		<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
 	</head>
 	<body>
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -148,21 +145,22 @@ if (in_array($subemail, $subarray->subscribed)) {
 						<!--<source src="//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8" type="application/x-mpegurl" label='HLS'/>-->
 						<source src="rtmp://<?= $surl ?>/live/<?= $streamkey ?>" type="rtmp/flv" label='Flash'/>
 					</video>
-					<script>
-						videojs('popoutPlayer').videoJsResolutionSwitcher();
-					</script>
 				</div>
 
 			</main>
 		</div>
-		<script type='text/javascript'>
-			var api_key = "<?= $accountinfo['api_key'] ?>";
-			<?php if (!empty($streamkey)) { ?> var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>"; <?php } ?>
-		</script>
+		<script src="/js/vjs/video-js.js"></script>
+		<script src="/js/vjs/videojs-persistvolume.js"></script>
+		<script src="/js/vjs/videojs-resolution-switcher.js"></script>
+		<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/rachni.js"></script>
 		<script src="/js/material.js"></script>
-		<script>
+		<script type='text/javascript'>
+			videojs('popoutPlayer').persistvolume({namespace: "Rachni-Volume-Control"});
+			videojs('popoutPlayer').videoJsResolutionSwitcher();
+			var api_key = "<?= $accountinfo['api_key'] ?>";
+			<?php if (!empty($streamkey)) { ?> var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>"; <?php } ?>
 			function closepopoutPlayer() {
 				window.open("<?= $furl ?>/channels");
 				window.close();
