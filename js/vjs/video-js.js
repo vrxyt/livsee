@@ -11796,7 +11796,7 @@ var Flash = function (_Tech) {
     if (!options.swf) {
       var ver = '5.1.0';
 
-      options.swf = '//vjs.zencdn.net/swf/' + ver + '/video-js.swf';
+      options.swf = '/js/vjs/video-js.swf';
     }
 
     // Generate ID for swf object
