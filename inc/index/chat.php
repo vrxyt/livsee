@@ -1,7 +1,7 @@
 <div class="mdl-grid mdl-grid fill">
 	<div class="mdl-cell mdl-card mdl-shadow--2dp employer-form" style="width: 75%;">
 		<div class="mdl-card__title">
-			<span class="mdl-color-text--cyan-500">Channel Chat</span>
+			<span class="mdl-color-text--cyan-500">Global Chat Channel</span>
 		</div>
 
 		<div class="mdl-card__supporting-text full-height">
