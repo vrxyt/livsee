@@ -167,7 +167,7 @@ $(function () {
 				} else {
 					console.log(result);
 					button.text('Subscribe');
-					button.css("background-color", "");
+					button.css('background-color', '');
 					var data = {
 						message: 'Unsubscribed from ' + stream_key + '.',
 						timeout: 5000
@@ -188,7 +188,7 @@ $(function () {
 				} else {
 					console.log(result);
 					button.text('Unsubscribe');
-					button.css("background-color", "#00bcd4");
+					button.css('background-color', '#00bcd4');
 					var data = {
 						message: 'Subscribed to ' + stream_key + '!',
 						timeout: 5000
