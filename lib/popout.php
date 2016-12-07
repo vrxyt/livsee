@@ -60,6 +60,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-resolution-switcher.css">
+		<link rel="stylesheet" type="text/css" href="/js/vjs/video-js-skin.css">
 		<link rel="stylesheet" href="/css/application.css">
 		<link rel="stylesheet" href="/css/site.css">
 	</head>
