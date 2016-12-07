@@ -154,8 +154,7 @@ $(function () {
 // sub button functions
 	'use strict';
 	var snackbarContainer = document.querySelector('#subToast');
-	var showToastButton = document.querySelector('#subButton');
-	showToastButton.addEventListener('click', function () {
+	$('#subButton').click(function() {
 		var button = $(this);
 		var channel = $(this).attr('channel');
 		var action = $(this).text();
@@ -168,7 +167,7 @@ $(function () {
 				} else {
 					console.log(result);
 					button.text('Subscribe');
-					showToastButton.style.backgroundColor = '';
+					button.css("background-color", "");
 					var data = {
 						message: 'Unsubscribed from ' + stream_key + '.',
 						timeout: 5000
@@ -189,7 +188,7 @@ $(function () {
 				} else {
 					console.log(result);
 					button.text('Unsubscribe');
-					showToastButton.style.backgroundColor = '#00bcd4';
+					button.css("background-color", "#00bcd4");
 					var data = {
 						message: 'Subscribed to ' + stream_key + '!',
 						timeout: 5000
