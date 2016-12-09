@@ -151,7 +151,7 @@ $(function () {
 		}
 	});
 
-// sub button functions
+	// sub button functions
 	'use strict';
 	var snackbarContainer = document.querySelector('#subToast');
 	$('#subButton').click(function() {

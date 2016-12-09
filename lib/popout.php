@@ -59,7 +59,8 @@ if (in_array($subemail, $subarray->subscribed)) {
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
-		<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-resolution-switcher.css">
+		<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-qualityselector.css">
+		<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-chromecast.css">
 		<link rel="stylesheet" type="text/css" href="/js/vjs/video-js-skin.css">
 		<link rel="stylesheet" href="/css/application.css">
 		<link rel="stylesheet" href="/css/site.css">
@@ -150,16 +151,32 @@ if (in_array($subemail, $subarray->subscribed)) {
 
 			</main>
 		</div>
-		<script src="/js/vjs/video-js.js"></script>
+		<script src="/js/vjs/video.js"></script>
+		<script src="/js/vjs/videojs-qualityselector.min.js.js"></script>
 		<script src="/js/vjs/videojs-persistvolume.js"></script>
-		<script src="/js/vjs/videojs-resolution-switcher.js"></script>
-		<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
+		<script src="/js/vjs/videojs-contrib-hls.js"></script>
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/rachni.js"></script>
 		<script src="/js/material.js"></script>
 		<script type='text/javascript'>
-			videojs('popoutPlayer').persistvolume({namespace: "Rachni-Volume-Control"});
-			videojs('popoutPlayer').videoJsResolutionSwitcher();
+			var popoutPlayer = videojs('popoutPlayer');
+			popoutPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+			popoutPlayer.qualityselector({
+				sources: [
+					{ format: 'FLV', src: 'rtmp://<?= $surl ?>/live/<?= $streamkey ?>', type: 'rtmp/flv'},
+					{ format: 'HLS', src: '//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8', type: 'application/x-mpegurl'},
+
+				],
+				formats: [
+					{ code: 'FLV', name: 'FLV' },
+					{ code: 'HLS', name: 'HLS' },
+
+				],
+
+				onFormatSelected: function(format) {
+					console.log(format);
+				}
+			});
 			var api_key = "<?= $accountinfo['api_key'] ?>";
 			<?php if (!empty($streamkey)) { ?> var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>"; <?php } ?>
 			function closepopoutPlayer() {
