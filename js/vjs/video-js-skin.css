@@ -89,3 +89,8 @@
 	/* Otherwise we'll rely on stacked opacities */
 	background: rgba(116, 116, 116, 0.75);
 }
+
+.vjs-paused .vjs-big-play-button,
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+	display: block;
+}
