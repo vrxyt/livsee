@@ -14,6 +14,7 @@ CREATE TABLE users
   display_name text,
   profile_img text,
   api_key text,
+  chat_jp_settings text,
   CONSTRAINT plk_email PRIMARY KEY (email)
 )
 WITH (
