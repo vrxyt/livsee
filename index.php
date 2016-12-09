@@ -110,7 +110,9 @@ if ($page === 'download') {
           type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
-    <link rel="stylesheet" type="text/css" href="/js/vjs/videojs-resolution-switcher.css">
+	<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-qualityselector.css">
+	<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-chromecast.css">
+	<link rel="stylesheet" type="text/css" href="/js/vjs/video-js-skin.css">
     <link rel="stylesheet" href="/css/application.css">
     <link rel="stylesheet" href="/css/site.css">
     <link rel="stylesheet" href="/js/jqui/jquery-ui.min.css">
@@ -259,16 +261,18 @@ if ($page === 'download') {
 </div> <!-- END LAYOUT WRAP -->
 
 <!-- START FOOTER -->
-<script src="/js/vjs/video-js.js"></script>
-<script src="/js/vjs/videojs-persistvolume.js"></script>
-<script src="/js/vjs/videojs-resolution-switcher.js"></script>
-<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/getmdl-select.min.js"></script>
 <script src="/js/material.js"></script>
-<script src="/js/date.format.min.js"></script>
-<script src="/js/rachni.js"></script>
+<script src="/js/getmdl-select.min.js"></script>
+<script src="/js/jquery.min.js"></script>
 <script src="/js/jqui/jquery-ui.min.js"></script>
+<script src="/js/date.format.min.js"></script>
+<script src="/js/vjs/video.js"></script>
+<script src="/js/vjs/videojs-qualityselector.min.js"></script>
+<script src="/js/vjs/videojs-persistvolume.js"></script>
+<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
+<script src="/js/vjs/videojs-persistvolume.js"></script>
+<script src="/js/rachni.js"></script>
+
 <script type='text/javascript'>
     var api_key = "<?= $accountinfo['api_key'] ?>";
     var display_name = "<?= $accountinfo['display_name'] ?>";
@@ -283,19 +287,26 @@ if ($page === 'download') {
     <?php if (!empty($streamkey)) { ?>
     var streamPlayer = videojs("streamPlayer");
     streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+    streamPlayer.qualityselector({
+	    sources: [
+		    { format: 'FLV', src: 'rtmp://<?= $surl ?>/live/<?= $streamkey ?>', type: 'rtmp/flv'},
+		    { format: 'HLS', src: '//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8', type: 'application/x-mpegurl'},
+
+	    ],
+	    formats: [
+		    { code: 'FLV', name: 'FLV' },
+		    { code: 'HLS', name: 'HLS' },
+
+	    ],
+
+	    onFormatSelected: function(format) {
+		    console.log(format);
+	    }
+    });
     this.popoutPlayer = function () {
         streamPlayer.pause();
         window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
     };
-    streamPlayer.on('pause', function () {
-        this.bigPlayButton.show();
-
-        // Now the issue is that we need to hide it again if we start playing
-        // So every time we do this, we can create a one-time listener for play events.
-        streamPlayer.one('play', function () {
-            this.bigPlayButton.hide();
-        });
-    });
 
     <?php } ?>
 </script>
