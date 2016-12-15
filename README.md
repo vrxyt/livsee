@@ -25,6 +25,7 @@ Planned features:
 
 Config information:
   - This site uses (and requires): 
+    - Linux. I'm using the exec function in a few directives, which does not work on windows. You can probably get around this, but I do not intend to run this on windows so I have not tested. Any flavor of linux that offers the below packages should be fine.
     - NGINX with nginx-rtmp-module, http-ssl-module, and http_xslt_module
     - postgresql
     - PHP7 (I believe it should run on PHP5.4+, but I have not tested)
