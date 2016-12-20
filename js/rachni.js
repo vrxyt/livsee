@@ -9,7 +9,7 @@ $(function () {
 
 	/** CHAT FUNCTIONS **/
 
-	//Chatbox show/hide
+	// Chatbox show/hide
 	$("#toggleChat").click(function () {
 		$("#channelchat").animate({width: 'toggle'});
 		$("#videoBox").toggleClass('mdl-cell--9-col mdl-cell--12-col', 1000, "easeInOutQuad", function () {
@@ -25,7 +25,6 @@ $(function () {
 		});
 	}
 
-
 	// Leave request sent on page unload
 	$(window).on('beforeunload', function () {
 		if (ischat === true) {
@@ -35,7 +34,7 @@ $(function () {
 			});
 		}
 	});
-	
+
 	// Simple regex for identifying URLs in the chat.
 	function urlify(text) {
 		let regex = /(https?:\/\/[^\s]+)/g;
@@ -44,8 +43,8 @@ $(function () {
 
 	// Check for new messages every 500ms and output to chatbox
 	setInterval(function () {
-		let chatbox = $('#output');
-		let lastid = 0;
+			let chatbox = $('#output');
+			let lastid = 0;
 			$.ajax({
 				url: "/api/" + api_key + "/chat/read/" + current_channel,
 				dataType: 'json'
@@ -76,6 +75,8 @@ $(function () {
 		},
 		500
 	);
+
+	// Capture the input box so that enter submits a message instead of newline, but still allow for shift+enter
 	$("#inputMessage").keypress(function (e) {
 		if (e.which == 13 && !e.shiftKey) {
 			$(this).closest("form").submit();
@@ -83,6 +84,8 @@ $(function () {
 			return false;
 		}
 	});
+
+	// Submit message to chat API
 	$('#chatMessage').submit(function (event) {
 		const data = {
 			'message': $('#inputMessage').val(),
@@ -103,7 +106,7 @@ $(function () {
 
 	/** CHANNEL FUNCTIONS **/
 
-	// Get current recording status and set button state
+	// Get current recording status and set record button state
 	setInterval(function () {
 		if (!pauseHeartbeat) {
 			heartbeatXHR = $.getJSON('/api/' + api_key + '/stream/ping', function (info) {
@@ -125,7 +128,7 @@ $(function () {
 		}
 	}, 500);
 
-// Record/Stop Recording on button click
+	// Recording start/stop on icon button click
 	$('.record-button').click(function () {
 		let channel = $(this).parent('label').parent('td').parent('tr').attr('channel');
 		let icon = $(this).next('i');
@@ -154,8 +157,7 @@ $(function () {
 		}
 	});
 
-	// sub button functions
-
+	// Subscribe button functions
 	$('#subButton').click(function () {
 		let snackbarContainer = document.querySelector('#subToast');
 		let button = $(this);
