@@ -150,7 +150,7 @@ class rtmp extends database {
 	 * @return bool
 	 */
 	private static function isRecordingChannel($channelName) {
-		return (count(glob("/var/tmp/rec/" . $channelName . "*.flv")) > 0);
+		return (count(glob("/var/rachni/rec/" . $channelName . "-*.flv")) > 0);
 	}
 
 }
