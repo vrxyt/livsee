@@ -72,6 +72,7 @@ class user extends database
 	 */
 	public function login($email, $password)
 	{
+		session_regenerate_id();
 		$params = [$email];
 		$sql = "SELECT * FROM $this->user_table WHERE email = $1";
 		$result = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
@@ -129,7 +130,7 @@ class user extends database
 	 * @return bool|string
 	 * @throws Exception
 	 */
-	public function register($email, $password, $displayname, $furl)
+	public function register($email, $password, $displayname)
 	{
 		$emailcheck = $this->emailcheck($email);
 		if ($emailcheck === true) {
@@ -369,6 +370,21 @@ class user extends database
 			} else {
 				$status = 'Updated!';
 			}
+		}
+		return $status;
+	}
+
+	public function avatarUpdate($email, $path)
+	{
+		$sql = "UPDATE $this->user_table SET profile_img = $2 WHERE email = $1";
+		$params = [$email, $path];
+		$result = pg_query_params($this->link, $sql, $params);
+		if ($result === false) {
+			$message = 'Error in: class:user | function:avatarUpdate';
+			$code = 1;
+			throw new Exception($message, $code);
+		} else {
+			$status = 'Updated!';
 		}
 		return $status;
 	}
