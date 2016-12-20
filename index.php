@@ -4,19 +4,19 @@ include 'inc/config.php';
 
 // enable if error reporting is on
 if ($debug === true) {
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+	error_reporting(E_ALL);
+	ini_set('display_errors', 1);
 }
 
 // class includes
 spl_autoload_register(function ($class) {
-    if ($class !== 'index') {
-        if ($class !== 'index' && file_exists('api/' . strtolower($class) . '.php')) {
-            include 'api/' . strtolower($class) . '.php';
-        } elseif (file_exists('lib/' . strtolower($class) . '.class.php')) {
-            include 'lib/' . strtolower($class) . '.class.php';
-        }
-    }
+	if ($class !== 'index') {
+		if ($class !== 'index' && file_exists('api/' . strtolower($class) . '.php')) {
+			include 'api/' . strtolower($class) . '.php';
+		} elseif (file_exists('lib/' . strtolower($class) . '.class.php')) {
+			include 'lib/' . strtolower($class) . '.class.php';
+		}
+	}
 });
 
 // verify we're logged in
@@ -38,9 +38,9 @@ $accountinfo = $user->info($email);
  */
 function bitsConvert($bites, $decimals = 2)
 {
-    $sz = 'BKMGTP';
-    $factor = floor((strlen($bites) - 1) / 3);
-    return sprintf("%.{$decimals}f", $bites / pow(1000, $factor)) . @$sz[$factor];
+	$sz = 'BKMGTP';
+	$factor = floor((strlen($bites) - 1) / 3);
+	return sprintf("%.{$decimals}f", $bites / pow(1000, $factor)) . @$sz[$factor];
 }
 
 /**
@@ -50,9 +50,9 @@ function bitsConvert($bites, $decimals = 2)
  */
 function bytesConvert($bytes, $decimals = 2)
 {
-    $sz = 'BKMGTP';
-    $factor = floor((strlen($bytes) - 1) / 3);
-    return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
+	$sz = 'BKMGTP';
+	$factor = floor((strlen($bytes) - 1) / 3);
+	return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
 }
 
 // Check if we're trying to watch a video or stream
@@ -65,250 +65,240 @@ $uriVars = explode('/', $request, 4);
 // watch a video or stream
 $page = $uriVars[0];
 if ($page === 'watch') {
-    $streamkey = $uriVars[1];
-    $subemail = $user->updateStreamkey($streamkey, 'email');
-    // Set up data for checking subscription status
-    $sub = new subscription($accountinfo['api_key'], $streamkey);
-    $list = $sub->_list();
-    $subarray = json_decode($list);
-    if (in_array($subemail, $subarray->subscribed)) {
-        $substatus = 'Unsubscribe';
-        $subcolor = 'style="background-color: rgb(0, 188, 212)"';
-    } else {
-        $substatus = 'Subscribe';
-        $subcolor = '';
-    }
+	$streamkey = $uriVars[1];
+	$subemail = $user->updateStreamkey($streamkey, 'email');
+	// Set up data for checking subscription status
+	$sub = new subscription($accountinfo['api_key'], $streamkey);
+	$list = $sub->_list();
+	$subarray = json_decode($list);
+	if (in_array($subemail, $subarray->subscribed)) {
+		$substatus = 'Unsubscribe';
+		$subcolor = 'style="background-color: rgb(0, 188, 212)"';
+	} else {
+		$substatus = 'Subscribe';
+		$subcolor = '';
+	}
 }
 if ($page === 'video') {
-    $video = $uriVars[1];
+	$video = $uriVars[1];
 }
 if ($page === 'download') {
-    $download = filter_var($uriVars[1], FILTER_SANITIZE_STRING);
-    $file = "/var/tmp/rec/" . $download;
-    if (file_exists($file)) {
-        $size = filesize("./" . basename($file));
-        header("Content-Transfer-Encoding: binary");
-        header("Content-Length: " . $size);
-        header("Content-Disposition: attachment; filename=\"" . basename($file) . "\"");
-        header("Expires: 0");
-        header("Cache-Control: no-cache, must-revalidate");
-        header("Pragma: no-cache");
-        readfile($file);
-        exit();
-    }
+	$download = filter_var($uriVars[1], FILTER_SANITIZE_STRING);
+	$file = "/var/tmp/rec/" . $download;
+	if (file_exists($file)) {
+		$size = filesize("./" . basename($file));
+		header("Content-Transfer-Encoding: binary");
+		header("Content-Length: " . $size);
+		header("Content-Disposition: attachment; filename=\"" . basename($file) . "\"");
+		header("Expires: 0");
+		header("Cache-Control: no-cache, must-revalidate");
+		header("Pragma: no-cache");
+		readfile($file);
+		exit();
+	}
 }
 ?>
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $sitetitle ?> Site</title>
-    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
-          type='text/css'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><?= $sitetitle ?> Site</title>
+	<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
+		  type='text/css'>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
 	<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-qualityselector.css">
-	<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-chromecast.css">
 	<link rel="stylesheet" type="text/css" href="/js/vjs/video-js-skin.css">
-    <link rel="stylesheet" href="/css/application.css">
-    <link rel="stylesheet" href="/css/site.css">
-    <link rel="stylesheet" href="/js/jqui/jquery-ui.min.css">
+	<link rel="stylesheet" href="/css/application.css">
+	<link rel="stylesheet" href="/css/site.css">
+	<link rel="stylesheet" href="/js/jqui/jquery-ui.min.css">
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header"><!-- START LAYOUT WRAP -->
-    <!-- START NAV HEADER -->
-    <header class="mdl-layout__header">
-        <div class="mdl-layout__header-row">
-            <div class="mdl-layout-spacer"></div>
+	<!-- START NAV HEADER -->
+	<header class="mdl-layout__header">
+		<div class="mdl-layout__header-row">
+			<div class="mdl-layout-spacer"></div>
 
-            <?php if (!empty($streamkey)) { ?>
-                <a class="mdl-navigation__link force_link" onclick="popoutPlayer()">
-                    <i class="material-icons" role="presentation">video_label</i>
-                    Switch to Popout Player
-                </a>
-                <a class="mdl-navigation__link" id="toggleChat" href="#">
-                    <i class="material-icons" role="presentation">chat</i>
-                    Show/Hide Chat
-                </a>
-            <?php } ?>
+			<?php if (!empty($streamkey)) { ?>
+				<a class="mdl-navigation__link force_link" onclick="popoutPlayer()">
+					<i class="material-icons" role="presentation">video_label</i>
+					Switch to Popout Player
+				</a>
+				<a class="mdl-navigation__link" id="toggleChat" href="#">
+					<i class="material-icons" role="presentation">chat</i>
+					Show/Hide Chat
+				</a>
+			<?php } ?>
 
-            <div class="avatar-dropdown" id="icon">
-                <span><?= $accountinfo['display_name'] ?></span>
-                <img src="<?= $accountinfo['profile_img'] ?>">
-            </div>
+			<div class="avatar-dropdown" id="icon">
+				<span><?= $accountinfo['display_name'] ?></span>
+				<img src="<?= $accountinfo['profile_img'] ?>">
+			</div>
 
-            <ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-shadow--2dp account-dropdown"
-                for="icon">
-                <li class="mdl-list__item mdl-list__item--two-line">
+			<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-shadow--2dp account-dropdown"
+				for="icon">
+				<li class="mdl-list__item mdl-list__item--two-line">
 							<span class="mdl-list__item-primary-content">
 								<img class="material-icons mdl-list__item-avatar"
-                                     src="<?= $accountinfo['profile_img'] ?>">
+									 src="<?= $accountinfo['profile_img'] ?>">
 								<span><?= $accountinfo['display_name'] ?></span>
 								<span class="mdl-list__item-sub-title"><?= $accountinfo['email'] ?></span>
 							</span>
-                </li>
+				</li>
 
-                <li class="list__item--border-top"></li>
+				<li class="list__item--border-top"></li>
 
-                <li class="mdl-list__item mdl-list__item--two-line">
+				<li class="mdl-list__item mdl-list__item--two-line">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">vpn_key</i>
 								<span>Stream Key</span>
 								<span class="mdl-list__item-sub-title"><?= $accountinfo['stream_key']; ?></span>
 							</span>
-                </li>
+				</li>
 
-                <li class="list__item--border-top"></li>
+				<li class="list__item--border-top"></li>
 
-                <a href="/settings" class="mdl-menu__item mdl-list__item">
+				<a href="/settings" class="mdl-menu__item mdl-list__item">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">settings</i>
 								Settings
 							</span>
-                </a>
-                <a href="?action=logout" class="mdl-menu__item mdl-list__item">
+				</a>
+				<a href="?action=logout" class="mdl-menu__item mdl-list__item">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon text-color--secondary">exit_to_app</i>
 								Log out
 							</span>
-                </a>
-            </ul>
-        </div>
-    </header>
-    <!-- END NAV HEADER -->
+				</a>
+			</ul>
+		</div>
+	</header>
+	<!-- END NAV HEADER -->
 
-    <!-- START NAV DRAWER -->
-    <div class="mdl-layout__drawer">
-        <header class="dm-logo-header"><?= $sitetitle ?></header>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link<?php
-            if ($page === 'channels' || (empty($page) && empty($streamkey))) {
-                echo ' mdl-navigation__link--current';
-            }
-            ?>" href="/channels">
-                <i class="material-icons" role="presentation">videogame_asset</i>
-                Live channels
-            </a>
-            <a class="mdl-navigation__link<?php
-            if ($page === 'videos') {
-                echo ' mdl-navigation__link--current';
-            }
-            ?>" href="/videos">
-                <i class="material-icons" role="presentation">video_library</i>
-                Videos
-            </a>
-            <a class="mdl-navigation__link<?php
-            if ($page === 'chat') {
-                echo ' mdl-navigation__link--current';
-            }
-            ?>" href="/chat">
-                <i class="material-icons" role="presentation">chat</i>
-                Global Chat
-            </a>
-            <?php if (!empty($streamkey)) { ?>
-                <a class="mdl-navigation__link mdl-navigation__link--current mdl-typography--text-nowrap-ellipsis"
-                   href="/watch/<?= $streamkey; ?>">
-                    <i class="material-icons" role="presentation">visibility</i>
-                    Watching: <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>
-                </a>
+	<!-- START NAV DRAWER -->
+	<div class="mdl-layout__drawer">
+		<header class="dm-logo-header"><?= $sitetitle ?></header>
+		<nav class="mdl-navigation">
+			<a class="mdl-navigation__link<?php
+			if ($page === 'channels' || (empty($page) && empty($streamkey))) {
+				echo ' mdl-navigation__link--current';
+			}
+			?>" href="/channels">
+				<i class="material-icons" role="presentation">videogame_asset</i>
+				Live channels
+			</a>
+			<a class="mdl-navigation__link<?php
+			if ($page === 'videos') {
+				echo ' mdl-navigation__link--current';
+			}
+			?>" href="/videos">
+				<i class="material-icons" role="presentation">video_library</i>
+				Videos
+			</a>
+			<a class="mdl-navigation__link<?php
+			if ($page === 'chat') {
+				echo ' mdl-navigation__link--current';
+			}
+			?>" href="/chat">
+				<i class="material-icons" role="presentation">chat</i>
+				Global Chat
+			</a>
+			<?php if (!empty($streamkey)) { ?>
+				<a class="mdl-navigation__link mdl-navigation__link--current mdl-typography--text-nowrap-ellipsis"
+				   href="/watch/<?= $streamkey; ?>">
+					<i class="material-icons" role="presentation">visibility</i>
+					Watching: <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>
+				</a>
 
-                <button id="subButton" class="mdl-button mdl-js-button mdl-button--raised" channel="<?= $streamkey; ?>"
-                        type="button" <?= $subcolor ?>><?= $substatus ?></button>
-                <div id="subToast" class="mdl-js-snackbar mdl-snackbar">
-                    <div class="mdl-snackbar__text"></div>
-                    <button class="mdl-snackbar__action" type="button"></button>
-                </div>
-            <?php } else { ?>
-                <a class="mdl-navigation__link" href="/">
-                    <i class="material-icons" role="presentation">visibility</i>
-                    Watching: N/A
-                </a>
-            <?php } ?>
-            <div class="mdl-layout-spacer"></div>
-            <a class="mdl-navigation__link" target="_blank" href="https://github.com/Fenrirthviti/">
-                <i class="material-icons" role="presentation">link</i>
-                GitHub
-            </a>
-        </nav>
-    </div>
-    <!-- END NAV DRAWER-->
+				<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised" channel="<?= $streamkey; ?>"
+						type="button" <?= $subcolor ?>><?= $substatus ?></button>
+				<div id="subToast" class="mdl-js-snackbar mdl-snackbar">
+					<div class="mdl-snackbar__text"></div>
+					<button class="mdl-snackbar__action" type="button"></button>
+				</div>
+			<?php } else { ?>
+				<a class="mdl-navigation__link" href="/">
+					<i class="material-icons" role="presentation">visibility</i>
+					Watching: N/A
+				</a>
+			<?php } ?>
+			<div class="mdl-layout-spacer"></div>
+			<a class="mdl-navigation__link" target="_blank" href="https://github.com/Fenrirthviti/">
+				<i class="material-icons" role="presentation">link</i>
+				GitHub
+			</a>
+		</nav>
+	</div>
+	<!-- END NAV DRAWER-->
 
-    <!-- START CONTENT PAGE -->
-    <main class="mdl-layout__content">
+	<!-- START CONTENT PAGE -->
+	<main class="mdl-layout__content">
 
-        <?php
-        // Load the appropriate page, but only if it exists
-        // and checking first if trying to watch a stream or play a video
-        if (!empty($streamkey)) {
-            include 'inc/index/streamplayer.php';
-        } elseif (!empty($video)) {
-            include 'inc/index/videoplayer.php';
-        } elseif (file_exists('inc/index/' . $page . '.php') === true) {
-            include 'inc/index/' . $page . '.php';
-        } elseif (empty($page) || ($page === 'index.php')) {
-            include 'inc/index/channels.php';
-        } else {
-            include 'inc/404.php';
-        }
-        ?>
+		<?php
+		// Load the appropriate page, but only if it exists
+		// and checking first if trying to watch a stream or play a video
+		if (!empty($streamkey)) {
+			include 'inc/index/streamplayer.php';
+		} elseif (!empty($video)) {
+			include 'inc/index/videoplayer.php';
+		} elseif (file_exists('inc/index/' . $page . '.php') === true) {
+			include 'inc/index/' . $page . '.php';
+		} elseif (empty($page) || ($page === 'index.php')) {
+			include 'inc/index/channels.php';
+		} else {
+			include 'inc/404.php';
+		}
+		?>
 
-    </main>
-    <!-- END CONTENT PAGE-->
+	</main>
+	<!-- END CONTENT PAGE-->
 
 </div> <!-- END LAYOUT WRAP -->
 
 <!-- START FOOTER -->
+<script src="/js/date.format.min.js"></script>
 <script src="/js/material.js"></script>
 <script src="/js/getmdl-select.min.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jqui/jquery-ui.min.js"></script>
-<script src="/js/date.format.min.js"></script>
-<script src="/js/vjs/video.js"></script>
-<script src="/js/vjs/videojs-qualityselector.min.js"></script>
+<script src="/js/vjs/videojs-5.14.1.js"></script>
 <script src="/js/vjs/videojs-persistvolume.js"></script>
 <script src="/js/vjs/videojs-contrib-hls.min.js"></script>
-<script src="/js/vjs/videojs-persistvolume.js"></script>
 <script src="/js/rachni.js"></script>
 
+
 <script type='text/javascript'>
-    var api_key = "<?= $accountinfo['api_key'] ?>";
-    var display_name = "<?= $accountinfo['display_name'] ?>";
-    var jp_status = "<?= $accountinfo['chat_jp_setting'] ?>";
-    <?php if (!empty($streamkey)) { ?>
-    var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>";
-    var current_channel = '<?= $streamkey; ?>';
-    <?php } else { ?>
-    var current_channel = 'GlobalChatChannel';
-    <?php } ?>
+	var api_key = "<?= $accountinfo['api_key'] ?>";
+	var display_name = "<?= $accountinfo['display_name'] ?>";
+	var jp_status = "<?= $accountinfo['chat_jp_setting'] ?>";
+	<?php if (!empty($streamkey)) { ?>
+	var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>";
+	var current_channel = '<?= $streamkey; ?>';
+	<?php } else { ?>
+	var current_channel = 'GlobalChatChannel';
+	<?php } ?>
 
-    <?php if (!empty($streamkey)) { ?>
-    var streamPlayer = videojs("streamPlayer");
-    streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
-    streamPlayer.qualityselector({
-	    sources: [
-		    { format: 'FLV', src: 'rtmp://<?= $surl ?>/live/<?= $streamkey ?>', type: 'rtmp/flv'},
-		    { format: 'HLS', src: '//<?= $surl ?>/hls/<?= $streamkey ?>.m3u8', type: 'application/x-mpegurl'},
+	<?php if (!empty($streamkey)) { ?>
+	var streamPlayer = videojs('streamPlayer', {
+		techOrder: ['flash'],
+		aspectRatio: '16:9',
+		sources: [{
+			src: 'rtmp://<?= $surl ?>/live/<?= $streamkey ?>',
+			type: 'rtmp/flv',
+			label: 'Flash'
+		}],
+	});
+	streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+	this.popoutPlayer = function () {
+		streamPlayer.pause();
+		window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
+	};
 
-	    ],
-	    formats: [
-		    { code: 'FLV', name: 'FLV' },
-		    { code: 'HLS', name: 'HLS' },
-
-	    ],
-
-	    onFormatSelected: function(format) {
-		    console.log(format);
-	    }
-    });
-    this.popoutPlayer = function () {
-        streamPlayer.pause();
-        window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
-    };
-
-    <?php } ?>
+	<?php } ?>
 </script>
 </body>
 </html>
