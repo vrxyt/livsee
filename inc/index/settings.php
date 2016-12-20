@@ -156,3 +156,4 @@ if (!empty($_POST)) {
 		<?php } ?>
 	</div>
 </div>
+<script> var ischat = false;</script>

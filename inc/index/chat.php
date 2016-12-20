@@ -34,3 +34,4 @@
 		</form>
 	</div>
 </div>
+<script> var ischat = true;</script>

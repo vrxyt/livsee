@@ -31,3 +31,4 @@
 		</div>
 	</div>
 </div>
+<script> var ischat = false;</script>
