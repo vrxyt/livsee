@@ -24,21 +24,21 @@ $protocol = $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
 $surl = $_SERVER['HTTP_HOST'];
 $furl = $protocol . $surl;
 
-// sets the site log file location. Can be changed to anything you want.
+// sets the site log and VOD file locations. Can be changed to anything you want.
 $logfile = '/var/log/rachni/';
-$site_recpath = '/var/tmp/rec/'; // path to saved recordings
+$site_recpath = '/var/rachni/rec/';
 
 // enable/disable registration. TODO - Move this to the database
 $reg_open = false;
 
-// title at the top of the page.
-$sitetitle = "DM Stream"; // max 16 characters
+// Title at the top left of the page.
+$sitetitle = "Rachni Stream"; // max 16 characters
 
 // Email settings
-$sitesubtitle = "Len's Streaming Site"; // currently only used for email template
-$admin_account = 'fenrirthviti@gmail.com'; // this is a terrible way to do this, will fix.
+$sitesubtitle = "Rachni Streaming Site"; // currently only used for email template
+$admin_account = 'changeme@exmaple.com'; // this is a terrible way to do this, will fix.
 
 // Sets the from/reply email address for notification emails. Edit as needed, following the proper "DisplayName <email@address.com>" syntax. Display name is optional
-$from_email = $sitetitle . ' <noreply@rirnef.net>';
-$reply_email = 'issues@rirnef.net';
+$from_email = $sitetitle . ' <changeme@exmaple.com>';
+$reply_email = 'changeme@exmaple.com';
 $bcc_email = $sitetitle . ' Admin <' . $admin_account . '>';
