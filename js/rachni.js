@@ -52,7 +52,7 @@ $(function () {
 			}).done(function (getLines) {
 				let scrollHeight = chatbox.prop('scrollHeight') - chatbox.height();
 				$.each(getLines, function (id, line) {
-					let id = parseInt(line.id, 10);
+					id = parseInt(line.id, 10);
 					let type = line.type;
 					if (lastid < id) {
 						let unixTimeStamp = line.timestamp;
