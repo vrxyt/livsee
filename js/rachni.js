@@ -3,8 +3,17 @@
  */
 
 $(function () {
+	var chatbox = $('#output');
+	var inputform = $('#chatMessage');
+	var lastid = 0;
+	var pauseHeartbeat = false;
+	var heartbeatXHR;
+	var snackbarContainer = document.querySelector('#subToast');
+	var recIconName = $('.record-button').eq(0).next('i').text();
 
-	//test chatbox show/hide
+	/** CHAT FUNCTIONS **/
+
+	//Chatbox show/hide
 	$("#toggleChat").click(function () {
 		$("#channelchat").animate({width: 'toggle'});
 		$("#videoBox").toggleClass('mdl-cell--9-col mdl-cell--12-col', 1000, "easeInOutQuad", function () {
@@ -12,31 +21,32 @@ $(function () {
 		});
 	});
 
-	/** CHAT FUNCTIONS **/
-
-	// Join
-	$.ajax({
-		url: "/api/" + api_key + "/chat/join/" + current_channel,
-		dataType: 'json'
-	});
-
-	// Leave
-	$(window).on('beforeunload', function () {
+	// Join request sent on page load, but only if chat is present on the page.
+	if (ischat === true) {
 		$.ajax({
-			url: "/api/" + api_key + "/chat/leave/" + current_channel,
+			url: "/api/" + api_key + "/chat/join/" + current_channel,
 			dataType: 'json'
 		});
+	}
+
+
+	// Leave request sent on page unload
+	$(window).on('beforeunload', function () {
+		if (ischat === true) {
+			$.ajax({
+				url: "/api/" + api_key + "/chat/leave/" + current_channel,
+				dataType: 'json'
+			});
+		}
 	});
-
-	var chatbox = $('#output');
-	var inputform = $('#chatMessage');
-	var lastid = 0;
-
+	
+	// Simple regex for identifying URLs in the chat.
 	function urlify(text) {
 		var regex = /(https?:\/\/[^\s]+)/g;
 		return text.replace(regex, '<a href="$1">$1</a>')
 	}
 
+	// Check for new messages every 500ms and output to chatbox
 	setInterval(function () {
 			$.ajax({
 				url: "/api/" + api_key + "/chat/read/" + current_channel,
@@ -47,11 +57,11 @@ $(function () {
 					var id = parseInt(line.id, 10);
 					var type = line.type;
 					if (lastid < id) {
-						lastid = id;
 						var unixTimeStamp = line.timestamp;
 						var timestampInMilliSeconds = unixTimeStamp * 1000;
 						var date = new Date(timestampInMilliSeconds);
 						var formattedDate = date.format('h:i a');
+						lastid = id;
 						if (type === 'SYSTEM') {
 							if (jp_status === 't') {
 								chatbox.append(" <span style='color: rgb(179, 179, 179);'>(" + formattedDate + ')<span style="font-style: italic"> ' + line.sender + ' ' + urlify(line.message) + '</span></span><br />');
@@ -76,13 +86,15 @@ $(function () {
 		}
 	});
 	inputform.submit(function (event) {
-		event.preventDefault();
 		var data = {
 			'message': $('#inputMessage').val(),
-			'timestamp': Date.now() / 1000 || 0,
+			'timestamp': Math.round(new Date().getTime() / 1000),
 			'user': display_name,
-			'channel': current_channel
+			'channel': current_channel,
+			'type': 'USER'
 		};
+		console.log('Write Data: ', data);
+		event.preventDefault();
 		$.ajax({
 			type: "POST",
 			url: "/api/" + api_key + "/chat/write/",
@@ -92,15 +104,9 @@ $(function () {
 		$('#inputMessage').val("").parent('div').removeClass('is-dirty');
 	});
 
-
 	/** CHANNEL FUNCTIONS **/
 
-		// Get record button MDL name from HTML
-	var recIconName = $('.record-button').eq(0).next('i').text();
-
-// Get current recording status and set button state
-	var pauseHeartbeat = false;
-	var heartbeatXHR;
+	// Get current recording status and set button state
 	setInterval(function () {
 		if (!pauseHeartbeat) {
 			heartbeatXHR = $.getJSON('/api/' + api_key + '/stream/ping', function (info) {
@@ -124,10 +130,10 @@ $(function () {
 
 // Record/Stop Recording on button click
 	$('.record-button').click(function () {
-		pauseHeartbeat = true;
-		heartbeatXHR.abort();
 		var channel = $(this).parent('label').parent('td').parent('tr').attr('channel');
 		var icon = $(this).next('i');
+		pauseHeartbeat = true;
+		heartbeatXHR.abort();
 		if ($(this).is(':checked')) {
 			icon.text('stop');
 			$.getJSON('/api/' + api_key + '/stream/record-start/' + channel, function (recordingPath) {
@@ -152,9 +158,8 @@ $(function () {
 	});
 
 	// sub button functions
-	'use strict';
-	var snackbarContainer = document.querySelector('#subToast');
-	$('#subButton').click(function() {
+
+	$('#subButton').click(function () {
 		var button = $(this);
 		var channel = $(this).attr('channel');
 		var action = $(this).text();
@@ -165,13 +170,13 @@ $(function () {
 				if (result === false) {
 					console.log('Error unsubscribing');
 				} else {
-					console.log(result);
-					button.text('Subscribe');
-					button.css('background-color', '');
 					var data = {
 						message: 'Unsubscribed from ' + stream_key + '.',
 						timeout: 5000
 					};
+					console.log(result);
+					button.text('Subscribe');
+					button.css('background-color', '');
 					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				}
 			});
@@ -179,20 +184,20 @@ $(function () {
 			console.log('Action = Subscribe');
 			$.getJSON('/api/' + api_key + '/subscription/add/' + channel, function (result) {
 				if (result === false) {
-					console.log('Error subscribing' + result);
 					var data = {
 						message: 'Error subscribing (probably already subscribed)!',
 						timeout: 5000
 					};
+					console.log('Error subscribing' + result);
 					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				} else {
-					console.log(result);
-					button.text('Unsubscribe');
-					button.css('background-color', '#00bcd4');
 					var data = {
 						message: 'Subscribed to ' + stream_key + '!',
 						timeout: 5000
 					};
+					console.log(result);
+					button.text('Unsubscribe');
+					button.css('background-color', '#00bcd4');
 					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				}
 			});
