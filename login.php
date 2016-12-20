@@ -57,7 +57,7 @@ if ($submitted === 'Register') {
 			$status = 'Please enter a valid email address, display name, and a password.';
 		} else {
 			$user = new user();
-			$status = $user->register($email, $password, $displayname, $furl);
+			$status = $user->register($email, $password, $displayname);
 			if ($status === true) {
 				$status = '<br />Account created.<br />Please check your email for verification.<br /><br />Note: Email may be in spam.';
 			}
@@ -262,10 +262,8 @@ if (!empty($uriVars[1])) {
 	</main>
 </div>
 
-<!-- inject:js -->
-<script src="/js/getmdl-select.min.js"></script>
 <script src="/js/material.js"></script>
-<!-- endinject -->
+<script src="/js/getmdl-select.min.js"></script>
 
 </body>
 </html>
