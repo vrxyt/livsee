@@ -3,13 +3,9 @@
  */
 
 $(function () {
-	var chatbox = $('#output');
-	var inputform = $('#chatMessage');
-	var lastid = 0;
-	var pauseHeartbeat = false;
-	var heartbeatXHR;
-	var snackbarContainer = document.querySelector('#subToast');
-	var recIconName = $('.record-button').eq(0).next('i').text();
+	let pauseHeartbeat = false;
+	let heartbeatXHR;
+	let recIconName = $('.record-button').eq(0).next('i').text();
 
 	/** CHAT FUNCTIONS **/
 
@@ -42,25 +38,27 @@ $(function () {
 	
 	// Simple regex for identifying URLs in the chat.
 	function urlify(text) {
-		var regex = /(https?:\/\/[^\s]+)/g;
+		let regex = /(https?:\/\/[^\s]+)/g;
 		return text.replace(regex, '<a href="$1">$1</a>')
 	}
 
 	// Check for new messages every 500ms and output to chatbox
 	setInterval(function () {
+		let chatbox = $('#output');
+		let lastid = 0;
 			$.ajax({
 				url: "/api/" + api_key + "/chat/read/" + current_channel,
 				dataType: 'json'
 			}).done(function (getLines) {
-				var scrollHeight = chatbox.prop('scrollHeight') - chatbox.height();
+				let scrollHeight = chatbox.prop('scrollHeight') - chatbox.height();
 				$.each(getLines, function (id, line) {
-					var id = parseInt(line.id, 10);
-					var type = line.type;
+					let id = parseInt(line.id, 10);
+					let type = line.type;
 					if (lastid < id) {
-						var unixTimeStamp = line.timestamp;
-						var timestampInMilliSeconds = unixTimeStamp * 1000;
-						var date = new Date(timestampInMilliSeconds);
-						var formattedDate = date.format('h:i a');
+						let unixTimeStamp = line.timestamp;
+						let timestampInMilliSeconds = unixTimeStamp * 1000;
+						let date = new Date(timestampInMilliSeconds);
+						let formattedDate = date.format('h:i a');
 						lastid = id;
 						if (type === 'SYSTEM') {
 							if (jp_status === 't') {
@@ -85,8 +83,8 @@ $(function () {
 			return false;
 		}
 	});
-	inputform.submit(function (event) {
-		var data = {
+	$('#chatMessage').submit(function (event) {
+		const data = {
 			'message': $('#inputMessage').val(),
 			'timestamp': Math.round(new Date().getTime() / 1000),
 			'user': display_name,
@@ -110,7 +108,7 @@ $(function () {
 		if (!pauseHeartbeat) {
 			heartbeatXHR = $.getJSON('/api/' + api_key + '/stream/ping', function (info) {
 				$('.record-button').each(function () {
-					var channel = $(this).parent('label').parent('td').parent('tr').attr('channel');
+					let channel = $(this).parent('label').parent('td').parent('tr').attr('channel');
 					if (typeof info[channel] !== 'undefined') {
 						if (info[channel].recording === true && $(this).not(':checked')) {
 							$(this).prop('checked', true);
@@ -129,8 +127,8 @@ $(function () {
 
 // Record/Stop Recording on button click
 	$('.record-button').click(function () {
-		var channel = $(this).parent('label').parent('td').parent('tr').attr('channel');
-		var icon = $(this).next('i');
+		let channel = $(this).parent('label').parent('td').parent('tr').attr('channel');
+		let icon = $(this).next('i');
 		pauseHeartbeat = true;
 		heartbeatXHR.abort();
 		if ($(this).is(':checked')) {
@@ -159,9 +157,10 @@ $(function () {
 	// sub button functions
 
 	$('#subButton').click(function () {
-		var button = $(this);
-		var channel = $(this).attr('channel');
-		var action = $(this).text();
+		let snackbarContainer = document.querySelector('#subToast');
+		let button = $(this);
+		let channel = $(this).attr('channel');
+		let action = $(this).text();
 		'use strict';
 		if (action === 'Unsubscribe') {
 			console.log('Action = Unsubscribe');
@@ -169,7 +168,7 @@ $(function () {
 				if (result === false) {
 					console.log('Error unsubscribing');
 				} else {
-					var data = {
+					const data = {
 						message: 'Unsubscribed from ' + stream_key + '.',
 						timeout: 5000
 					};
@@ -183,14 +182,14 @@ $(function () {
 			console.log('Action = Subscribe');
 			$.getJSON('/api/' + api_key + '/subscription/add/' + channel, function (result) {
 				if (result === false) {
-					var data = {
+					const data = {
 						message: 'Error subscribing (probably already subscribed)!',
 						timeout: 5000
 					};
 					console.log('Error subscribing' + result);
 					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				} else {
-					var data = {
+					const data = {
 						message: 'Subscribed to ' + stream_key + '!',
 						timeout: 5000
 					};
