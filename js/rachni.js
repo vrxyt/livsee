@@ -93,7 +93,6 @@ $(function () {
 			'channel': current_channel,
 			'type': 'USER'
 		};
-		console.log('Write Data: ', data);
 		event.preventDefault();
 		$.ajax({
 			type: "POST",
