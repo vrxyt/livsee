@@ -73,6 +73,7 @@ class chat extends master
 		$timestamp = $timestamp === null ? filter_input(INPUT_POST, 'timestamp', FILTER_SANITIZE_NUMBER_INT) : $timestamp;
 		$user = $user === null ? filter_input(INPUT_POST, 'user', FILTER_SANITIZE_STRING) : $user;
 		$message = $message === null ? filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING) : $message;
+		$type = $type === null ? filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRING) : $type;
 		$params = [$timestamp, $user, $channel, $message, $type];
 		if ($message != null) {
 			$sql = "INSERT INTO " . $this->db->chat_table . " (timestamp, channel_email, sender, message, type) VALUES ($1, (SELECT email FROM " . $this->db->user_table . " WHERE display_name = $3 LIMIT 1), $2, $4, $5)";
