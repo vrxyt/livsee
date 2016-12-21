@@ -5,11 +5,14 @@
 		</div>
 
 		<div class="mdl-card__supporting-text full-height">
-			<div id="output" style="height: 100%;overflow-y: scroll;">
+			<div class="fill">
+				<div id="output" class="fill">
 
+				</div>
 			</div>
 		</div>
 
+		<div class="chatBorder"></div>
 
 		<form action="" method="POST" class="form" id="chatMessage">
 
@@ -34,4 +37,4 @@
 		</form>
 	</div>
 </div>
-<script> var ischat = true;</script>
+<script> var ischat = true; </script>

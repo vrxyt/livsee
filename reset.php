@@ -71,11 +71,9 @@ if ($submitted === 'getCode') {
 			<header class="mdl-layout__header">
 				<div class="mdl-layout__header-row">
 					<div class="mdl-layout-spacer"></div>
-
 					<div class="avatar-dropdown" id="icon">
 						<span>Not Logged In</span>
 					</div>
-
 					<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown"
 						for="icon">
 						<li class="mdl-list__item mdl-list__item--two-line">
@@ -85,7 +83,6 @@ if ($submitted === 'getCode') {
 							</span>
 						</li>
 						<li class="list__item--border-top"></li>
-
 						<a href="#register" class="mdl-menu__item mdl-list__item">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">account_circle</i>
@@ -95,32 +92,27 @@ if ($submitted === 'getCode') {
                     </ul>
 				</div>
 			</header>
-
 			<div class="mdl-layout__drawer">
 				<header><?= $sitetitle ?></header>
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link mdl-navigation__link--current" href="/">
-						<i class="material-icons" role="presentation">person</i>
-						Login - Password Reset
+						<i class="material-icons" role="presentation">arrow_back</i>
+						Back to Login
 					</a>
 				</nav>
 			</div>
-
 			<main class="mdl-layout__content mdl-color--grey-100">
 				<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 					<div class="mdl-card mdl-shadow--2dp employer-form" action="">
+
 						<div class="mdl-card__title-login">
-
 							<div class="mdl-tabs__tab-bar-login">
-								<a href="#reset" class="mdl-tabs__tab is-active">Reset Password</a>
-								<a href="#code" class="mdl-tabs__tab">Get Code</a>
+								<a href="#code" class="mdl-tabs__tab mdl-tabs__tab-half-width is-active">Get Code</a>
+								<a href="#reset" class="mdl-tabs__tab mdl-tabs__tab-half-width">Reset Password</a>
 							</div>
-
 						</div>
 
-
-
-						<div class="mdl-tabs__panel is-active" id="reset">
+						<div class="mdl-tabs__panel" id="reset">
 							<div class="mdl-card__supporting-text">
 								<span>Enter your email, authentication code, and new password below. If you need a code, click on <b>Get Code</b> above</span>
 								<form action="" method="POST" class="form" id="resetForm">
@@ -131,24 +123,19 @@ if ($submitted === 'getCode') {
 												<label class="mdl-textfield__label" for="emailAddress">Email Address</label>
 											</div>
 										</div>
-
 										<div class="mdl-grid">
 											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 												<input class="mdl-textfield__input" type="text" name="authCode" id="authCode" required/>
-												<label class="mdl-textfield__label" for="authCode">Authentication Code</label>
+												<label class="mdl-textfield__label" for="authCode">Password Reset
+													Code</label>
 											</div>
 										</div>
-
 										<div class="mdl-grid">
 											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 												<input class="mdl-textfield__input" type="password" name="password" id="Password" required/>
 												<label class="mdl-textfield__label" for="Password">New Password</label>
 											</div>
 										</div>
-
-
-
-
 										<div class="form__action">
 											<button type="submit" name="Submitted" value="Reset" form="resetForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
 												Reset
@@ -168,9 +155,9 @@ if ($submitted === 'getCode') {
 							</div>
 						</div>
 
-						<div class="mdl-tabs__panel" id="code">
+						<div class="mdl-tabs__panel is-active" id="code">
 							<div class="mdl-card__supporting-text">
-								<span>Enter your email address and click Get Code to be sent a password reset code.</span>
+								<span>Enter your email address and click Get Code to be sent a password reset code. If you already have a code, click on <b>Reset Password</b> above.</span>
 								<form action="" method="POST" class="form" id="codeForm">
 									<div class="form__article">
 										<div class="mdl-grid">

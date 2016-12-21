@@ -11,12 +11,15 @@
             <span class="mdl-color-text--cyan-500">Channel Chat</span>
         </div>
 
-        <div class="mdl-card__supporting-text full-height">
-            <div id="output" style="height: 100%;overflow-y: scroll;">
+		<div class="mdl-card__supporting-text full-height">
+			<div class="fill">
+				<div id="output" class="fill">
 
-            </div>
-        </div>
+				</div>
+			</div>
+		</div>
 
+		<div class="chatBorder"></div>
 
         <form action="" method="POST" class="form" id="chatMessage">
 

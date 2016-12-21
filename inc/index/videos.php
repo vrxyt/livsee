@@ -143,4 +143,9 @@
 	</div>
 </div>
 
-<script> var ischat = false;</script>
+<script>
+	var ischat = false;
+	$(window).load(function () {
+		$("#mainContent").addClass('scrollContent');
+	});
+</script>

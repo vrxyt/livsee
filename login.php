@@ -150,8 +150,8 @@ if (!empty($uriVars[1])) {
 				<div class="mdl-card__title-login">
 
 					<div class="mdl-tabs__tab-bar-login">
-						<a href="#login" class="mdl-tabs__tab is-active">Log In</a>
-						<a href="#register" class="mdl-tabs__tab">Register</a>
+						<a href="#login" class="mdl-tabs__tab mdl-tabs__tab-half-width is-active">Log In</a>
+						<a href="#register" class="mdl-tabs__tab mdl-tabs__tab-half-width">Register</a>
 					</div>
 
 				</div>
