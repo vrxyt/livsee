@@ -1,15 +1,5 @@
 /* Fancy hover effects for channel view */
 
-/*.grid {
-	position: relative;
-	margin: 0 auto;
-	padding: 1em 0 4em;
-	max-width: 1000px;
-	list-style: none;
-	text-align: center;
-}*/
-
-/* Common style */
 .grid figure {
     position: relative;
     overflow: hidden;
@@ -199,9 +189,19 @@ figure.effect-sarah:hover label {
     height: calc(100vh - 64px);
 }
 
+.chatBorder {
+	border: rgb(0, 188, 212) 1px solid;
+	width: 96%;
+	margin: auto;
+}
+
 .mdl-content__full-height {
     width: 100%;
     height: calc(100vh - 64px);
+}
+
+.mdl-content__settings {
+	width: 100%;
 }
 
 .mdl-typography--text-nowrap-ellipsis {
