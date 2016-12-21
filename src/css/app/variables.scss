@@ -3,7 +3,7 @@ $image_path: '../img';
 
 /* ==========  Color & Themes  ========== */
 $color-primary: 0, 188, 212;
-$color-secondary: 255, 82, 82;
+$color-secondary: 255, 64, 129;
 $color-baby-blue: 116, 199, 209;
 $color-cerulean: 80, 150, 215;
 $color-mint: 96, 196, 150;
@@ -22,20 +22,12 @@ $background-color-header: #242424;
 // Default button colors.
 $button-secondary-color: unquote("rgb(#{$color-white})");
 // Colored button colors.
-$button-primary-color-alt: unquote("rgb(#{$color-secondary})");
+$button-primary-color-alt: unquote("rgb(#{$color-primary})");
 // Ripple color for colored raised buttons.
 // Disabled button colors.
 $button-primary-color-disabled: #6b6b6b;
 //background-color:
 $button-secondary-color-disabled: unquote("rgba(#{$color-white}, 0.3)");
-//color:
-// FAB colors and sizes.
-$button-fab-color-alt: unquote("rgb(#{$color-secondary})");
-
-$button-fab-text-color-alt: #ffffff;
-$button-fab-hover-color-alt: #ff4c4c;
-$button-fab-active-color-alt: #f23d3d;
-// Icon button colors and sizes.
 
 /* ==========  Icon Toggles  ========== */
 
