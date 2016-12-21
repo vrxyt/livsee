@@ -9490,7 +9490,6 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
   100% {
     opacity: 1;
     width: 100%; } }
-
 .mdl-tabs__tab {
 	margin: 0;
 	border: none;
@@ -11321,7 +11320,6 @@ main {
 .mdl-textfield--file .mdl-textfield__input {
 	box-sizing: border-box;
 }
-
 .mdl-textfield--file .mdl-button--file {
 	right: 0;
 }
