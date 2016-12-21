@@ -115,7 +115,6 @@ if ($page === 'download') {
 	<link rel="stylesheet" href="/css/application.css">
 	<link rel="stylesheet" href="/css/site.css">
 	<link rel="stylesheet" href="/js/jqui/jquery-ui.min.css">
-	<link rel="stylesheet" href="/js/sb/nanoscroller.css">
 	<link rel="stylesheet" href="/js/sb/jquery.mCustomScrollbar.css">
 	<script src="/js/jquery.min.js"></script>
 	<script src="/js/jqui/jquery-ui.min.js"></script>
@@ -267,7 +266,7 @@ if ($page === 'download') {
 <script src="/js/date.format.min.js"></script>
 <script src="/js/material.js"></script>
 <script src="/js/getmdl-select.min.js"></script>
-<script src="/js/sb/jquery.mCustomScrollbar.js"></script>
+<script src="/js/sb/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="/js/vjs/videojs-5.14.1.js"></script>
 <script src="/js/vjs/videojs-persistvolume.js"></script>
 <script src="/js/vjs/videojs-contrib-hls.min.js"></script>
