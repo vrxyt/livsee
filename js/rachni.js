@@ -7,7 +7,7 @@ $(function () {
 	let heartbeatXHR;
 	let recIconName = $('.record-button').eq(0).next('i').text();
 	let lastid = 0;
-
+	var scrolledPct = 100;
 	/** CHAT FUNCTIONS **/
 
 	// Chatbox show/hide
@@ -44,7 +44,7 @@ $(function () {
 
 	// Check for new messages every 500ms and output to chatbox
 	setInterval(function () {
-			let chatbox = $('#output');
+			let chatbox = $('#output .mCSB_container');
 			$.ajax({
 				url: "/api/" + api_key + "/chat/read/" + current_channel,
 				dataType: 'json'
@@ -62,14 +62,16 @@ $(function () {
 						if (type === 'SYSTEM') {
 							if (jp_status === 't') {
 								chatbox.append(" <span style='color: rgb(179, 179, 179);'>(" + formattedDate + ')<span style="font-style: italic"> ' + line.sender + ' ' + urlify(line.message) + '</span></span><br />');
+
 							}
 						} else {
 							chatbox.append('(' + formattedDate + ") <span style='color: rgb(0, 188, 212); font-weight: bold'>" + line.sender + ':</span> ' + urlify(line.message) + '<br />');
+
 						}
 					}
 				});
-				if (scrollHeight === 0 || chatbox.scrollTop() === scrollHeight) {
-					chatbox.scrollTop(chatbox.prop('scrollHeight'));
+				if (scrolledPct === 100) {
+					$('#output').mCustomScrollbar('scrollTo', 'bottom');
 				}
 			});
 		},
@@ -205,9 +207,29 @@ $(function () {
 	});
 
 	// File upload name update workaround
-	document.getElementById("avatar").onchange = function () {
+	$('#avatar').change(function () {
 		document.getElementById("file").value = this.files[0].name;
-	};
+	});
+
+	//$('.nano').nanoScroller({alwaysVisible: true});
+	$(window).load(function () {
+		$(".scrollContent").mCustomScrollbar({
+			theme: "inset",
+			scrollButtons: {enable: true}
+		});
+	});
+	$("#output").mCustomScrollbar({
+		theme: "inset",
+		scrollButtons: {enable: true},
+		callbacks: {
+			onInit: function () {
+				$("#output").mCustomScrollbar('scrollTo', 'bottom');
+			},
+			whileScrolling: function () {
+				scrolledPct = this.mcs.topPct;
+			},
+		}
+	});
 });
 
 
