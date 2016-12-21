@@ -115,6 +115,10 @@ if ($page === 'download') {
 	<link rel="stylesheet" href="/css/application.css">
 	<link rel="stylesheet" href="/css/site.css">
 	<link rel="stylesheet" href="/js/jqui/jquery-ui.min.css">
+	<link rel="stylesheet" href="/js/sb/nanoscroller.css">
+	<link rel="stylesheet" href="/js/sb/jquery.mCustomScrollbar.css">
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jqui/jquery-ui.min.js"></script>
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header"><!-- START LAYOUT WRAP -->
@@ -236,7 +240,7 @@ if ($page === 'download') {
 	<!-- END NAV DRAWER-->
 
 	<!-- START CONTENT PAGE -->
-	<main class="mdl-layout__content">
+	<main class="mdl-layout__content" id="mainContent">
 
 		<?php
 		// Load the appropriate page, but only if it exists
@@ -263,8 +267,7 @@ if ($page === 'download') {
 <script src="/js/date.format.min.js"></script>
 <script src="/js/material.js"></script>
 <script src="/js/getmdl-select.min.js"></script>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/jqui/jquery-ui.min.js"></script>
+<script src="/js/sb/jquery.mCustomScrollbar.js"></script>
 <script src="/js/vjs/videojs-5.14.1.js"></script>
 <script src="/js/vjs/videojs-persistvolume.js"></script>
 <script src="/js/vjs/videojs-contrib-hls.min.js"></script>
@@ -272,6 +275,7 @@ if ($page === 'download') {
 
 
 <script type='text/javascript'>
+
 	var api_key = "<?= $accountinfo['api_key'] ?>";
 	var display_name = "<?= $accountinfo['display_name'] ?>";
 	var jp_status = "<?= $accountinfo['chat_jp_setting'] ?>";
@@ -285,7 +289,6 @@ if ($page === 'download') {
 	<?php if (!empty($streamkey)) { ?>
 	var streamPlayer = videojs('streamPlayer', {
 		techOrder: ['flash'],
-		aspectRatio: '16:9',
 		sources: [{
 			src: 'rtmp://<?= $surl ?>/live/<?= $streamkey ?>',
 			type: 'rtmp/flv',
@@ -298,6 +301,15 @@ if ($page === 'download') {
 		window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
 	};
 
+	<?php } elseif (!empty($video)) { ?>
+	var videoPlayer = videojs('videoPlayer', {
+		techOrder: ['flash'],
+		sources: [{
+			src: '//<?= $surl ?>/rec/<?= $video ?>',
+			type: 'video/mp4',
+		}],
+	});
+	videoPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
 	<?php } ?>
 </script>
 </body>
