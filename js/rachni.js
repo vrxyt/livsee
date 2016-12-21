@@ -6,6 +6,7 @@ $(function () {
 	let pauseHeartbeat = false;
 	let heartbeatXHR;
 	let recIconName = $('.record-button').eq(0).next('i').text();
+	let lastid = 0;
 
 	/** CHAT FUNCTIONS **/
 
@@ -44,7 +45,6 @@ $(function () {
 	// Check for new messages every 500ms and output to chatbox
 	setInterval(function () {
 			let chatbox = $('#output');
-			let lastid = 0;
 			$.ajax({
 				url: "/api/" + api_key + "/chat/read/" + current_channel,
 				dataType: 'json'
@@ -203,6 +203,11 @@ $(function () {
 			});
 		}
 	});
+
+	// File upload name update workaround
+	document.getElementById("avatar").onchange = function () {
+		document.getElementById("file").value = this.files[0].name;
+	};
 });
 
 
