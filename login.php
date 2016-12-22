@@ -135,7 +135,7 @@ if (!empty($uriVars[1])) {
 	</header>
 
 	<div class="mdl-layout__drawer">
-		<header><?= $sitetitle ?></header>
+		<header class="dm-logo-header"><?= $sitetitle ?></header>
 		<nav class="mdl-navigation">
 			<a class="mdl-navigation__link mdl-navigation__link--current" href="/">
 				<i class="material-icons" role="presentation">person</i>
