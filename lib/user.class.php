@@ -86,7 +86,7 @@ class user extends database
 			if (password_verify($password, $hash)) {
 				$_SESSION['authenticated'] = $email;
 				$_SESSION['api_key'] = $apikey;
-				if ($_POST['rememberMe'] === 'true') {
+				if (isset($_POST['rememberMe']) && $_POST['rememberMe'] === 'true') {
 					setcookie('rememberMe', true, time() + 31000000);
 					setcookie('email', $email, time() + 31000000);
 					setcookie('api_key', $apikey, time() + 31000000);
