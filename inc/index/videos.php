@@ -4,8 +4,8 @@
 			<?php
 			$videos = glob("$site_recpath*.mp4");
 			if (count($videos) > 0) {
-				foreach ($videos as $key => $video) {
-					$file = substr($video, strrpos($video, "/") + 1);
+				foreach ($videos as $key => $eachVideo) {
+					$file = substr($eachVideo, strrpos($eachVideo, "/") + 1);
 					$skey = substr($file, 0, strrpos($file, "-"));
 					$skey = $user->updateStreamkey($skey, 'channel');
 					$timestamp = substr($file, strrpos($file, "-") + 1, -4);
@@ -17,7 +17,7 @@
 
 					$mediainfo = [];
 					try {
-						$mediainfo = mediainfo::fetchVideo($video);
+						$mediainfo = mediainfo::fetchVideo($eachVideo);
 
 						// eval FPS to get rid of fractions:
 						// - 30/1 becomes 30
@@ -39,16 +39,16 @@
 				<div class="mdl-tabs__panel is-active" id="grid-view">
 					<div class="mdl-grid">
 						<?php
-						foreach ($videos as $key => $video) {
+						foreach ($videos as $key => $eachVideo) {
 							echo '
 							<div class="mdl-cell mdl-cell--4-col">
 								<div class="grid">
-									<a href="/video/' . $video["file"] . '">
+									<a href="/video/' . $eachVideo["file"] . '">
 										<figure class="effect-sarah">
-											<img src="' . $video["screenshot"] . '" alt="' . $video["channel"] . '">
+											<img src="' . $eachVideo["screenshot"] . '" alt="' . $eachVideo["channel"] . '">
 											<figcaption>
-												<h2>' . $video['channel'] . '</h2>
-												<p>' . $video['datetime'] . '</p>
+												<h2>' . $eachVideo['channel'] . '</h2>
+												<p>' . $eachVideo['datetime'] . '</p>
 											</figcaption>
 										</figure>
 									</a>
@@ -79,17 +79,17 @@
 								<tbody>
 									<?php
 									$tooltipHtml = '';
-									foreach ($videos as $video) {
+									foreach ($videos as $eachVideo) {
 										$seed = uniqid();
 										echo '
 										<tr>
-											<td class="mdl-data-table__cell--non-numeric">' . $video["channel"] . '</td>
-											<td class="mdl-data-table__cell--non-numeric">' . date("Y-m-d H:i:s", $video["timestamp"]) . '</td>
-											<td>' . date("H:i:s", $video["mediainfo"]["format"]["duration"]) . '</td>
-											<td class="mdl-data-table__cell--non-numeric" id="stream-detail-' . $seed . '">' . $video["mediainfo"]["streams"][0]["height"] . 'p@' . $video["mediainfo"]["streams"][0]["r_frame_rate"] . 'fps</td>
-											<td>' . bytesConvert($video["mediainfo"]["format"]["size"]) . 'B</td>
-											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/download/' . $video["file"] . '"><i class="material-icons">file_download</i></a></td>
-											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/video/' . $video["file"] . '"><i class="material-icons">play_circle_filled</i></a></td>
+											<td class="mdl-data-table__cell--non-numeric">' . $eachVideo["channel"] . '</td>
+											<td class="mdl-data-table__cell--non-numeric">' . date("Y-m-d H:i:s", $eachVideo["timestamp"]) . '</td>
+											<td>' . date("H:i:s", $eachVideo["mediainfo"]["format"]["duration"]) . '</td>
+											<td class="mdl-data-table__cell--non-numeric" id="stream-detail-' . $seed . '">' . $eachVideo["mediainfo"]["streams"][0]["height"] . 'p@' . $eachVideo["mediainfo"]["streams"][0]["r_frame_rate"] . 'fps</td>
+											<td>' . bytesConvert($eachVideo["mediainfo"]["format"]["size"]) . 'B</td>
+											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/download/' . $eachVideo["file"] . '"><i class="material-icons">file_download</i></a></td>
+											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/video/' . $eachVideo["file"] . '"><i class="material-icons">play_circle_filled</i></a></td>
 										</tr>
 										';
 										
@@ -97,18 +97,18 @@
 											<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
 												<p>Video</p>
 												<ul class="mdl-list">
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][0]["codec_name"] . ' ' . $video["mediainfo"]["streams"][0]["profile"] . '</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][0]["bit_rate"]) . 'b/s</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $video["mediainfo"]["streams"][0]["width"] . '*' . $video["mediainfo"]["streams"][0]["height"] . '</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $video["mediainfo"]["streams"][0]["r_frame_rate"] . ' fps</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $eachVideo["mediainfo"]["streams"][0]["codec_name"] . ' ' . $eachVideo["mediainfo"]["streams"][0]["profile"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($eachVideo["mediainfo"]["streams"][0]["bit_rate"]) . 'b/s</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $eachVideo["mediainfo"]["streams"][0]["width"] . '*' . $eachVideo["mediainfo"]["streams"][0]["height"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $eachVideo["mediainfo"]["streams"][0]["r_frame_rate"] . ' fps</li>
 												</ul>
 												<br />
 												<p>Audio</p>
 												<ul class="mdl-list">
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $video["mediainfo"]["streams"][1]["codec_name"] . '</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($video["mediainfo"]["streams"][1]["bit_rate"]) . 'b/s</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $video["mediainfo"]["streams"][1]["sample_rate"] . ' Hz</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $video["mediainfo"]["streams"][1]["channels"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $eachVideo["mediainfo"]["streams"][1]["codec_name"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($eachVideo["mediainfo"]["streams"][1]["bit_rate"]) . 'b/s</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $eachVideo["mediainfo"]["streams"][1]["sample_rate"] . ' Hz</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $eachVideo["mediainfo"]["streams"][1]["channels"] . '</li>
 												</ul>
 											</div>
 										';
