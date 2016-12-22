@@ -9389,7 +9389,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 
 .mdl-tabs__settings {
 	display: block;
-	width: 100vw;
+	width: 100%;
 }
 
 .mdl-tabs__tab-bar {
@@ -9409,7 +9409,7 @@ _:-ms-input-placeholder, :root .mdl-slider.mdl-slider.is-upgraded {
 	justify-content: center;
 	align-content: space-between;
 	align-items: flex-start;
-	width: 100vw;
+	width: 100%;
 	height: 48px;
 	padding: 0 18px 0 0;
 	margin-bottom: 16px;

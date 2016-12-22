@@ -7,7 +7,7 @@ $(function () {
 	let heartbeatXHR;
 	let recIconName = $('.record-button').eq(0).next('i').text();
 	let lastid = 0;
-	var scrolledPct = 100;
+	var scrolledPct = 0;
 	/** CHAT FUNCTIONS **/
 
 	// Chatbox show/hide

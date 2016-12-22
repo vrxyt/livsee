@@ -30,7 +30,7 @@ if (!empty($_POST['displayname'])) {
 
 
 ?>
-<div class="mdl-grid mdl-grid--no-spacing">
+<div class="mdl-grid mdl-grid--no-spacing fill">
 	<div class="mdl-tabs__settings mdl-js-tabs mdl-js-ripple-effect">
 		<div class="mdl-tabs__tab-bar-settings">
 			<a href="#user" class="mdl-tabs__tab mdl-tabs__tab-settings is-active">User Settings</a>

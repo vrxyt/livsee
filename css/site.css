@@ -186,7 +186,7 @@ figure.effect-sarah:hover label {
 
 .fill-popout {
     width: 100%;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 56px);
 }
 
 .chatBorder {
@@ -197,7 +197,7 @@ figure.effect-sarah:hover label {
 
 .mdl-content__full-height {
     width: 100%;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 56px);
 }
 
 .mdl-content__settings {
