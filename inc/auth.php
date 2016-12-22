@@ -33,21 +33,21 @@ if (!empty($email) && $user->session_check($email) === false) {
 	session_destroy();
 	setcookie('rememberMe', null, -1, '/');
 	setcookie('email', null, -1, '/');
-	if ($refer != '/favicon.ico') {
+	if ($refer != '/img/favicon.ico') {
 		$_SESSION['dest_url'] = $refer;
 	}
 	header("Location: /login");
 }
 
 if (!empty($_SESSION['authenticated']) && $user->session_authenticate($_SESSION['authenticated'], $action) === false) {
-	if ($refer != '/favicon.ico') {
+	if ($refer != '/img/favicon.ico') {
 		$_SESSION['dest_url'] = $refer;
 	}
 	header('Location: /login');
 }
 
 if (empty($_SESSION['authenticated'])) {
-	if ($refer != '/favicon.ico') {
+	if ($refer != '/img/favicon.ico') {
 		$_SESSION['dest_url'] = $refer;
 	}
 	header('Location: /login');
