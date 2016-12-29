@@ -1,4 +1,4 @@
-![Preview Image](http://i.imgur.com/21TkJbb.png)
+![Preview Image](https://pub.rachni.com/img/chrome_2016-12-28_22-38-36.png)
 
 ## Rachni - an nginx-rtmp-module front-end
 
