@@ -7,15 +7,22 @@ $(function () {
 	let heartbeatXHR;
 	let recIconName = $('.record-button').eq(0).next('i').text();
 	let lastid = 0;
+	let toggled = false;
 	var scrolledPct = 0;
+
 	/** CHAT FUNCTIONS **/
 
 	// Chatbox show/hide
 	$("#toggleChat").click(function () {
-		$("#channelchat").animate({width: 'toggle'});
-		$("#videoBox").toggleClass('mdl-cell--9-col mdl-cell--12-col', 1000, "easeInOutQuad", function () {
-			$('#output').scrollTop($('#output').prop('scrollHeight'));
-		});
+		if (toggled) {
+			$('.chat-container').animate({'width': '20%'}, 500);
+			$('.video-container').animate({'width': '80%'}, 500);
+			toggled = false;
+		} else {
+			$('.chat-container').animate({'width': '0%'}, 500);
+			$('.video-container').animate({'width': '100%'}, 500);
+			toggled = true;
+		}
 	});
 
 	// Join request sent on page load, but only if chat is present on the page.
@@ -215,12 +222,13 @@ $(function () {
 	$(window).load(function () {
 		$(".scrollContent").mCustomScrollbar({
 			theme: "inset",
+			scrollInertia: 400,
 			scrollButtons: {enable: true}
 		});
 	});
 	$("#output").mCustomScrollbar({
 		theme: "inset",
-		scrollButtons: {enable: true},
+		scrollInertia: 400,
 		callbacks: {
 			onInit: function () {
 				$("#output").mCustomScrollbar('scrollTo', 'bottom');
