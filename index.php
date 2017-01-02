@@ -272,9 +272,7 @@ if ($page === 'download') {
 <script src="/js/vjs/videojs-contrib-hls.min.js"></script>
 <script src="/js/rachni.js"></script>
 
-
 <script type='text/javascript'>
-
 	var api_key = "<?= $accountinfo['api_key'] ?>";
 	var display_name = "<?= $accountinfo['display_name'] ?>";
 	var jp_status = "<?= $accountinfo['chat_jp_setting'] ?>";
@@ -289,7 +287,7 @@ if ($page === 'download') {
 	var streamPlayer = videojs('streamPlayer', {
 		techOrder: ['flash'],
 		sources: [{
-			src: 'rtmp://<?= $surl ?>/live/<?= $streamkey ?>',
+			src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>',
 			type: 'rtmp/flv',
 			label: 'Flash'
 		}],
@@ -302,13 +300,14 @@ if ($page === 'download') {
 
 	<?php } elseif (!empty($video)) { ?>
 	var videoPlayer = videojs('videoPlayer', {
-		techOrder: ['flash'],
+		techOrder: ['html5'],
 		sources: [{
 			src: '//<?= $surl ?>/rec/<?= $video ?>',
 			type: 'video/mp4',
 		}],
 	});
 	videoPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+
 	<?php } ?>
 </script>
 </body>
