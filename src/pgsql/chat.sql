@@ -16,6 +16,6 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE chat
-  OWNER TO changeme;
+  OWNER TO pg_sql_account_here;
 COMMENT ON COLUMN chat.type IS 'Valid params are USER or SYSTEM currently';
 
