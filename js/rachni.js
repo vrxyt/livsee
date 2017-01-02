@@ -15,12 +15,12 @@ $(function () {
 	// Chatbox show/hide
 	$("#toggleChat").click(function () {
 		if (toggled) {
-			$('.chat-container').animate({'width': '20%'}, 500);
-			$('.video-container').animate({'width': '80%'}, 500);
+			$('.chat-container').stop().animate({'width': '20%'}, 500);
+			$('.video-container').stop().animate({'width': '80%'}, 500);
 			toggled = false;
 		} else {
-			$('.chat-container').animate({'width': '0%'}, 500);
-			$('.video-container').animate({'width': '100%'}, 500);
+			$('.chat-container').stop().animate({'width': '0%'}, 500);
+			$('.video-container').stop().animate({'width': '100%'}, 500);
 			toggled = true;
 		}
 	});
