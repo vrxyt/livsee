@@ -1,23 +1,21 @@
-<div class="mdl-grid mdl-grid--no-spacing">
-	<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top mdl-cell--stretch">
-		<?php
-		if (count($rtmpinfo["rtmp"]["channels"]) > 0) {
-		$channels = [];
-		foreach ($rtmpinfo["rtmp"]["channels"] as $channelName => $skey) {
-			$channels[$channelName] = $skey;
-			$screenshotThumbFilename = 'thumb_' . $channelName . '.png';
-			$channels[$channelName]["screenshot"] = 'profiles/' . $channelName . '/' . $screenshotThumbFilename;
-			if (file_exists($channels[$channelName]["screenshot"])) {
-				$channels[$channelName]["screenshot"] = '/' . $channels[$channelName]["screenshot"];
-			} elseif (file_exists('img/thumbs/' . $screenshotThumbFilename)) {
-				$channels[$channelName]["screenshot"] = '/img/thumbs/' . $screenshotThumbFilename;
-			} else {
-				$channels[$channelName]["screenshot"] = '/img/no-preview.jpg';
-			}
-			$mediainfo = [];
-			$channels[$channelName]["mediainfo"] = $mediainfo;
-		}
-		?>
+<?php
+if (count($rtmpinfo["rtmp"]["channels"]) > 0) {
+$channels = [];
+foreach ($rtmpinfo["rtmp"]["channels"] as $channelName => $skey) {
+	$channels[$channelName] = $skey;
+	$screenshotThumbFilename = 'thumb_' . $channelName . '.png';
+	$channels[$channelName]["screenshot"] = 'profiles/' . $channelName . '/' . $screenshotThumbFilename;
+	if (file_exists($channels[$channelName]["screenshot"])) {
+		$channels[$channelName]["screenshot"] = '/' . $channels[$channelName]["screenshot"];
+	} elseif (file_exists('img/thumbs/' . $screenshotThumbFilename)) {
+		$channels[$channelName]["screenshot"] = '/img/thumbs/' . $screenshotThumbFilename;
+	} else {
+		$channels[$channelName]["screenshot"] = '/img/no-preview.jpg';
+	}
+	$mediainfo = [];
+	$channels[$channelName]["mediainfo"] = $mediainfo;
+}
+?>
 		<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
 			<div class="mdl-tabs__tab-bar">
 				<a href="#grid-view" class="mdl-tabs__tab is-active">Grid View</a>
