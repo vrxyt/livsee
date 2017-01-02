@@ -12412,13 +12412,9 @@ var Flash = function (_Tech) {
    */
 
 
+  // hack to prevent error on load. Unsure what this will break.
   Flash.prototype.buffered = function buffered() {
-    var ranges = this.el_.vjs_getProperty('buffered');
-
-    if (ranges.length === 0) {
       return (0, _timeRanges.createTimeRange)();
-    }
-    return (0, _timeRanges.createTimeRange)(ranges[0][0], ranges[0][1]);
   };
 
   /**
