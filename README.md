@@ -52,7 +52,7 @@ Installation:
     - Copy the config files from /src/nginx to your nginx config directory (default /etc/nginx if you used my config line) and restart nginx
   - Install pgsql and set up your database user.
   - Import the sql files from /src/pgsql to your database. This will set up the two required tables.
-    - Make sure you update line 18 in subscribers.sql, line 19 of chat.sql and line 23 of users.sql to your database user account.
+    - Make sure you update line 18 in subscribers.sql, line 19 of chat.sql, and line 23 of users.sql to your database user account.
   - Edit /lib/database.class.php with your DB info
   - Edit /inc/config.php to your liking
   - Copy everything but /src and /scss to your server. 
