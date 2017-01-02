@@ -155,7 +155,7 @@ class user extends database
 		// edit emailtemplate.php as needed to change desired emails sent out
 		$subject = $GLOBALS['sitetitle'] . ' Account Verification';
 		ob_start();
-		include '/inc/emailtemplate.php';
+		include 'inc/emailtemplate.php';
 		$message = ob_get_contents();
 		ob_end_clean();
 		$headers = [];
