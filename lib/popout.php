@@ -156,13 +156,11 @@ if (in_array($subemail, $subarray->subscribed)) {
 <script src="/js/vjs/videojs-5.14.1.js"></script>
 <script src="/js/vjs/videojs-persistvolume.js"></script>
 <script src="/js/vjs/videojs-contrib-hls.min.js"></script>
-<script src="/js/rachni.js"></script>
 <script type='text/javascript'>
 	var popoutPlayer = videojs('popoutPlayer', {
 		techOrder: ['flash'],
-		aspectRatio: '16:9',
 		sources: [{
-			src: 'rtmp://<?= $surl ?>/live/<?= $streamkey ?>',
+			src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>',
 			type: 'rtmp/flv',
 			label: 'Flash'
 		}],
@@ -174,6 +172,51 @@ if (in_array($subemail, $subarray->subscribed)) {
 		window.open("<?= $furl ?>/channels");
 		window.close();
 	}
+	$('#subButton').click(function () {
+		let snackbarContainer = document.querySelector('#subToast');
+		let button = $(this);
+		let channel = $(this).attr('channel');
+		let action = $(this).text();
+		'use strict';
+		if (action === 'Unsubscribe') {
+			console.log('Action = Unsubscribe');
+			$.getJSON('/api/' + api_key + '/subscription/remove/' + channel, function (result) {
+				if (result === false) {
+					console.log('Error unsubscribing');
+				} else {
+					const data = {
+						message: 'Unsubscribed from ' + stream_key + '.',
+						timeout: 5000
+					};
+					console.log(result);
+					button.text('Subscribe');
+					button.css('background-color', '');
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
+				}
+			});
+		} else if (action === 'Subscribe') {
+			console.log('Action = Subscribe');
+			$.getJSON('/api/' + api_key + '/subscription/add/' + channel, function (result) {
+				if (result === false) {
+					const data = {
+						message: 'Error subscribing (probably already subscribed)!',
+						timeout: 5000
+					};
+					console.log('Error subscribing' + result);
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
+				} else {
+					const data = {
+						message: 'Subscribed to ' + stream_key + '!',
+						timeout: 5000
+					};
+					console.log(result);
+					button.text('Unsubscribe');
+					button.css('background-color', '#00bcd4');
+					snackbarContainer.MaterialSnackbar.showSnackbar(data);
+				}
+			});
+		}
+	});
 </script>
 </body>
 </html>
