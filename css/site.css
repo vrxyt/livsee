@@ -266,6 +266,11 @@ figure.effect-sarah:hover label {
 
 .chatbox {
 	padding: 0 45px 0 20px;
+	width: 100%;
+}
+
+.chatbox .mdl-textfield {
+	width: 85%;
 }
 
 #output a {
