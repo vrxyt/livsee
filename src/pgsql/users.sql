@@ -4,17 +4,17 @@
 
 CREATE TABLE users
 (
-  email text NOT NULL,
-  password text,
-  auth_code text,
-  verified integer,
-  channel_name text,
-  channel_title text,
-  stream_key character(10),
-  display_name text,
-  profile_img text,
-  api_key text,
-  chat_jp_settings text,
+  email           text NOT NULL,
+  password        text,
+  auth_code       text,
+  verified        integer,
+  channel_name    text,
+  channel_title   text,
+  stream_key      character(10),
+  display_name    text,
+  profile_img     text,
+  api_key         text,
+  chat_jp_setting TEXT,
   CONSTRAINT plk_email PRIMARY KEY (email)
 )
 WITH (
