@@ -23,8 +23,13 @@
 						// - 30/1 becomes 30
 						// - 2997/100 becomes 29.97
 
-						eval('$mediainfo["streams"][0]["r_frame_rate"] = ' . $mediainfo["streams"][0]["r_frame_rate"] . ';');
-					} catch (Exception $e) {
+						if (isset($mediainfo["streams"][0]["r_frame_rate"])) {
+							eval('$mediainfo["streams"][0]["r_frame_rate"] = ' . $mediainfo["streams"][0]["r_frame_rate"] . ';');
+						} else {
+							$mediainfo["streams"][0]["r_frame_rate"] = 'n/a';
+						}
+					} catch
+					(Exception $e) {
 						print 'Cauth Exception with message ' . $e->getMessage();
 					}
 
@@ -59,29 +64,30 @@
 						?>
 
 
-					</div></div>
+					</div>
+				</div>
 				<div class="mdl-tabs__panel" id="list-view">
 					<div class="mdl-grid">
 						<div class="mdl-cell mdl-cell--4-col"></div>
 						<div class="mdl-cell mdl-cell--4-col">
 							<table class="mdl-data-table mdl-js-data-table full-width">
 								<thead>
-									<tr>
-										<th class="mdl-data-table__cell--non-numeric">Channel</th>
-										<th class="mdl-data-table__cell--non-numeric">Date</th>
-										<th class="mdl-data-table__cell--non-numeric">Duration</th>
-										<th class="mdl-data-table__cell--non-numeric">Definition</th>
-										<th class="mdl-data-table__cell--non-numeric">Size</th>
-										<th class="mdl-data-table__cell--non-numeric">Download</th>
-										<th class="mdl-data-table__cell--non-numeric">Play</th>
-									</tr>
+								<tr>
+									<th class="mdl-data-table__cell--non-numeric">Channel</th>
+									<th class="mdl-data-table__cell--non-numeric">Date</th>
+									<th class="mdl-data-table__cell--non-numeric">Duration</th>
+									<th class="mdl-data-table__cell--non-numeric">Definition</th>
+									<th class="mdl-data-table__cell--non-numeric">Size</th>
+									<th class="mdl-data-table__cell--non-numeric">Download</th>
+									<th class="mdl-data-table__cell--non-numeric">Play</th>
+								</tr>
 								</thead>
 								<tbody>
-									<?php
-									$tooltipHtml = '';
-									foreach ($videos as $eachVideo) {
-										$seed = uniqid();
-										echo '
+								<?php
+								$tooltipHtml = '';
+								foreach ($videos as $eachVideo) {
+									$seed = uniqid();
+									echo '
 										<tr>
 											<td class="mdl-data-table__cell--non-numeric">' . $eachVideo["channel"] . '</td>
 											<td class="mdl-data-table__cell--non-numeric">' . date("Y-m-d H:i:s", $eachVideo["timestamp"]) . '</td>
@@ -92,8 +98,8 @@
 											<td class="mdl-data-table__cell--non-numeric mdl-typography--text-center"><a href="/video/' . $eachVideo["file"] . '"><i class="material-icons">play_circle_filled</i></a></td>
 										</tr>
 										';
-										
-										$tooltipHtml .= '
+
+									$tooltipHtml .= '
 											<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
 												<p>Video</p>
 												<ul class="mdl-list">
@@ -112,8 +118,8 @@
 												</ul>
 											</div>
 										';
-									}
-									?>
+								}
+								?>
 								</tbody>
 							</table>
 							<?= $tooltipHtml; ?>
@@ -122,7 +128,7 @@
 					</div>
 				</div>
 				<?php
-				} else {
+			} else {
 				?>
 				<div class="mdl-card mdl-shadow--2dp full-height">
 					<div class="mdl-card__title mdl-card--expand">
@@ -132,7 +138,8 @@
 						There are currently no recorded videos. Check back later, maybe someone will record something!
 					</div>
 					<div class="mdl-card__actions mdl-card--border">
-						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"href="/videos"><i class="material-icons">refresh</i> Refresh</a>
+						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/videos"><i
+									class="material-icons">refresh</i> Refresh</a>
 						</a>
 					</div>
 				</div>
