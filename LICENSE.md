@@ -1,4 +1,4 @@
-##Rachni Steam Site (my code) is licensed under:
+## Rachni Steam Site (my code) is licensed under:
 
 The MIT License (MIT)
 
@@ -22,7 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-##material-dashboard-lite is licensed under:
+## material-dashboard-lite is licensed under:
 
 The MIT License (MIT)
 
@@ -46,7 +46,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-##MDL is licensed under:
+## MDL is licensed under:
 
                                  Apache License
                            Version 2.0, January 2004
@@ -260,7 +260,7 @@ SOFTWARE.
    user has full ownership and control over such content, including
    whether and how they wish to license it.
 
-##video.js is licensed under:
+## video.js is licensed under:
 
 Copyright Brightcove, Inc.
 
@@ -277,7 +277,7 @@ Copyright Brightcove, Inc.
    limitations under the License.
 
 
-##malihu-custom-scrollbar-plugin is licensed under:
+## malihu-custom-scrollbar-plugin is licensed under:
 
 ﻿The MIT License (MIT)
 
@@ -301,7 +301,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-##date.format is licensed under:
+## date.format is licensed under:
 
 ﻿The MIT License (MIT)
 
