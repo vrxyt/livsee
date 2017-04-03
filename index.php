@@ -138,6 +138,10 @@ if ($page === 'download') {
 					<i class="material-icons" role="presentation">chat</i>
 					Show/Hide Chat
 				</a>
+				<a class="mdl-navigation__link force_link" onclick="resetPlayer()">
+					<i class="material-icons" role="presentation">video_label</i>
+					Reset Player
+				</a>
 			<?php } ?>
 
 			<div class="avatar-dropdown" id="icon">
@@ -299,6 +303,11 @@ if ($page === 'download') {
 	this.popoutPlayer = function () {
 		streamPlayer.pause();
 		window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
+	};
+	this.resetPlayer = function () {
+		streamPlayer.reset();
+		streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+		streamPlayer.src({type: 'rtmp/flv', src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>'});
 	};
 
 	<?php } elseif (!empty($video)) { ?>
