@@ -16,6 +16,10 @@
  *
  */
 
+//check if the user is an admin
+$admincheck = $user->admincheck($accountinfo['email']);
+
+
 // run account info update if data was posted
 if (!empty($_POST['displayname'])) {
 	$channelname = filter_input(INPUT_POST, 'channelname', FILTER_SANITIZE_STRING);
@@ -36,7 +40,7 @@ if (!empty($_POST['displayname'])) {
 			<a href="#user" class="mdl-tabs__tab mdl-tabs__tab-settings is-active">User Settings</a>
 			<a href="#profile" class="mdl-tabs__tab mdl-tabs__tab-settings">Profile Settings</a>
 			<?php
-			if ($accountinfo['email'] === $admin_account) {
+			if ($admincheck === true) {
 				echo '<a href="#admin" class="mdl-tabs__tab mdl-tabs__tab-settings">Admin</a>';
 			}
 			?>
@@ -189,8 +193,10 @@ if (!empty($_POST['displayname'])) {
 				</div>
 			</div>
 		</div>
-		<?php if ($accountinfo['email'] === $admin_account) {
-			$results = $user->admindata($accountinfo['email']) ?>
+		<?php
+		if ($admincheck === true) {
+			$results = $user->admindata($accountinfo['email']);
+			?>
 			<div class="mdl-tabs__panel" id="admin">
 				<div class="mdl-content__settings">
 					<div class="mdl-grid">
@@ -208,9 +214,10 @@ if (!empty($_POST['displayname'])) {
 								</thead>
 								<tbody>
 								<?php foreach ($results as $row): ?>
-									<tr>
-										<?php foreach ($row as $cell): ?>
-											<td class="mdl-data-table__cell--non-numeric"><?= $cell ?></td>
+									<tr data-row-id="<?= $row['email']; ?>">
+										<?php foreach ($row as $column => $value): ?>
+											<td data-column-id="<?= $column ?>"
+												class="mdl-data-table__cell--non-numeric is-editable"><?= $value ?></td>
 										<?php endforeach; ?>
 									</tr>
 								<?php endforeach; ?>
@@ -227,5 +234,40 @@ if (!empty($_POST['displayname'])) {
 	var ischat = false;
 	$(window).load(function () {
 		$("#mainContent").addClass('scrollContent');
+
+		$('td.is-editable').click(function (e) {
+			if (!$(e.target).hasClass('is-editable')) {
+				return
+			}
+			var cell = $(this);
+			var rowID = $(this).parent('tr').attr('data-row-id');
+			var columnID = $(this).attr('data-column-id');
+			var data = $(this).text();
+			var input = $('<input type="text" value="' + data + '">');
+			$(this).text('');
+			$(this).append(input);
+			input.focus();
+			input.select();
+			input.keyup(function (event) {
+				if (event.which === 13) {
+					console.log('update the thing!');
+					var newData = input.val();
+					$.ajax({
+						method: "POST",
+						url: "/api/" + api_key + "/admin/update",
+						data: {email: rowID, column: columnID, value: newData}
+					})
+						.done(function (msg) {
+							console.log("Data Saved: " + msg);
+						}).fail(function (jqXHR, textStatus, error) {
+						console.log(textStatus, error);
+					});
+					cell.html(newData);
+				} else if (event.which === 27) {
+					console.log("input cancelled");
+					cell.html(data);
+				}
+			});
+		});
 	});
 </script>

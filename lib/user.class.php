@@ -101,6 +101,18 @@ class user extends database
 		return $status;
 	}
 
+	public function admincheck($email)
+	{
+		$params = [$email];
+		$sql = "SELECT is_admin FROM $this->user_table WHERE email = $1";
+		$result = pg_fetch_object(pg_query_params($this->link, $sql, $params));
+		if ($result->is_admin === 't') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	// grab the whole table for the admin display. TODO - make this check a bit more secure that you're an admin.
 	/**
 	 * @param $email
@@ -108,7 +120,8 @@ class user extends database
 	 */
 	public function admindata($email)
 	{
-		if ($email === $GLOBALS['admin_account']) {
+		$admincheck = $this->admincheck($email);
+		if ($admincheck === true) {
 			$sql = "SELECT email, verified, stream_key, api_key, channel_name, display_name FROM $this->user_table";
 			$result = pg_query($this->link, $sql);
 			$array = [];
@@ -144,8 +157,8 @@ class user extends database
 
 		$authcode = bin2hex(random_bytes(32));
 		$hash = password_hash($password, PASSWORD_DEFAULT);
-		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img) VALUES ($1, $2, $7, 0, $3, $4, $5, $6)";
-		$params = [$email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png', $authcode];
+		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img, is_admin) VALUES ($1, $2, $7, 0, $3, $4, $5, $6, $7)";
+		$params = [$email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png', $authcode, 'false'];
 		$result = pg_query_params($this->link, $sql, $params);
 		if ($result === false) {
 			$message = 'Error in: class:user | function:register';
