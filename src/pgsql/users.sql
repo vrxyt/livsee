@@ -15,6 +15,7 @@ CREATE TABLE users
   profile_img     text,
   api_key         text,
   chat_jp_setting TEXT,
+  is_admin        BOOLEAN,
   CONSTRAINT plk_email PRIMARY KEY (email)
 )
 WITH (
