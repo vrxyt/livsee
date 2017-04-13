@@ -25,7 +25,7 @@ if (window.jQuery) {
 			}
 		});
 
-		/** Join request sent on page load, but only if chat is present on the page.
+		// Join request sent on page load, but only if chat is present on the page.
 		 if (ischat === true) {
 		$.ajax({
 			url: "/api/" + api_key + "/chat/join/" + current_channel,
@@ -41,7 +41,7 @@ if (window.jQuery) {
 				dataType: 'json'
 			});
 		}
-	});**/
+		 });
 
 		// Simple regex for identifying URLs in the chat.
 		function urlify(text) {
