@@ -221,7 +221,10 @@ if (window.jQuery) {
 
 		// File upload name update workaround
 		$('#avatar').change(function () {
-			document.getElementById("file").value = this.files[0].name;
+			document.getElementById("avatar_file").value = this.files[0].name;
+		});
+		$('#offline').change(function () {
+			document.getElementById("offline_file").value = this.files[0].name;
 		});
 
 		if (window.mCustomScrollbar) {

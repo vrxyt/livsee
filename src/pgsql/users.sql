@@ -12,10 +12,11 @@ CREATE TABLE users
   channel_title   text,
   stream_key      character(10),
   display_name    text,
-  profile_img     text,
+  profile_img     TEXT NOT NULL DEFAULT '/profiles/default/profile_default.png' :: TEXT,
   api_key         text,
   chat_jp_setting TEXT,
   is_admin        BOOLEAN,
+  offline_image   TEXT NOT NULL DEFAULT '/profiles/default/offline_default.jpg' :: TEXT,
   CONSTRAINT plk_email PRIMARY KEY (email)
 )
 WITH (

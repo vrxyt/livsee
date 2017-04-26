@@ -286,11 +286,6 @@ if ($page === 'download') {
 	<?php if (!empty($streamkey)) { ?>
 	var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>";
 	var current_channel = '<?= $streamkey; ?>';
-	<?php } else { ?>
-	var current_channel = 'GlobalChatChannel';
-	<?php } ?>
-
-	<?php if (!empty($streamkey)) { ?>
 	var streamPlayer = videojs('streamPlayer', {
 		techOrder: ['flash'],
 		sources: [{
@@ -298,8 +293,18 @@ if ($page === 'download') {
 			type: 'rtmp/flv',
 			label: 'Flash'
 		}],
+	}).on('error', function (e) {
+		let videoposter = '<?php echo $user->updateStreamkey($streamkey, 'offline_image') ?>';
+		console.log('Stream encountered an error (most likely offline), displaying offline image.');
+		$('.vjs-error-display').hide();
+
+		$('.vjs-poster').css({
+			'background-image': 'url(' + videoposter + ')',
+			'display': 'block'
+		});
+		$('.vjs-paused .vjs-big-play-button').css({'display': 'none'});
 	});
-	streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+	streamPlayer.persistvolume({namespace: "Rachni-Volume-Control-" + stream_key});
 	this.popoutPlayer = function () {
 		streamPlayer.pause();
 		window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
@@ -318,8 +323,10 @@ if ($page === 'download') {
 			type: 'video/mp4',
 		}],
 	});
-	videoPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+	videoPlayer.persistvolume({namespace: "Rachni-Volume-Control-<?= $video ?>"});
 
+	<?php } else { ?>
+	var current_channel = 'GlobalChatChannel';
 	<?php } ?>
 </script>
 </body>

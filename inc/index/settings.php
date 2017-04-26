@@ -149,7 +149,7 @@ if (!empty($_POST['displayname'])) {
 		<div class="mdl-tabs__panel" id="profile">
 			<div class="mdl-content__settings">
 				<div class="mdl-grid">
-					<div class="mdl-card mdl-shadow--2dp avatar-form">
+					<div class="mdl-card mdl-shadow--2dp profile-form">
 						<div class="mdl-card__title">
 							<span>Avatar Update</span>
 						</div>
@@ -157,14 +157,14 @@ if (!empty($_POST['displayname'])) {
 							Current Avatar:
 							<div class="fill">
 								<img src="<?= $accountinfo['profile_img'] ?>"
-									 style="max-width: 100%; max-height: 100%;">
+									 style="max-width: 50%; max-height: 100%;">
 							</div>
 							<form action="/lib/upload.php" method="post" class="form" id="avatarUpdate"
 								  enctype="multipart/form-data">
 
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--file full-width">
 									<input class="mdl-textfield__input" placeholder="Browse..." type="text"
-										   id="file"
+										   id="avatar_file"
 										   readonly/>
 									<div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
 										<i class="material-icons">perm_media</i><input type="file" name="avatar"
@@ -182,7 +182,40 @@ if (!empty($_POST['displayname'])) {
 							</form>
 						</div>
 					</div>
-					<div class="mdl-card mdl-shadow--2dp settings-form">
+					<div class="mdl-card mdl-shadow--2dp profile-form">
+						<div class="mdl-card__title">
+							<span>Offline Image</span>
+						</div>
+						<div class="mdl-card__supporting-text">
+							Current offline Image:
+							<div class="fill">
+								<img src="<?= $accountinfo['offline_image'] ?>"
+									 style="max-width: 100%; max-height: 50%;">
+							</div>
+							<form action="/lib/upload.php" method="post" class="form" id="offlineUpdate"
+								  enctype="multipart/form-data">
+
+								<div class="mdl-textfield mdl-js-textfield mdl-textfield--file full-width">
+									<input class="mdl-textfield__input" placeholder="Browse..." type="text"
+										   id="offline_file"
+										   readonly/>
+									<div class="mdl-button mdl-button--primary mdl-button--icon mdl-button--file">
+										<i class="material-icons">perm_media</i><input type="file" name="offline"
+																					   id="offline">
+									</div>
+								</div>
+
+								<div class="form__action">
+									<button type="submit" name="Upload" value="Submit" form="offlineUpdate"
+											class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+										Upload
+									</button>
+								</div>
+
+							</form>
+						</div>
+					</div>
+					<div class="mdl-card mdl-shadow--2dp profile-form">
 						<div class="mdl-card__title">
 							<span>Subscription Settings</span>
 						</div>

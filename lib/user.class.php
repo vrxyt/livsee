@@ -48,6 +48,7 @@ class user extends database
 	}
 
 	// Do stuff, I guess? right now only checks if logout was used. This needs to be expanded
+
 	/**
 	 * @param $email
 	 * @param null $action
@@ -65,6 +66,7 @@ class user extends database
 	}
 
 	// Process the login, set the session and cookies (if desired)
+
 	/**
 	 * @param $email
 	 * @param $password
@@ -101,23 +103,11 @@ class user extends database
 		return $status;
 	}
 
-	public function admincheck($email)
-	{
-		$params = [$email];
-		$sql = "SELECT is_admin FROM $this->user_table WHERE email = $1";
-		$result = pg_fetch_object(pg_query_params($this->link, $sql, $params));
-		if ($result->is_admin === 't') {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	// grab the whole table for the admin display. TODO - make this check a bit more secure that you're an admin.
 	/**
 	 * @param $email
 	 * @return array|bool
 	 */
+	// these functions will pull the user database for editing on the settings page, if the user is an admin
 	public function admindata($email)
 	{
 		$admincheck = $this->admincheck($email);
@@ -134,7 +124,20 @@ class user extends database
 		}
 	}
 
+	public function admincheck($email)
+	{
+		$params = [$email];
+		$sql = "SELECT is_admin FROM $this->user_table WHERE email = $1";
+		$result = pg_fetch_object(pg_query_params($this->link, $sql, $params));
+		if ($result->is_admin === 't') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	// create a new account and send registration verification email
+
 	/**
 	 * @param $email
 	 * @param $password
@@ -157,8 +160,8 @@ class user extends database
 
 		$authcode = bin2hex(random_bytes(32));
 		$hash = password_hash($password, PASSWORD_DEFAULT);
-		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img, is_admin) VALUES ($1, $2, $7, 0, $3, $4, $5, $6, $7)";
-		$params = [$email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png', $authcode, 'false'];
+		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img, is_admin, offline_image) VALUES ($1, $2, $7, 0, $3, $4, $5, $6, $7, $8)";
+		$params = [$email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png', $authcode, 'false', '/profiles/default/offline_default.jpg'];
 		$result = pg_query_params($this->link, $sql, $params);
 		if ($result === false) {
 			$message = 'Error in: class:user | function:register';
@@ -346,7 +349,7 @@ class user extends database
 	 */
 	public function info($value, $field = 'email')
 	{
-		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img, api_key, chat_jp_setting FROM $this->user_table WHERE $field = $1";
+		$sql = "SELECT email, stream_key, channel_name, channel_title, display_name, profile_img, api_key, chat_jp_setting, offline_image FROM $this->user_table WHERE $field = $1";
 		$params = [$value];
 		$info = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 		if ($info === null) {
@@ -358,6 +361,7 @@ class user extends database
 	}
 
 	// updates channel_name, channel_title, and display_name.
+
 	/**
 	 * @param $email
 	 * @param $channelname
@@ -387,17 +391,32 @@ class user extends database
 		return $status;
 	}
 
-	public function avatarUpdate($email, $path)
+	public function imageUpdate($email, $path, $type)
 	{
-		$sql = "UPDATE $this->user_table SET profile_img = $2 WHERE email = $1";
-		$params = [$email, $path];
-		$result = pg_query_params($this->link, $sql, $params);
-		if ($result === false) {
-			$message = 'Error in: class:user | function:avatarUpdate';
-			$code = 1;
-			throw new Exception($message, $code);
+		if ($type === 'avatar') {
+			$sql = "UPDATE $this->user_table SET profile_img = $2 WHERE email = $1";
+			$params = [$email, $path];
+			$result = pg_query_params($this->link, $sql, $params);
+			if ($result === false) {
+				$message = 'Error in: class:user | function:imageUpdate:avatar';
+				$code = 1;
+				throw new Exception($message, $code);
+			} else {
+				$status = 'Updated!';
+			}
+		} elseif ($type === 'offline') {
+			$sql = "UPDATE $this->user_table SET offline_image = $2 WHERE email = $1";
+			$params = [$email, $path];
+			$result = pg_query_params($this->link, $sql, $params);
+			if ($result === false) {
+				$message = 'Error in: class:user | function:imageUpdate:offline';
+				$code = 1;
+				throw new Exception($message, $code);
+			} else {
+				$status = 'Updated!';
+			}
 		} else {
-			$status = 'Updated!';
+			$status = 'Unknown type!';
 		}
 		return $status;
 	}
@@ -427,6 +446,12 @@ class user extends database
 			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 			$email = $query['email'];
 			return $email;
+		} elseif ($function === 'offline_image') {
+			$params = [$input];
+			$sql = "SELECT offline_image FROM $this->user_table WHERE display_name = $1";
+			$query = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
+			$offlineimage = $query['offline_image'];
+			return $offlineimage;
 		} else {
 			return 'Error in updateStreamkey()!';
 		}

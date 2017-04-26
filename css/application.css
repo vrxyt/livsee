@@ -11826,32 +11826,33 @@ a {
 	background: rgb(0, 188, 212) url("../img/tick_dark.svg?embed");
 }
 
-.avatar-form {
+.profile-form {
 	padding: 0;
 	width: 532px;
 	background-color: #4e4e4e;
 	margin: auto auto 28px auto;
+	height: 525px;
 }
 
-.avatar-form .mdl-radio {
+.profile-form .mdl-radio {
 	width: 20%;
 	margin-top: 22px;
 	margin-bottom: 22px;
 	color: white;
 }
 
-.avatar-form .mdl-radio span:first-of-type {
+.profile-form .mdl-radio span:first-of-type {
 	margin-left: 10px;
 }
 
-.avatar-form .form__article > span {
+.profile-form .form__article > span {
 	float: left;
 	width: 100%;
 	color: rgba(255, 255, 255, 0.6);
 	font-weight: 200;
 }
 
-.avatar-form .mdl-card__title {
+.profile-form .mdl-card__title {
 	background-color: rgba(0, 0, 0, 0.3);
 	height: 66px;
 	width: 100%;
@@ -11860,7 +11861,7 @@ a {
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
-.avatar-form .mdl-card__title h2:first-of-type {
+.profile-form .mdl-card__title h2:first-of-type {
 	font-size: 24px;
 	font-weight: 400;
 	color: rgba(255, 255, 255, 0.8);
@@ -11869,14 +11870,14 @@ a {
 	margin-bottom: 0;
 }
 
-.avatar-form .mdl-card__title .mdl-card__subtitle {
+.profile-form .mdl-card__title .mdl-card__subtitle {
 	font-size: 13px;
 	font-weight: 300;
 	color: rgba(255, 255, 255, 0.2);
 	line-height: 1.2em;
 }
 
-.avatar-form .mdl-card__title-login {
+.profile-form .mdl-card__title-login {
 	background-color: "255,64,129";
 	height: 48px;
 	width: 100%;
@@ -11884,7 +11885,7 @@ a {
 	display: block;
 }
 
-.avatar-form .mdl-card__title-login h2:first-of-type {
+.profile-form .mdl-card__title-login h2:first-of-type {
 	font-size: 24px;
 	font-weight: 400;
 	color: rgba(255, 255, 255, 0.8);
@@ -11893,14 +11894,14 @@ a {
 	margin-bottom: 0;
 }
 
-.avatar-form .mdl-card__title-login .mdl-card__subtitle {
+.profile-form .mdl-card__title-login .mdl-card__subtitle {
 	font-size: 13px;
 	font-weight: 300;
 	color: rgba(255, 255, 255, 0.2);
 	line-height: 1.2em;
 }
 
-.avatar-form button.mdl-button.mdl-button--colored {
+.profile-form button.mdl-button.mdl-button--colored {
 	width: 68px;
 	height: 32px;
 	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
@@ -11911,25 +11912,25 @@ a {
 	background-color: rgb(0, 188, 212);
 }
 
-.avatar-form button.mdl-button.mdl-button--colored:disabled {
+.profile-form button.mdl-button.mdl-button--colored:disabled {
 	background-color: gray;
 	color: rgba(255, 255, 255, 0.6);
 }
 
-.avatar-form label {
+.profile-form label {
 	font-size: 15px;
 	color: rgba(255, 255, 255, 0.6);
 }
 
-.avatar-form .form__action .mdl-checkbox .mdl-ripple {
+.profile-form .form__action .mdl-checkbox .mdl-ripple {
 	background: rgb(0, 188, 212);
 }
 
-.avatar-form .form__action .mdl-checkbox.is-checked .mdl-checkbox__box-outline {
+.profile-form .form__action .mdl-checkbox.is-checked .mdl-checkbox__box-outline {
 	border-color: rgb(0, 188, 212);
 }
 
-.avatar-form .form__action .mdl-checkbox.is-checked .mdl-checkbox__box-outline .mdl-checkbox__tick-outline {
+.profile-form .form__action .mdl-checkbox.is-checked .mdl-checkbox__box-outline .mdl-checkbox__tick-outline {
 	background: rgb(0, 188, 212) url("../img/tick_dark.svg?embed");
 }
 

@@ -87,9 +87,77 @@ try {
 	$moved = move_uploaded_file($tmp_name, "$uploads_dir/avatar.$ext");
 	if ($moved === true) {
 		$avatarPath = "/$uploads_dir/avatar.$ext";
-		$update = $user->avatarUpdate($email, $avatarPath);
+		$update = $user->imageUpdate($email, $avatarPath, 'avatar');
 		$accountinfo = $user->info($email); //update after changing
 		echo "File upload moved to /$uploads_dir/avatar.$ext";
+		header("Location: /settings");
+	} else {
+		echo "File upload failed!";
+	}
+
+} catch (RuntimeException $e) {
+
+	echo $e->getMessage();
+
+}
+
+try {
+
+	// Undefined | Multiple Files | $_FILES Corruption Attack
+	// If this request falls under any of them, treat it invalid.
+	if (!isset($_FILES['offline']['error']) || is_array($_FILES['offline']['error'])) {
+		throw new RuntimeException('Invalid parameters/No file uploaded.');
+	}
+
+	// Check $_FILES['offline']['error'] value.
+	switch ($_FILES['offline']['error']) {
+		case UPLOAD_ERR_OK:
+			break;
+		case UPLOAD_ERR_NO_FILE:
+			throw new RuntimeException('No file sent.');
+		case UPLOAD_ERR_INI_SIZE:
+		case UPLOAD_ERR_FORM_SIZE:
+			throw new RuntimeException('Exceeded filesize limit.');
+		default:
+			throw new RuntimeException('Unknown errors.');
+	}
+
+	// You should also check filesize here.
+	if ($_FILES['offline']['size'] > 1000000) {
+		throw new RuntimeException('Exceeded filesize limit.');
+	}
+
+	// DO NOT TRUST $_FILES['offline']['mime'] VALUE !!
+	// Check MIME Type by yourself.
+	$finfo = new finfo(FILEINFO_MIME_TYPE);
+	if (false === $ext = array_search(
+			$finfo->file($_FILES['offline']['tmp_name']),
+			array(
+				'jpg' => 'image/jpeg',
+				'png' => 'image/png',
+				'gif' => 'image/gif',
+			),
+			true
+		)
+	) {
+		throw new RuntimeException('Invalid file format.');
+	}
+
+	$uploads_dir = "../profiles/$email"; //TODO -- Fix relative file path issues
+	$tmp_name = $_FILES["offline"]["tmp_name"];
+	$name = basename($_FILES["offline"]["name"]);
+	$ext = pathinfo($name, PATHINFO_EXTENSION);
+	$ext = strtolower($ext);
+	if (!is_dir($uploads_dir)) {
+		$mkdir = mkdir($uploads_dir, 0775);
+		echo 'Made directory? ' . $mkdir;
+	}
+	$moved = move_uploaded_file($tmp_name, "$uploads_dir/offline.$ext");
+	if ($moved === true) {
+		$offlinePath = "/$uploads_dir/offline.$ext";
+		$update = $user->imageUpdate($email, $offlinePath, 'offline');
+		$accountinfo = $user->info($email); //update after changing
+		echo "File upload moved to /$uploads_dir/offline.$ext";
 		header("Location: /settings");
 	} else {
 		echo "File upload failed!";
