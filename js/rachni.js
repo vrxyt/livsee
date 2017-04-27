@@ -9,6 +9,7 @@ if (window.jQuery) {
 		let lastid = 0;
 		let toggled = false;
 		var scrolledPct = 0;
+		let live_status = true;
 
 		/** CHAT FUNCTIONS **/
 
@@ -116,14 +117,24 @@ if (window.jQuery) {
 
 		/** CHANNEL FUNCTIONS **/
 
-		// Get current recording status and set record button state
+		// Get current stream state. Sets recording button status, and refreshes page if stream was offline and is now live
 		if (typeof api_key != "undefined") {
 			setInterval(function () {
 				if (!pauseHeartbeat) {
 					heartbeatXHR = $.getJSON('/api/' + api_key + '/stream/ping', function (info) {
+						//console.log('Thump thump... \r\nChannel Info: ', info);
+						if (typeof info[stream_key] !== 'undefined' && info[stream_key].active === true && live_status === false) {
+							//console.log("We're live!");
+							resetPlayer();
+							live_status = true;
+						}
+						if (typeof info[stream_key] === 'undefined' && live_status === true) {
+							//console.log("Channel offline.");
+							live_status = false;
+						}
+
 						$('.record-button').each(function () {
 							let channel = $(this).parent('label').parent('td').parent('tr').attr('channel');
-							console.log(channel);
 							if (typeof info[channel] !== 'undefined') {
 								if (info[channel].recording === true && $(this).not(':checked')) {
 									$(this).prop('checked', true);
@@ -138,9 +149,9 @@ if (window.jQuery) {
 						});
 					});
 				}
-			}, 500);
+			}, 2000);
 		} else {
-			console.log('NOT RUN.');
+			console.log('Heartbeat not run');
 		}
 
 		// Recording start/stop on icon button click
