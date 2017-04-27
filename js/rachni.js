@@ -27,22 +27,22 @@ if (window.jQuery) {
 		});
 
 		// Join request sent on page load, but only if chat is present on the page.
-		 if (ischat === true) {
-		$.ajax({
-			url: "/api/" + api_key + "/chat/join/" + current_channel,
-			dataType: 'json'
-		});
-	}
-
-		 // Leave request sent on page unload
-		 $(window).on('beforeunload', function () {
 		if (ischat === true) {
 			$.ajax({
-				url: "/api/" + api_key + "/chat/leave/" + current_channel,
+				url: "/api/" + api_key + "/chat/join/" + current_channel,
 				dataType: 'json'
 			});
 		}
-		 });
+
+		// Leave request sent on page unload
+		$(window).on('beforeunload', function () {
+			if (ischat === true) {
+				$.ajax({
+					url: "/api/" + api_key + "/chat/leave/" + current_channel,
+					dataType: 'json'
+				});
+			}
+		});
 
 		// Simple regex for identifying URLs in the chat.
 		function urlify(text) {
