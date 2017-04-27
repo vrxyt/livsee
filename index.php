@@ -311,8 +311,8 @@ if ($page === 'download') {
 	};
 	this.resetPlayer = function () {
 		streamPlayer.reset();
-		streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
 		streamPlayer.src({type: 'rtmp/flv', src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>'});
+		streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
 	};
 
 	<?php } elseif (!empty($video)) { ?>
