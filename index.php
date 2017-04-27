@@ -296,6 +296,12 @@ if ($page === 'download') {
 		}],
 	});
 	streamPlayer.persistvolume({namespace: "Rachni-Volume-Control-" + stream_key});
+	streamPlayer.on('fullscreenchange', function () {
+		setTimeout(function () {
+			$('#output').mCustomScrollbar('scrollTo', 'bottom');
+		}, 200);
+	});
+
 	this.popoutPlayer = function () {
 		streamPlayer.pause();
 		window.open("<?= $furl ?>/popout/<?= $streamkey ?>", "_blank", "menubar=0,scrollbars=0,status=0,titlebar=0,toolbar=0,top=200,left=200,resizable=yes,width=1280,height=784");
