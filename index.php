@@ -286,6 +286,7 @@ if ($page === 'download') {
 	<?php if (!empty($streamkey)) { ?>
 	var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>";
 	var current_channel = '<?= $streamkey; ?>';
+	var videoposter = '<?php echo $user->updateStreamkey($streamkey, 'offline_image') ?>';
 	var streamPlayer = videojs('streamPlayer', {
 		techOrder: ['flash'],
 		sources: [{
@@ -293,16 +294,6 @@ if ($page === 'download') {
 			type: 'rtmp/flv',
 			label: 'Flash'
 		}],
-	}).on('error', function (e) {
-		let videoposter = '<?php echo $user->updateStreamkey($streamkey, 'offline_image') ?>';
-		console.log('Stream encountered an error (most likely offline), displaying offline image.');
-		$('.vjs-error-display').hide();
-
-		$('.vjs-poster').css({
-			'background-image': 'url(' + videoposter + ')',
-			'display': 'block'
-		});
-		$('.vjs-paused .vjs-big-play-button').css({'display': 'none'});
 	});
 	streamPlayer.persistvolume({namespace: "Rachni-Volume-Control-" + stream_key});
 	this.popoutPlayer = function () {

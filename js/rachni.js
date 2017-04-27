@@ -124,13 +124,21 @@ if (window.jQuery) {
 					heartbeatXHR = $.getJSON('/api/' + api_key + '/stream/ping', function (info) {
 						//console.log('Thump thump... \r\nChannel Info: ', info);
 						if (typeof info[stream_key] !== 'undefined' && info[stream_key].active === true && live_status === false) {
-							//console.log("We're live!");
+							console.log("We're live!");
 							resetPlayer();
+							$('.vjs-poster').hide();
 							live_status = true;
 						}
 						if (typeof info[stream_key] === 'undefined' && live_status === true) {
-							//console.log("Channel offline.");
+							console.log("Channel offline.");
 							live_status = false;
+							$('.vjs-error-display').hide();
+
+							$('.vjs-poster').css({
+								'background-image': 'url(' + videoposter + ')',
+								'display': 'block'
+							});
+							$('.vjs-paused .vjs-big-play-button').css({'display': 'none'});
 						}
 
 						$('.record-button').each(function () {
