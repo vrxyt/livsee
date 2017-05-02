@@ -160,8 +160,8 @@ class user extends database
 
 		$authcode = bin2hex(random_bytes(32));
 		$hash = password_hash($password, PASSWORD_DEFAULT);
-		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img, is_admin, offline_image) VALUES ($1, $2, $7, 0, $3, $4, $5, $6, $7, $8)";
-		$params = [$email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png', $authcode, 'false', '/profiles/default/offline_default.jpg'];
+		$sql = "INSERT INTO $this->user_table (email, password, auth_code, verified, channel_name, channel_title, display_name, profile_img, is_admin, offline_image) VALUES ($1, $2, $7, 0, $3, $4, $5, $6, false, $8)";
+		$params = [$email, $hash, "$displayname's channel", "Welcome to $displayname's stream!", $displayname, '/profiles/default/profile_default.png', $authcode, '/profiles/default/offline_default.jpg'];
 		$result = pg_query_params($this->link, $sql, $params);
 		if ($result === false) {
 			$message = 'Error in: class:user | function:register';
