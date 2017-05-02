@@ -284,6 +284,7 @@ if ($page === 'download') {
 	var display_name = "<?= $accountinfo['display_name'] ?>";
 	var jp_status = "<?= $accountinfo['chat_jp_setting'] ?>";
 	<?php if (!empty($streamkey)) { ?>
+	var live_status = true;
 	var stream_key = "<?= $streamkey; ?>";
 	var current_channel = '<?= $streamkey; ?>';
 	var videoposter = '<?php echo $user->updateStreamkey($streamkey, 'offline_image') ?>';
@@ -310,6 +311,8 @@ if ($page === 'download') {
 		streamPlayer.reset();
 		streamPlayer.src({type: 'rtmp/flv', src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>'});
 		streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+		$('.vjs-poster').hide();
+		live_status = true;
 	};
 
 	<?php } elseif (!empty($video)) { ?>

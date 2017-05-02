@@ -9,7 +9,6 @@ if (window.jQuery) {
 		let lastid = 0;
 		let toggled = false;
 		var scrolledPct = 0;
-		let live_status = true;
 
 		/** CHAT FUNCTIONS **/
 
@@ -87,6 +86,7 @@ if (window.jQuery) {
 				500
 			);
 		}
+
 		// Capture the input box so that enter submits a message instead of newline, but still allow for shift+enter
 		$("#inputMessage").keypress(function (e) {
 			if (e.which == 13 && !e.shiftKey) {
@@ -127,8 +127,6 @@ if (window.jQuery) {
 							if (typeof info[stream_key] !== 'undefined' && info[stream_key].active === true && live_status === false) {
 								console.log("We're live!");
 								resetPlayer();
-								$('.vjs-poster').hide();
-								live_status = true;
 							}
 							if (typeof info[stream_key] === 'undefined' && live_status === true) {
 								console.log("Channel offline.");
