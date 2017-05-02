@@ -284,7 +284,7 @@ if ($page === 'download') {
 	var display_name = "<?= $accountinfo['display_name'] ?>";
 	var jp_status = "<?= $accountinfo['chat_jp_setting'] ?>";
 	<?php if (!empty($streamkey)) { ?>
-	var stream_key = "<?php echo $user->updateStreamkey($streamkey, 'channel'); ?>";
+	var stream_key = "<?= $streamkey; ?>";
 	var current_channel = '<?= $streamkey; ?>';
 	var videoposter = '<?php echo $user->updateStreamkey($streamkey, 'offline_image') ?>';
 	var streamPlayer = videojs('streamPlayer', {
