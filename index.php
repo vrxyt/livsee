@@ -310,7 +310,7 @@ if ($page === 'download') {
 	this.resetPlayer = function () {
 		streamPlayer.reset();
 		streamPlayer.src({type: 'rtmp/flv', src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>'});
-		streamPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
+		streamPlayer.persistvolume({namespace: "Rachni-Volume-Control-" + stream_key});
 		$('.vjs-poster').hide();
 		live_status = true;
 	};
