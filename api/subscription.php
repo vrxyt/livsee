@@ -28,7 +28,7 @@ class subscription extends master
         $key = $this->key;
         $params = [$host, $key];
         $sql = "INSERT INTO " . $this->db->sub_table . " (host_account, subscriber) VALUES ((SELECT email FROM " . $this->db->user_table . " WHERE display_name = $1 LIMIT 1), (SELECT email FROM " . $this->db->user_table . " WHERE api_key = $2 LIMIT 1))";
-        return @!pg_query_params($this->db->link, $sql, $params) ? false : true;
+		return @!pg_query_params($this->db->link, $sql, $params) ? false : true;
     }
 
     /**
@@ -40,7 +40,7 @@ class subscription extends master
         $key = $this->key;
         $params = [$host, $key];
         $sql = "DELETE FROM " . $this->db->sub_table . " WHERE host_account = (SELECT email FROM " . $this->db->user_table . " WHERE display_name = $1 LIMIT 1) AND subscriber = (SELECT email FROM " . $this->db->user_table . " WHERE api_key = $2 LIMIT 1)";
-        return @!pg_query_params($this->db->link, $sql, $params) ? false : true;
+		return @!pg_query_params($this->db->link, $sql, $params) ? false : true;
     }
 
     /**
