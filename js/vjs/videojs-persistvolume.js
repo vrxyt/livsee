@@ -11,7 +11,7 @@
         define(['./video'], function(vjs){ factory(window, document, vjs) });
         // checking that module is an object too because of umdjs/umd#35
     } else if (typeof exports === 'object' && typeof module === 'object') {
-        factory(window, document, require('videojs-5.14.1.js'));
+	    factory(window, document, require('6.2.6/video.min.js'));
     } else {
         factory(window, document, videojs);
     }
