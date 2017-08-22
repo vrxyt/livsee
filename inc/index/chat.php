@@ -22,7 +22,7 @@
 					<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 
                         <textarea class="mdl-textfield__input" type="text" name="inputMessage" id="inputMessage"
-								  rows="1" autocomplete="off"/></textarea>
+								  rows="1" autocomplete="off"></textarea>
 
 						<label class="mdl-textfield__label" for="inputMessage">Enter message</label>
 					</div>

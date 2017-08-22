@@ -139,7 +139,7 @@
 					</div>
 					<div class="mdl-card__actions mdl-card--border">
 						<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/videos"><i
-									class="material-icons">refresh</i> Refresh</a>
+									class="material-icons">refresh</i> Refresh
 						</a>
 					</div>
 				</div>

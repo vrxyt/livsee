@@ -132,7 +132,7 @@ foreach ($rtmpinfo["rtmp"]["channels"] as $channelName => $skey) {
 							</div>
 							<div class="mdl-card__actions mdl-card--border">
 								<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-								   href="/channels"><i class="material-icons">refresh</i> Refresh</a>
+								   href="/channels"><i class="material-icons">refresh</i> Refresh
 								</a>
 							</div>
 						</div>
