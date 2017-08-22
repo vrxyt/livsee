@@ -6,7 +6,7 @@ if (window.jQuery) {
 		let pauseHeartbeat = false;
 		let heartbeatXHR;
 		let recIconName = $('.record-button').eq(0).next('i').text();
-		let lastid = 0;
+		var lastid = 0;
 		let toggled = false;
 		var scrolledPct = 0;
 
@@ -49,8 +49,13 @@ if (window.jQuery) {
 			return text.replace(regex, '<a href="$1">$1</a>')
 		}
 
-		// Check for new messages every 500ms and output to chatbox
-		if (typeof api_key != "undefined") {
+		// checks for api_key being present, which is a clear indicator that we're looking at a channel and want to run
+		// these functions.
+		if (typeof api_key === "undefined") {
+			console.log('Heartbeats not run.');
+		} else {
+
+			// Check for new messages every 500ms and output to chatbox
 			setInterval(function () {
 					let chatbox = $('#output .mCSB_container');
 					$.ajax({
@@ -85,40 +90,8 @@ if (window.jQuery) {
 				},
 				500
 			);
-		}
 
-		// Capture the input box so that enter submits a message instead of newline, but still allow for shift+enter
-		$("#inputMessage").keypress(function (e) {
-			if (e.which == 13 && !e.shiftKey) {
-				$(this).closest("form").submit();
-				e.preventDefault();
-				return false;
-			}
-		});
-
-		// Submit message to chat API
-		$('#chatMessage').submit(function (event) {
-			const data = {
-				'message': $('#inputMessage').val(),
-				'timestamp': Math.round(new Date().getTime() / 1000),
-				'user': display_name,
-				'channel': current_channel,
-				'type': 'USER'
-			};
-			event.preventDefault();
-			$.ajax({
-				type: "POST",
-				url: "/api/" + api_key + "/chat/write/",
-				data: data,
-				dataType: 'json'
-			});
-			$('#inputMessage').val("").parent('div').removeClass('is-dirty');
-		});
-
-		/** CHANNEL FUNCTIONS **/
-
-		// Get current stream state. Sets recording button status, and refreshes page if stream was offline and is now live
-		if (typeof api_key != "undefined") {
+			// Set recording button status, and refreshes page if stream was offline and is now live
 			setInterval(function () {
 				if (!pauseHeartbeat) {
 					heartbeatXHR = $.getJSON('/api/' + api_key + '/stream/ping', function (info) {
@@ -158,8 +131,43 @@ if (window.jQuery) {
 					});
 				}
 			}, 2000);
-		} else {
+		}
+
+		// Capture the input box so that enter submits a message instead of newline, but still allow for shift+enter
+		$("#inputMessage").keypress(function (e) {
+			if (e.which === 13 && !e.shiftKey) {
+				$(this).closest("form").submit();
+				e.preventDefault();
+				return false;
+			}
+		});
+
+		// Submit message to chat API
+		$('#chatMessage').submit(function (event) {
+			const data = {
+				'message': $('#inputMessage').val(),
+				'timestamp': Math.round(new Date().getTime() / 1000),
+				'user': display_name,
+				'channel': current_channel,
+				'type': 'USER'
+			};
+			event.preventDefault();
+			$.ajax({
+				type: "POST",
+				url: "/api/" + api_key + "/chat/write/",
+				data: data,
+				dataType: 'json'
+			});
+			$('#inputMessage').val("").parent('div').removeClass('is-dirty');
+		});
+
+		/** CHANNEL FUNCTIONS **/
+
+		// Set recording button status, and refreshes page if stream was offline and is now live
+		if (typeof api_key === "undefined") {
 			console.log('Heartbeat not run');
+		} else {
+
 		}
 
 		// Recording start/stop on icon button click
@@ -236,6 +244,16 @@ if (window.jQuery) {
 					}
 				});
 			}
+		});
+
+		// Link copy toast
+		$('#copyButton').click(function () {
+			let snackbarContainer = document.querySelector('#keyCopy');
+			const data = {
+				message: 'Stream key copied!',
+				timeout: 5000
+			};
+			snackbarContainer.MaterialSnackbar.showSnackbar(data);
 		});
 
 		// File upload name update workaround
