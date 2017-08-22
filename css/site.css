@@ -238,7 +238,7 @@ figure.effect-sarah:hover label {
 .dm-logo-header {
 	background-image: url("../img/logo.png") !important;
 	color: rgb(0, 188, 212) !important;
-	text-shadow: 2px 2px 2px #000 !important;
+	text-shadow: 2px 2px 2px rgb(0, 0, 0) !important;
 	letter-spacing: 7px !important;
 	font-size: 13px !important;
 	text-align: right !important;
@@ -277,4 +277,43 @@ figure.effect-sarah:hover label {
 	color: rgb(96, 196, 150);
 	font-size: 14px;
 	text-decoration: none;
+}
+
+.keyCopy-toast {
+	border-radius: 3px;
+}
+
+.keyCopy-text {
+	margin: auto;
+	color: rgb(0, 188, 212);
+}
+
+.keyCopy-action {
+	padding: 5px;
+}
+
+/* Rules for sizing material icons */
+.material-icons.md-16 {
+	font-size: 16px;
+}
+
+.material-icons.md-18 {
+	font-size: 18px;
+}
+
+.material-icons.md-24 {
+	font-size: 24px;
+}
+
+.material-icons.md-36 {
+	font-size: 36px;
+}
+
+.material-icons.md-48 {
+	font-size: 48px;
+}
+
+.copyIcon {
+	vertical-align: middle;
+	margin-left: auto;
 }
