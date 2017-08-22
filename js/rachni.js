@@ -49,9 +49,9 @@ if (window.jQuery) {
 			return text.replace(regex, '<a href="$1">$1</a>')
 		}
 
-		// checks for api_key being present, which is a clear indicator that we're looking at a channel and want to run
-		// these functions.
-		if (typeof api_key === "undefined") {
+		// checks for current_channel being present, which is a clear indicator that we're looking at a channel
+		// and want to run these functions.
+		if (typeof current_channel === "undefined") {
 			console.log('Heartbeats not run.');
 		} else {
 
