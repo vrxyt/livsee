@@ -54,7 +54,7 @@ class user extends database
 	 * @param null $action
 	 * @return bool
 	 */
-	public function session_authenticate($email, $action = null)
+	public function session_authenticate($action = null)
 	{
 		if ($action == 'logout') {
 			session_destroy();
@@ -124,6 +124,10 @@ class user extends database
 		}
 	}
 
+	/**
+	 * @param $email
+	 * @return bool
+	 */
 	public function admincheck($email)
 	{
 		$params = [$email];
@@ -142,9 +146,9 @@ class user extends database
 	 * @param $email
 	 * @param $password
 	 * @param $displayname
-	 * @param $furl
 	 * @return bool|string
 	 * @throws Exception
+	 * @internal param $furl
 	 */
 	public function register($email, $password, $displayname)
 	{
@@ -391,6 +395,13 @@ class user extends database
 		return $status;
 	}
 
+	/**
+	 * @param $email
+	 * @param $path
+	 * @param $type
+	 * @return string
+	 * @throws Exception
+	 */
 	public function imageUpdate($email, $path, $type)
 	{
 		if ($type === 'avatar') {
