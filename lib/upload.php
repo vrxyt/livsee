@@ -64,11 +64,11 @@ try {
 	$finfo = new finfo(FILEINFO_MIME_TYPE);
 	if (false === $ext = array_search(
 			$finfo->file($_FILES['avatar']['tmp_name']),
-			array(
+			[
 				'jpg' => 'image/jpeg',
 				'png' => 'image/png',
 				'gif' => 'image/gif',
-			),
+			],
 			true
 		)
 	) {
@@ -132,11 +132,11 @@ try {
 	$finfo = new finfo(FILEINFO_MIME_TYPE);
 	if (false === $ext = array_search(
 			$finfo->file($_FILES['offline']['tmp_name']),
-			array(
+			[
 				'jpg' => 'image/jpeg',
 				'png' => 'image/png',
 				'gif' => 'image/gif',
-			),
+			],
 			true
 		)
 	) {
