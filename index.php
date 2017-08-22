@@ -112,7 +112,7 @@ if ($page === 'download') {
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
 		  type='text/css'>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="/js/vjs/6.4.1/video-js.min.css">
+	<link rel="stylesheet" type="text/css" href="/js/vjs/6.2.6/video-js.min.css">
 	<link rel="stylesheet" type="text/css" href="/js/vjs/video-js-skin.css">
 	<link rel="stylesheet" href="/css/application.css">
 	<link rel="stylesheet" href="/css/site.css">
