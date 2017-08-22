@@ -112,8 +112,7 @@ if ($page === 'download') {
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
 		  type='text/css'>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="/js/vjs/video-js.css">
-	<link rel="stylesheet" type="text/css" href="/js/vjs/videojs-qualityselector.css">
+	<link rel="stylesheet" type="text/css" href="/js/vjs/6.4.1/video-js.min.css">
 	<link rel="stylesheet" type="text/css" href="/js/vjs/video-js-skin.css">
 	<link rel="stylesheet" href="/css/application.css">
 	<link rel="stylesheet" href="/css/site.css">
@@ -162,13 +161,14 @@ if ($page === 'download') {
 
 				<li class="list__item--border-top"></li>
 
-				<li class="mdl-list__item mdl-list__item--two-line">
+				<a href="#" class="mdl-menu__item mdl-list__item copyButton" id="copyButton"
+				   title="Copy to clipboard"
+				   data-clipboard-text="<?= $accountinfo['display_name'] ?>?key=<?= $accountinfo['stream_key']; ?>">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">vpn_key</i>
 								<span>Stream Key</span>
-								<span class="mdl-list__item-sub-title"><?= $accountinfo['stream_key']; ?></span>
-							</span>
-				</li>
+								<i class="material-icons md-16 copyIcon">content_copy</i>
+				</a>
 
 				<li class="list__item--border-top"></li>
 
@@ -263,7 +263,10 @@ if ($page === 'download') {
 			include 'inc/404.php';
 		}
 		?>
-
+		<div id="keyCopy" class="mdl-js-snackbar mdl-snackbar keyCopy-toast">
+			<div class="mdl-snackbar__text keyCopy-text"></div>
+			<button class="mdl-snackbar__action keyCopy-action" type="button"></button>
+		</div>
 	</main>
 	<!-- END CONTENT PAGE-->
 
@@ -274,12 +277,15 @@ if ($page === 'download') {
 <script src="/js/material.js"></script>
 <script src="/js/getmdl-select.min.js"></script>
 <script src="/js/sb/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="/js/vjs/videojs-5.14.1.js"></script>
+<script src="/js/vjs/6.2.6/video.min.js"></script>
+<script src="/js/vjs/6.2.6/videojs-flash.min.js"></script>
 <script src="/js/vjs/videojs-persistvolume.js"></script>
 <script src="/js/vjs/videojs-contrib-hls.min.js"></script>
+<script src="/js/clipboard.min.js"></script>
 <script src="/js/rachni.js"></script>
 
 <script type='text/javascript'>
+	new Clipboard('.copyButton');
 	var api_key = "<?= $accountinfo['api_key'] ?>";
 	var display_name = "<?= $accountinfo['display_name'] ?>";
 	var jp_status = "<?= $accountinfo['chat_jp_setting'] ?>";
