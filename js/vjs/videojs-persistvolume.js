@@ -118,6 +118,7 @@
             }
         };
 
-    vjs.plugin("persistvolume", volumePersister);
+	var registerPlugin = videojs.registerPlugin || videojs.plugin
+	registerPlugin("persistvolume", volumePersister);
 
 });
