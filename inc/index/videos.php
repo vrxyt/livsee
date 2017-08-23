@@ -103,18 +103,18 @@
 											<div class="mdl-tooltip mdl-tooltip--large" for="stream-detail-' . $seed . '">
 												<p>Video</p>
 												<ul class="mdl-list">
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $eachVideo["mediainfo"]["streams"][0]["codec_name"] . ' ' . $eachVideo["mediainfo"]["streams"][0]["profile"] . '</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . bitsConvert($eachVideo["mediainfo"]["streams"][0]["bit_rate"]) . 'b/s</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . $eachVideo["mediainfo"]["streams"][0]["width"] . '*' . $eachVideo["mediainfo"]["streams"][0]["height"] . '</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . $eachVideo["mediainfo"]["streams"][0]["r_frame_rate"] . ' fps</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . (isset($eachVideo["mediainfo"]["streams"][0]["codec_name"]) ? $eachVideo["mediainfo"]["streams"][0]["codec_name"] : 'Undefined') . ' ' . (isset($eachVideo["mediainfo"]["streams"][0]["profile"]) ? $eachVideo["mediainfo"]["streams"][0]["profile"] : 'Undefined') . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Bitrate: ' . (isset($eachVideo["mediainfo"]["streams"][0]["bit_rate"]) ? bitsConvert($eachVideo["mediainfo"]["streams"][0]["bit_rate"]) . 'b/s' : 'Undefined') . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Definition: ' . (isset($eachVideo["mediainfo"]["streams"][0]["width"]) ? $eachVideo["mediainfo"]["streams"][0]["width"] : 'Undefined') . 'x' . (isset($eachVideo["mediainfo"]["streams"][0]["height"]) ? $eachVideo["mediainfo"]["streams"][0]["height"] : 'Undefined') . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-light">Framerate: ' . (isset($eachVideo["mediainfo"]["streams"][0]["r_frame_rate"]) ? $eachVideo["mediainfo"]["streams"][0]["r_frame_rate"] . ' fps' : 'Undefined') . '</li>
 												</ul>
 												<br />
 												<p>Audio</p>
 												<ul class="mdl-list">
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . $eachVideo["mediainfo"]["streams"][1]["codec_name"] . '</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . bitsConvert($eachVideo["mediainfo"]["streams"][1]["bit_rate"]) . 'b/s</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . $eachVideo["mediainfo"]["streams"][1]["sample_rate"] . ' Hz</li>
-													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . $eachVideo["mediainfo"]["streams"][1]["channels"] . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Codec: ' . (isset($eachVideo["mediainfo"]["streams"][1]["codec_name"]) ? $eachVideo["mediainfo"]["streams"][1]["codec_name"] : 'Undefined') . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Bitrate: ' . (isset($eachVideo["mediainfo"]["streams"][1]["bit_rate"]) ? bitsConvert($eachVideo["mediainfo"]["streams"][1]["bit_rate"]) . 'b/s' : 'Undefined') . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Sample Rate: ' . (isset($eachVideo["mediainfo"]["streams"][1]["sample_rate"]) ? $eachVideo["mediainfo"]["streams"][1]["sample_rate"] . ' Hz' : 'Undefined') . '</li>
+													<li class="mdl-typography--caption mdl-typography--text-left mdl-typography--font-thin">Channels: ' . (isset($eachVideo["mediainfo"]["streams"][1]["channels"]) ? $eachVideo["mediainfo"]["streams"][1]["channels"] : 'Undefined') . '</li>
 												</ul>
 											</div>
 										';
