@@ -9,9 +9,39 @@ if (window.jQuery) {
 		var lastid = 0;
 		let toggled = false;
 		var scrolledPct = 0;
+		var server = 'wss://rachni.com:9090/';
+		let socket = new WebSocket(server);
 
-		/** CHAT FUNCTIONS **/
+		// Function to write received messages
+		function write_to_mbox(message_json) {
+			let chatbox = $('#output .mCSB_container');
+			let unixTimeStamp = message_json['timestamp'];
+			let timestampInMilliSeconds = unixTimeStamp * 1000;
+			let date = new Date(timestampInMilliSeconds);
+			let formattedDate = date.format('h:i a');
+			let scrollHeight = chatbox.prop('scrollHeight') - chatbox.height();
 
+			if (message_json['type'] === 'SYSTEM') {
+				if (jp_status === 't') {
+					chatbox.append("<span style='color: rgb(179, 179, 179);'>(" + formattedDate + ')<span style="font-style: italic"> ' + urlify(message_json['message']) + '</span></span><br/>');
+
+				}
+			} else {
+				chatbox.append('(' + formattedDate + ") <span style='color: rgb(0, 188, 212); font-weight: bold'>" + message_json['user'] + ':</span> ' + urlify(message_json['message']) + '<br/>');
+
+			}
+			if (scrolledPct === 100) {
+				$('#output').mCustomScrollbar('scrollTo', 'bottom');
+			}
+		}
+
+		// Simple regex for identifying URLs in the chat.
+		function urlify(text) {
+			let regex = /(https?:\/\/[^\s]+)/g;
+			return text.replace(regex, '<a href="$1" target="_blank">$1</a>')
+		}
+
+		/** CHANNEL FUNCTIONS **/
 		// Chatbox show/hide
 		$("#toggleChat").click(function () {
 			if (toggled) {
@@ -27,26 +57,43 @@ if (window.jQuery) {
 
 		// Join request sent on page load, but only if chat is present on the page.
 		if (ischat === true) {
-			$.ajax({
-				url: "/api/" + api_key + "/chat/join/" + current_channel,
-				dataType: 'json'
-			});
-		}
 
-		// Leave request sent on page unload
-		$(window).on('beforeunload', function () {
-			if (ischat === true) {
-				$.ajax({
-					url: "/api/" + api_key + "/chat/leave/" + current_channel,
-					dataType: 'json'
+			socket.onerror = function (error) {
+				console.log('WebSocket Error: ' + error);
+			};
+
+			socket.onopen = function (event) {
+				let data = JSON.stringify({
+					"message": display_name + " has joined.",
+					"timestamp": Math.round(new Date().getTime() / 1000),
+					"user": display_name,
+					"channel": current_channel,
+					"type": "SYSTEM"
 				});
-			}
-		});
+				socket.send(data);
+				$('#inputMessage').focus();
+			};
 
-		// Simple regex for identifying URLs in the chat.
-		function urlify(text) {
-			let regex = /(https?:\/\/[^\s]+)/g;
-			return text.replace(regex, '<a href="$1">$1</a>')
+			socket.onmessage = function (event) {
+				console.log('event data: ' + event.data);
+				message_json = JSON.parse(event.data);
+				if (message_json['channel'] === current_channel) {
+					write_to_mbox(message_json)
+				}
+			};
+
+			socket.onclose = function (event) {
+				let data = {
+					"message": "Disconnected from server!",
+					"timestamp": Math.round(new Date().getTime() / 1000),
+					"user": "System",
+					"channel": current_channel,
+					"type": "SYSTEM"
+				};
+				write_to_mbox(data);
+			};
+
+
 		}
 
 		// checks for current_channel being present, which is a clear indicator that we're looking at a channel
@@ -54,42 +101,6 @@ if (window.jQuery) {
 		if (typeof current_channel === "undefined") {
 			console.log('Heartbeats not run.');
 		} else {
-
-			// Check for new messages every 500ms and output to chatbox
-			setInterval(function () {
-					let chatbox = $('#output .mCSB_container');
-					$.ajax({
-						url: "/api/" + api_key + "/chat/read/" + current_channel,
-						dataType: 'json'
-					}).done(function (getLines) {
-						let scrollHeight = chatbox.prop('scrollHeight') - chatbox.height();
-						$.each(getLines, function (id, line) {
-							id = parseInt(line.id, 10);
-							let type = line.type;
-							if (lastid < id) {
-								let unixTimeStamp = line.timestamp;
-								let timestampInMilliSeconds = unixTimeStamp * 1000;
-								let date = new Date(timestampInMilliSeconds);
-								let formattedDate = date.format('h:i a');
-								lastid = id;
-								if (type === 'SYSTEM') {
-									if (jp_status === 't') {
-										chatbox.append(" <span style='color: rgb(179, 179, 179);'>(" + formattedDate + ')<span style="font-style: italic"> ' + line.sender + ' ' + urlify(line.message) + '</span></span><br />');
-
-									}
-								} else {
-									chatbox.append('(' + formattedDate + ") <span style='color: rgb(0, 188, 212); font-weight: bold'>" + line.sender + ':</span> ' + urlify(line.message) + '<br />');
-
-								}
-							}
-						});
-						if (scrolledPct === 100) {
-							$('#output').mCustomScrollbar('scrollTo', 'bottom');
-						}
-					});
-				},
-				500
-			);
 
 			// Set recording button status, and refreshes page if stream was offline and is now live
 			setInterval(function () {
@@ -139,25 +150,22 @@ if (window.jQuery) {
 				$(this).closest("form").submit();
 				e.preventDefault();
 				return false;
+
 			}
 		});
 
-		// Submit message to chat API
+		// Submit message to chat server
 		$('#chatMessage').submit(function (event) {
-			const data = {
+			let data = {
 				'message': $('#inputMessage').val(),
 				'timestamp': Math.round(new Date().getTime() / 1000),
 				'user': display_name,
 				'channel': current_channel,
 				'type': 'USER'
 			};
+			data = JSON.stringify(data);
 			event.preventDefault();
-			$.ajax({
-				type: "POST",
-				url: "/api/" + api_key + "/chat/write/",
-				data: data,
-				dataType: 'json'
-			});
+			socket.send(data);
 			$('#inputMessage').val("").parent('div').removeClass('is-dirty');
 		});
 
