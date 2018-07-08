@@ -6,30 +6,31 @@ if (window.jQuery) {
 		let pauseHeartbeat = false;
 		let heartbeatXHR;
 		let recIconName = $('.record-button').eq(0).next('i').text();
-		var lastid = 0;
 		let toggled = false;
-		var scrolledPct = 0;
-		var server = 'wss://rachni.com:9090/';
-		let socket = new WebSocket(server);
+		let scrolledPct = 0;
+		let server = 'wss://rachni.com:9090/';
 
 		// Function to write received messages
-		function write_to_mbox(message_json) {
+		function write_to_chatbox(message_json) {
 			let chatbox = $('#output .mCSB_container');
 			let unixTimeStamp = message_json['timestamp'];
 			let timestampInMilliSeconds = unixTimeStamp * 1000;
 			let date = new Date(timestampInMilliSeconds);
 			let formattedDate = date.format('h:i a');
-			let scrollHeight = chatbox.prop('scrollHeight') - chatbox.height();
 
+			// custom style differences for SYSTEM and USER messages
 			if (message_json['type'] === 'SYSTEM') {
+				// will need to change this to either hide system messages, or add an additional check for join/parts
 				if (jp_status === 't') {
-					chatbox.append("<span style='color: rgb(179, 179, 179);'>(" + formattedDate + ')<span style="font-style: italic"> ' + urlify(message_json['message']) + '</span></span><br/>');
+					chatbox.append("<span style='color: rgb(179, 179, 179);'>(" + formattedDate + ')<span style="font-style: italic"> ' + message_json['message'] + '</span></span><br/>');
 
 				}
 			} else {
 				chatbox.append('(' + formattedDate + ") <span style='color: rgb(0, 188, 212); font-weight: bold'>" + message_json['user'] + ':</span> ' + urlify(message_json['message']) + '<br/>');
 
 			}
+
+			// makes sure that the chat window stays scrolled to the bottom when a new message is sent
 			if (scrolledPct === 100) {
 				$('#output').mCustomScrollbar('scrollTo', 'bottom');
 			}
@@ -41,28 +42,18 @@ if (window.jQuery) {
 			return text.replace(regex, '<a href="$1" target="_blank">$1</a>')
 		}
 
-		/** CHANNEL FUNCTIONS **/
-		// Chatbox show/hide
-		$("#toggleChat").click(function () {
-			if (toggled) {
-				$('.chat-container').stop().animate({'width': '20%'}, 500);
-				$('.video-container').stop().animate({'width': '80%'}, 500);
-				toggled = false;
-			} else {
-				$('.chat-container').stop().animate({'width': '0%'}, 500);
-				$('.video-container').stop().animate({'width': '100%'}, 500);
-				toggled = true;
-			}
-		});
-
 		// Join request sent on page load, but only if chat is present on the page.
 		if (ischat === true) {
 
+			let socket = new WebSocket(server);
+
 			socket.onerror = function (error) {
-				console.log('WebSocket Error: ' + error);
+				console.log('WebSocket Error:');
+				console.log(error);
 			};
 
 			socket.onopen = function (event) {
+				console.log('socket open');
 				let data = JSON.stringify({
 					"message": display_name + " has joined.",
 					"timestamp": Math.round(new Date().getTime() / 1000),
@@ -75,14 +66,12 @@ if (window.jQuery) {
 			};
 
 			socket.onmessage = function (event) {
-				console.log('event data: ' + event.data);
-				message_json = JSON.parse(event.data);
-				if (message_json['channel'] === current_channel) {
-					write_to_mbox(message_json)
-				}
+				console.log('socket message');
+				write_to_chatbox(JSON.parse(event.data));
 			};
 
 			socket.onclose = function (event) {
+				console.log('socket close');
 				let data = {
 					"message": "Disconnected from server!",
 					"timestamp": Math.round(new Date().getTime() / 1000),
@@ -90,14 +79,34 @@ if (window.jQuery) {
 					"channel": current_channel,
 					"type": "SYSTEM"
 				};
-				write_to_mbox(data);
+				write_to_chatbox(data);
 			};
 
+			// Chatbox show/hide
+			$("#toggleChat").click(function () {
+				if (toggled) {
+					$('.chat-container').stop().animate({'width': '20%'}, 500);
+					$('.video-container').stop().animate({'width': '80%'}, 500);
+					toggled = false;
+				} else {
+					$('.chat-container').stop().animate({'width': '0%'}, 500);
+					$('.video-container').stop().animate({'width': '100%'}, 500);
+					toggled = true;
+				}
+			});
+
+			let data2 = {
+				"message": "Attempting to connect...",
+				"timestamp": Math.round(new Date().getTime() / 1000),
+				"user": "System",
+				"channel": current_channel,
+				"type": "SYSTEM"
+			};
+			write_to_chatbox(data2);
 
 		}
 
-		// checks for current_channel being present, which is a clear indicator that we're looking at a channel
-		// and want to run these functions.
+		// If current channel is set, we can expect to need these functions
 		if (typeof current_channel === "undefined") {
 			console.log('Heartbeats not run.');
 		} else {
@@ -106,7 +115,6 @@ if (window.jQuery) {
 			setInterval(function () {
 				if (!pauseHeartbeat) {
 					heartbeatXHR = $.getJSON('/api/' + api_key + '/stream/ping', function (info) {
-						//console.log('Thump thump... \r\nChannel Info: ', info);
 						if (typeof stream_key != "undefined") {
 							if (typeof info[stream_key] !== 'undefined' && info[stream_key].active === true && live_status === false) {
 								console.log("We're live!");
@@ -215,7 +223,7 @@ if (window.jQuery) {
 			let action = $(this).text();
 			'use strict';
 			if (action === 'Unsubscribe') {
-				console.log('Action = Unsubscribe');
+				console.log('Action: Unsubscribe');
 				$.getJSON('/api/' + api_key + '/subscription/remove/' + channel, function (result) {
 					if (result === false) {
 						console.log('Error unsubscribing');
@@ -231,7 +239,7 @@ if (window.jQuery) {
 					}
 				});
 			} else if (action === 'Subscribe') {
-				console.log('Action = Subscribe');
+				console.log('Action: Subscribe');
 				$.getJSON('/api/' + api_key + '/subscription/add/' + channel, function (result) {
 					if (result === false) {
 						const data = {
@@ -299,6 +307,6 @@ if (window.jQuery) {
 	});
 
 } else {
-	console.log('No jQuery found! Please load jQuery first.');
+	console.log('No jQuery found! Please load it first.');
 }
 
