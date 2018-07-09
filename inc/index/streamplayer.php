@@ -7,6 +7,7 @@
 			</video>
 		</div>
 	</div>
+	<div class="dragBar" id="dragBar"></div>
 	<div class="mdl-card mdl-shadow--2dp employer-form chat-container" id="chatBox">
 		<div class="mdl-card__title">
 			<span class="mdl-color-text--cyan-500">Channel Chat</span>
