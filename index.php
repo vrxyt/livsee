@@ -168,6 +168,7 @@ if ($page === 'download') {
 								<i class="material-icons mdl-list__item-icon">vpn_key</i>
 								<span>Stream Key</span>
 								<i class="material-icons md-16 copyIcon">content_copy</i>
+							</span>
 				</a>
 
 				<li class="list__item--border-top"></li>
@@ -294,6 +295,7 @@ if ($page === 'download') {
 	var stream_key = "<?= $streamkey; ?>";
 	var current_channel = '<?= $streamkey; ?>';
 	var videoposter = '<?php echo $user->updateStreamkey($streamkey, 'offline_image') ?>';
+	var channel_name = "<?php echo $user->updateStreamkey($streamkey, 'channel') ?>";
 	var streamPlayer = videojs('streamPlayer', {
 		techOrder: ['flash'],
 		sources: [{
@@ -333,6 +335,7 @@ if ($page === 'download') {
 
 	<?php } else { ?>
 	var current_channel = 'GlobalChatChannel';
+	var channel_name = 'the Public Chat Room';
 	<?php } ?>
 </script>
 </body>
