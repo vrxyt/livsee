@@ -3,7 +3,7 @@
 		<div class="live-player">
 			<video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered" controls autoplay preload
 				   id="streamPlayer"
-				   width="100%" height="100%" poster=poster="//<?= $surl ?>/img/channel/channel_<?= $streamkey ?>.png">
+				   width="100%" height="100%" poster="//<?= $surl ?>/img/channel/channel_<?= $streamkey ?>.png">
 			</video>
 		</div>
 	</div>
