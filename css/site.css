@@ -317,3 +317,11 @@ figure.effect-sarah:hover label {
 	vertical-align: middle;
 	margin-left: auto;
 }
+
+#dragBar {
+	cursor: col-resize;
+	width: 4px;
+	float: right;
+	height: 100%;
+	background: yellow;
+}
