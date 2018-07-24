@@ -36,5 +36,19 @@
 
 		</form>
 	</div>
+
+	<div class="mdl-cell mdl-card mdl-shadow--2dp employer-form" style="width: 75%;">
+		<div class="mdl-card__title">
+			<span class="mdl-color-text--cyan-500">Users List</span>
+		</div>
+
+		<div class="mdl-card__supporting-text full-height">
+			<div class="fill">
+				<div id="userlist" class="fill">
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <script> var ischat = true; </script>

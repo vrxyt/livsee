@@ -51,11 +51,19 @@ if ($dragbar) {
 	});
 }
 
-
-
-
 if (window.jQuery) {
 	$(function () {
+
+		function sync_users(users) {
+			let chatbox = $('#userlist .mCSB_container');
+			chatbox.empty();
+			users.sort();
+			$.each(users, function (k, v) {
+				console.log('User ', v);
+				chatbox.append(v + '<br>');
+			});
+		}
+
 		// Do this first to avoid issues later
 		if (window.mCustomScrollbar) {
 			$(window).load(function () {
@@ -71,6 +79,19 @@ if (window.jQuery) {
 				callbacks: {
 					onInit: function () {
 						$("#output").mCustomScrollbar('scrollTo', 'bottom');
+					},
+					whileScrolling: function () {
+						scrolledPct = this.mcs.topPct;
+					},
+				}
+			});
+
+			$("#userlist").mCustomScrollbar({
+				theme: "inset",
+				scrollInertia: 400,
+				callbacks: {
+					onInit: function () {
+						$("#userlist").mCustomScrollbar('scrollTo', 'bottom');
 					},
 					whileScrolling: function () {
 						scrolledPct = this.mcs.topPct;
@@ -142,7 +163,14 @@ if (window.jQuery) {
 				};
 
 				socket.onmessage = function (event) {
-					write_to_chatbox(JSON.parse(event.data));
+					message = JSON.parse(event.data);
+					console.log('Message: ', message);
+					if (message['type'] === 'USER_SYNC') {
+						sync_users(message['message']);
+					}
+					else {
+						write_to_chatbox(message);
+					}
 				};
 
 				socket.onclose = function (event) {
