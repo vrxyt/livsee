@@ -149,7 +149,7 @@ if (window.jQuery) {
 					console.log(error);
 				};
 
-				socket.onopen = function (event) {
+				socket.onopen = function (e) {
 					let data = JSON.stringify({
 						"message": display_name + " has joined.",
 						"timestamp": Math.round(new Date().getTime() / 1000),
@@ -162,8 +162,8 @@ if (window.jQuery) {
 					$('#inputMessage').focus();
 				};
 
-				socket.onmessage = function (event) {
-					message = JSON.parse(event.data);
+				socket.onmessage = function (e) {
+					message = JSON.parse(e.data);
 					console.log('Message: ', message);
 					if (message['type'] === 'USER_SYNC') {
 						sync_users(message['message']);
@@ -173,7 +173,7 @@ if (window.jQuery) {
 					}
 				};
 
-				socket.onclose = function (event) {
+				socket.onclose = function (e) {
 					let data = {
 						"message": "Disconnected from server!",
 						"timestamp": Math.round(new Date().getTime() / 1000),
@@ -249,27 +249,30 @@ if (window.jQuery) {
 			// Capture the input box so that enter submits a message instead of newline, but still allow for shift+enter
 			$("#inputMessage").keypress(function (e) {
 				if (e.which === 13 && !e.shiftKey) {
-					$(this).closest("form").submit();
 					e.preventDefault();
-					return false;
-
+					if ($('#inputMessage').val() != '') {
+						$(this).closest("form").submit();
+						return true;
+					}
 				}
 			});
 
 			// Submit message to chat server
-			$('#chatMessage').submit(function (event) {
-				let data = {
-					'message': $('#inputMessage').val(),
-					'timestamp': Math.round(new Date().getTime() / 1000),
-					'user': display_name,
-					'channel': current_channel,
-					"channel_name": channel_name,
-					'type': 'USER'
-				};
-				data = JSON.stringify(data);
-				event.preventDefault();
-				socket.send(data);
-				$('#inputMessage').val("").parent('div').removeClass('is-dirty');
+			$('#chatMessage').submit(function (e) {
+				e.preventDefault();
+				if ($('#inputMessage').val() != '') {
+					let data = {
+						'message': $('#inputMessage').val(),
+						'timestamp': Math.round(new Date().getTime() / 1000),
+						'user': display_name,
+						'channel': current_channel,
+						"channel_name": channel_name,
+						'type': 'USER'
+					};
+					data = JSON.stringify(data);
+					socket.send(data);
+					$('#inputMessage').val("").parent('div').removeClass('is-dirty');
+				}
 			});
 
 			/** CHANNEL FUNCTIONS **/
