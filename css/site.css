@@ -325,3 +325,7 @@ figure.effect-sarah:hover label {
 	height: 100%;
 	background: yellow;
 }
+
+.no-resize {
+	resize: none;
+}
