@@ -75,7 +75,7 @@ if (window.jQuery) {
 			});
 			$("#output").mCustomScrollbar({
 				theme: "inset",
-				scrollInertia: 400,
+				scrollInertia: 0,
 				callbacks: {
 					onInit: function () {
 						$("#output").mCustomScrollbar('scrollTo', 'bottom');
