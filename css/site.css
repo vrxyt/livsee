@@ -179,6 +179,7 @@ figure.effect-sarah:hover label {
 .chat-container {
 	margin: 0;
 	width: 20%;
+	min-width: 200px;
 	height: 100%;
 }
 
@@ -320,10 +321,10 @@ figure.effect-sarah:hover label {
 
 #dragBar {
 	cursor: col-resize;
-	width: 4px;
+	width: 2px;
 	float: right;
 	height: 100%;
-	background: yellow;
+	background: #797979;
 }
 
 .no-resize {

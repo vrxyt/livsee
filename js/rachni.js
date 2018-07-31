@@ -1,55 +1,6 @@
 /**
  * Created by Joel on 10/27/2016.
  */
-const $paneContainer = $("#mainContent");
-const $dragbar = $("#mainContent #dragBar");
-const $leftPane = $("#mainContent #videoBox");
-const $rightPane = $("#mainContent #chatBox");
-
-let dragging = false;
-
-// Todo: Load these from previous session.
-let leftPanePercentage = 80;
-let rightPanePercentage = 20;
-
-function setInitialPaneSizes() {
-	if ($leftPane && $rightPane) {
-		const unit = $paneContainer.width() / (leftPanePercentage + rightPanePercentage);
-		$leftPane.width(unit * leftPanePercentage);
-		$rightPane.width(unit * rightPanePercentage);
-	}
-}
-
-$(document).on("ready", setInitialPaneSizes);
-//$(window).on("resize", setInitialPaneSizes);
-
-if ($dragbar) {
-	$dragbar.on("mousedown", (mousedownEvent) => {
-		mousedownEvent.preventDefault();
-		dragging = true;
-		let prevPageX = mousedownEvent.pageX;
-
-		$(document).on("mousemove", (mousemoveEvent) => {
-			if (dragging) {
-				if ($leftPane && $rightPane) {
-					const deltaPageX = mousemoveEvent.pageX - prevPageX;
-					prevPageX = mousemoveEvent.pageX;
-					$leftPane.width($leftPane.width() + deltaPageX);
-					$rightPane.width($rightPane.width() - deltaPageX);
-					leftPanePercentage = 100 / $paneContainer.width() * $leftPane.width();
-					rightPanePercentage = 100 / $paneContainer.width() * $rightPane.width();
-				}
-			}
-		});
-
-		$(document).on("mouseup", () => {
-			if (dragging) {
-				dragging = false;
-				$(document).unbind("mousemove");
-			}
-		});
-	});
-}
 
 if (window.jQuery) {
 	$(function () {
@@ -97,6 +48,15 @@ if (window.jQuery) {
 						scrolledPct = this.mcs.topPct;
 					},
 				}
+			});
+
+			// allow chat box to be resized.
+			$("#videoBox").resizable();
+			$('#videoBox').resize(function(){
+				$('#chatBox').width($("#streamContainer").width()-$("#videoBox").width());
+			});
+			$(window).resize(function(){
+				$('#chatBox').width($("#streamContainer").width()-$("#videoBox").width());
 			});
 
 			let pauseHeartbeat = false;

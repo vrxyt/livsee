@@ -1,4 +1,4 @@
-<div class="fill stream-container">
+<div class="fill stream-container" id="streamContainer">
 	<div class="video-container" id="videoBox">
 		<div class="live-player">
 			<video class="video-js vjs-default-skin vjs-fill vjs-big-play-centered" controls autoplay preload
