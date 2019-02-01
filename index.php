@@ -168,6 +168,7 @@ if ($page === 'download') {
 								<i class="material-icons mdl-list__item-icon">vpn_key</i>
 								<span>Stream Key</span>
 								<i class="material-icons md-16 copyIcon">content_copy</i>
+							</span>
 				</a>
 
 				<li class="list__item--border-top"></li>
@@ -278,6 +279,8 @@ if ($page === 'download') {
 <script src="/js/getmdl-select.min.js"></script>
 <script src="/js/sb/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="/js/vjs/6.2.6/video.min.js"></script>
+<script src="/js/vjs/tech/flv.js"></script>
+<script src="/js/vjs/tech/videojs-flvjs.min.js"></script>
 <script src="/js/vjs/6.2.6/videojs-flash.min.js"></script>
 <script src="/js/vjs/videojs-persistvolume.js"></script>
 <script src="/js/vjs/videojs-contrib-hls.min.js"></script>
@@ -294,13 +297,18 @@ if ($page === 'download') {
 	var stream_key = "<?= $streamkey; ?>";
 	var current_channel = '<?= $streamkey; ?>';
 	var videoposter = '<?php echo $user->updateStreamkey($streamkey, 'offline_image') ?>';
+    var channel_name = "<?php echo $user->updateStreamkey($streamkey, 'channel') ?>";
 	var streamPlayer = videojs('streamPlayer', {
-		techOrder: ['flash'],
+        techOrder: ['html5', 'flvjs', 'flash'],
 		sources: [{
-			src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>',
-			type: 'rtmp/flv',
-			label: 'Flash'
-		}],
+            src: '<?= $furl ?>/flv-live?port=1935&app=live&stream=<?= $streamkey ?>',
+            type: 'video/flv',
+            label: 'HTTP-FLV'
+        }, {
+            src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>',
+            type: 'rtmp/flv',
+            label: 'Flash'
+        }],
 	});
 	streamPlayer.persistvolume({namespace: "Rachni-Volume-Control-" + stream_key});
 	streamPlayer.on('fullscreenchange', function () {
@@ -333,6 +341,7 @@ if ($page === 'download') {
 
 	<?php } else { ?>
 	var current_channel = 'GlobalChatChannel';
+    var channel_name = 'the Public Chat Room';
 	<?php } ?>
 </script>
 </body>
