@@ -193,7 +193,7 @@ if ($submitted === 'getCode') {
 
 		<!-- inject:js -->
 		<script src="/js/getmdl-select.min.js"></script>
-		<script src="/js/material.js"></script>
+        <script src="/js/material.1.3.0.js"></script>
 		<!-- endinject -->
 
 	</body>
