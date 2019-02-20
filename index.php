@@ -227,10 +227,10 @@ if ($page === 'download') {
 
 				<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised" channel="<?= $streamkey; ?>"
 						type="button" <?= $subcolor ?>><?= $substatus ?></button>
-				<div id="subToast" class="mdl-js-snackbar mdl-snackbar">
-					<div class="mdl-snackbar__text"></div>
-					<button class="mdl-snackbar__action" type="button"></button>
-				</div>
+                <!--<div id="subToast" class="mdl-js-snackbar mdl-snackbar"> //todo: figure out why the shit this isn't working properly
+                    <div class="mdl-snackbar__text"></div>
+                    <button class="mdl-snackbar__action" type="button"></button>
+                </div>-->
 			<?php } else { ?>
 				<a class="mdl-navigation__link" href="/">
 					<i class="material-icons" role="presentation">visibility</i>
@@ -281,9 +281,7 @@ if ($page === 'download') {
 <script src="/js/vjs/6.2.6/video.min.js"></script>
 <script src="/js/vjs/tech/flv.js"></script>
 <script src="/js/vjs/tech/videojs-flvjs.min.js"></script>
-<script src="/js/vjs/6.2.6/videojs-flash.min.js"></script>
 <script src="/js/vjs/videojs-persistvolume.js"></script>
-<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
 <script src="/js/clipboard.min.js"></script>
 <script src="/js/rachni.js"></script>
 
@@ -299,16 +297,12 @@ if ($page === 'download') {
 	var videoposter = '<?php echo $user->updateStreamkey($streamkey, 'offline_image') ?>';
     var channel_name = "<?php echo $user->updateStreamkey($streamkey, 'channel') ?>";
 	var streamPlayer = videojs('streamPlayer', {
-        techOrder: ['html5', 'flvjs', 'flash'],
+        techOrder: ['html5', 'flvjs'],
 		sources: [{
             src: '<?= $furl ?>/flv-live?port=1935&app=live&stream=<?= $streamkey ?>',
             type: 'video/flv',
             label: 'HTTP-FLV'
-        }, {
-            src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>',
-            type: 'rtmp/flv',
-            label: 'Flash'
-        }],
+        }]
 	});
 	streamPlayer.persistvolume({namespace: "Rachni-Volume-Control-" + stream_key});
 	streamPlayer.on('fullscreenchange', function () {

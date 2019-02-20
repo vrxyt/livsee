@@ -155,16 +155,14 @@ if (in_array($subemail, $subarray->subscribed)) {
 <script src="/js/vjs/6.2.6/video.min.js"></script>
 <script src="/js/vjs/6.2.6/videojs-flash.min.js"></script>
 <script src="/js/vjs/videojs-persistvolume.js"></script>
-<script src="/js/vjs/videojs-contrib-hls.min.js"></script>
 <script type='text/javascript'>
 	var popoutPlayer = videojs('popoutPlayer', {
-		techOrder: ['flash'],
-		sources: [{
-			src: 'rtmp://<?= $surl ?>/live&<?= $streamkey ?>',
-			type: 'rtmp/flv',
-			label: 'Flash'
-		}],
-		flash: [{swf: '/js/vjs/6.2.6/video-js-5.4.1.swf'}]
+        techOrder: ['html5', 'flvjs'],
+        sources: [{
+            src: '<?= $furl ?>/flv-live?port=1935&app=live&stream=<?= $streamkey ?>',
+            type: 'video/flv',
+            label: 'HTTP-FLV'
+        }]
 	});
 	popoutPlayer.persistvolume({namespace: "Rachni-Volume-Control"});
 	var api_key = "<?= $accountinfo['api_key'] ?>";
