@@ -36,7 +36,7 @@ class admin extends master
 			$params = [$user, $value];
 			return @!pg_query_params($this->db->link, $sql, $params) ? true : false;
 		} else {
-			return "You ain't no admin, son!";
+			return "Nie jesteś administratorem!";
 		}
 	}
 
