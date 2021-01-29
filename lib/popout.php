@@ -42,10 +42,10 @@ $sub = new subscription($accountinfo['api_key'], [$email]);
 $list = $sub->_list();
 $subarray = json_decode($list);
 if (in_array($subemail, $subarray->subscribed)) {
-	$substatus = 'Unsubscribe';
+	$substatus = 'Odsubskrybuj';
 	$subcolor = 'style="background-color: rgb(0, 188, 212)"';
 } else {
-	$substatus = 'Subscribe';
+	$substatus = 'Subskrybuj';
 	$subcolor = '';
 }
 ?>
@@ -55,7 +55,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Watching <?= $streamkey ?> - <?= $sitetitle ?></title>
+	<title>Oglądasz <?= $streamkey ?> - <?= $sitetitle ?></title>
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
 		  type='text/css'>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -91,7 +91,7 @@ if (in_array($subemail, $subarray->subscribed)) {
 				<li class="mdl-list__item mdl-list__item--two-line">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">vpn_key</i>
-								<span>Stream Key</span>
+								<span>Klucz strumieniowania</span>
 								<span class="mdl-list__item-sub-title"><?= $accountinfo['stream_key']; ?></span>
 							</span>
 				</li>
@@ -101,13 +101,13 @@ if (in_array($subemail, $subarray->subscribed)) {
 				<a href="/settings" target="_blank" class="mdl-menu__item mdl-list__item">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">settings</i>
-								Settings
+								Ustawienia
 							</span>
 				</a>
 				<a href="?action=logout" class="mdl-menu__item mdl-list__item">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon text-color--secondary">exit_to_app</i>
-								Log out
+								Wyloguj się
 							</span>
 				</a>
 			</ul>
@@ -118,12 +118,12 @@ if (in_array($subemail, $subarray->subscribed)) {
 		<nav class="mdl-navigation">
 			<a class="mdl-navigation__link" onclick="closepopoutPlayer()" href="">
 				<i class="material-icons" role="presentation">arrow_back</i>
-				Back
+				Wstecz
 			</a>
 
 			<a class="mdl-navigation__link mdl-navigation__link--current" href="/watch/<?= $streamkey; ?>">
 				<i class="material-icons" role="presentation">visibility</i>
-				Watching: <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>
+				W tej chwili ogląda: <?php echo $user->updateStreamkey($streamkey, 'channel'); ?>
 			</a>
 
 			<button id="subButton" class="mdl-button mdl-js-button mdl-button--raised" channel="<?= $streamkey; ?>"
@@ -177,39 +177,39 @@ if (in_array($subemail, $subarray->subscribed)) {
 		let channel = $(this).attr('channel');
 		let action = $(this).text();
 		'use strict';
-		if (action === 'Unsubscribe') {
-			console.log('Action = Unsubscribe');
+		if (action === 'Odsubskrybuj') {
+			console.log('Action = Odsubskrybuj');
 			$.getJSON('/api/' + api_key + '/subscription/remove/' + channel, function (result) {
 				if (result === false) {
-					console.log('Error unsubscribing');
+					console.log('Error podczas odsubkrybowania');
 				} else {
 					const data = {
-						message: 'Unsubscribed from ' + stream_key + '.',
+						message: 'Odsubskrybowano ' + stream_key + '.',
 						timeout: 5000
 					};
 					console.log(result);
-					button.text('Subscribe');
+					button.text('Subskrybuj');
 					button.css('background-color', '');
 					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				}
 			});
-		} else if (action === 'Subscribe') {
-			console.log('Action = Subscribe');
+		} else if (action === 'Subskrybuj') {
+			console.log('Action = Subskrybuj');
 			$.getJSON('/api/' + api_key + '/subscription/add/' + channel, function (result) {
 				if (result === false) {
 					const data = {
-						message: 'Error subscribing (probably already subscribed)!',
+						message: 'Error podczas subskrybowania (prawdopodobnie już to robisz)!',
 						timeout: 5000
 					};
 					console.log('Error subscribing' + result);
 					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				} else {
 					const data = {
-						message: 'Subscribed to ' + stream_key + '!',
+						message: 'Zasubskrybowano ' + stream_key + '!',
 						timeout: 5000
 					};
 					console.log(result);
-					button.text('Unsubscribe');
+					button.text('Odsubskrybuj');
 					button.css('background-color', '#00bcd4');
 					snackbarContainer.MaterialSnackbar.showSnackbar(data);
 				}
