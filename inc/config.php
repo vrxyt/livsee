@@ -32,12 +32,12 @@ $site_recpath = '/var/rachni/rec/';
 $reg_open = false;
 
 // Title at the top left of the page.
-$sitetitle = "Rachni Stream"; // max 16 characters
+$sitetitle = "Livsee"; // max 16 characters
 
 // Email settings
-$sitesubtitle = "Rachni Streaming Site"; // currently only used for email template
+$sitesubtitle = "Livsee"; // currently only used for email template
 
 // Sets the from/reply email address for notification emails. Edit as needed, following the proper "DisplayName <email@address.com>" syntax. Display name is optional
-$from_email = $sitetitle . ' <changeme@exmaple.com>';
-$reply_email = 'changeme@exmaple.com';
-$bcc_email = $sitetitle . ' Admin <changeme@exmaple.com>';
+$from_email = $sitetitle . ' <accounts@livsee.pl>';
+$reply_email = 'reply@livsee.pl';
+$bcc_email = $sitetitle . ' Admin <admin@livsee.pl>';
