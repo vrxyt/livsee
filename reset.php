@@ -109,32 +109,32 @@ if ($submitted === 'getCode') {
 						<div class="mdl-card__title-login">
 							<div class="mdl-tabs__tab-bar-login">
 								<a href="#code" class="mdl-tabs__tab mdl-tabs__tab-half-width is-active">Zdobądź kod</a>
-								<a href="#reset" class="mdl-tabs__tab mdl-tabs__tab-half-width">Reset Password</a>
+								<a href="#reset" class="mdl-tabs__tab mdl-tabs__tab-half-width">Przywróć hasło</a>
 							</div>
 						</div>
 
 						<div class="mdl-tabs__panel" id="reset">
 							<div class="mdl-card__supporting-text">
-								<span>Enter your email, authentication code, and new password below. If you need a code, click on <b>Get Code</b> above</span>
+								<span>Wpisz email, kod autoryzujący, oraz nowe hasło niżej. Jeśli potrzebujesz kod naciśnij <b>Zdobądź kod</b> wyżej</span>
 								<form action="" method="POST" class="form" id="resetForm">
 									<div class="form__article">
 										<div class="mdl-grid">
 											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 												<input class="mdl-textfield__input" type="email" name="email" id="emailAddress" required/>
-												<label class="mdl-textfield__label" for="emailAddress">Email Address</label>
+												<label class="mdl-textfield__label" for="emailAddress">Adres e-mail</label>
 											</div>
 										</div>
 										<div class="mdl-grid">
 											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 												<input class="mdl-textfield__input" type="text" name="authCode" id="authCode" required/>
-												<label class="mdl-textfield__label" for="authCode">Password Reset
-													Code</label>
+												<label class="mdl-textfield__label" for="authCode">Kod 
+													przywracania hasła</label>
 											</div>
 										</div>
 										<div class="mdl-grid">
 											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 												<input class="mdl-textfield__input" type="password" name="password" id="Password" required/>
-												<label class="mdl-textfield__label" for="Password">New Password</label>
+												<label class="mdl-textfield__label" for="Password">Nowe hasło</label>
 											</div>
 										</div>
 										<div class="form__action">
@@ -158,18 +158,18 @@ if ($submitted === 'getCode') {
 
 						<div class="mdl-tabs__panel is-active" id="code">
 							<div class="mdl-card__supporting-text">
-								<span>Enter your email address and click Get Code to be sent a password reset code. If you already have a code, click on <b>Reset Password</b> above.</span>
+								<span>Wpisz adres email i naciśnij Zdobądź kod aby dostać kod do przywracania hasła. Jeśli już masz kod naciśnij <b>Przywróć hasło</b> wyżej.</span>
 								<form action="" method="POST" class="form" id="codeForm">
 									<div class="form__article">
 										<div class="mdl-grid">
 											<div class="mdl-cell mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 												<input class="mdl-textfield__input" type="email" name="email" id="emailAddress" required/>
-												<label class="mdl-textfield__label" for="emailAddress">Email Address</label>
+												<label class="mdl-textfield__label" for="emailAddress">Adres e-mail</label>
 											</div>
 										</div>
 										<div class="form__action">
 											<button type="submit" name="Submitted" value="getCode" form="codeForm" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-												Get Code
+												Zdobądź kod
 											</button>
 										</div>
 										<div class="mdl-grid">
