@@ -33,11 +33,11 @@ if ($submitted === 'Reset') {
 	$authcode = filter_input(INPUT_POST, 'authCode', FILTER_SANITIZE_STRING);
 	$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 	if (empty($email) || empty($authcode) || empty($password)) {
-		$status = 'Please enter all the required information.';
+		$status = 'Proszę wpisać wszystkie wymagane informacje.';
 	} else {
 		$reset = $user->passwordReset($email, $authcode, $password);
 		if ($reset === true) {
-			$status = 'Password reset successfully! You may now <a href="/login">login</a>.';
+			$status = 'Hasło pomyślnie zmieniono! Możesz się teraz <a href="/login">zalogować</a>.';
 		} else {
 			$status = $reset;
 		}
@@ -49,7 +49,7 @@ if ($submitted === 'getCode') {
 	$email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
 	$getcode = $user->resetCode($email, $furl);
 	if ($getcode === true) {
-		$status = 'Code sent! Check your email.';
+		$status = 'Kod został wysłany! Proszę sprawdzić email.';
 	} else {
 		$status = $getcode;
 	}
@@ -60,7 +60,7 @@ if ($submitted === 'getCode') {
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title><?= $sitetitle ?> Password Reset</title>
+		<title><?= $sitetitle ?> Przywracanie hasła</title>
 		<link href="/img/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 		<link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -73,21 +73,21 @@ if ($submitted === 'getCode') {
 				<div class="mdl-layout__header-row">
 					<div class="mdl-layout-spacer"></div>
 					<div class="avatar-dropdown" id="icon">
-						<span>Not Logged In</span>
+						<span>Nie jesteś zalogowany/a</span>
 					</div>
 					<ul class="mdl-menu mdl-list mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp account-dropdown"
 						for="icon">
 						<li class="mdl-list__item mdl-list__item--two-line">
 							<span class="mdl-list__item-primary-content">
-								<span>Not Logged In</span>
-								<span class="mdl-list__item-sub-title">not@logged.in.yet.com</span>
+								<span>Nie jesteś zalogowany/a</span>
+								<span class="mdl-list__item-sub-title">nie@jesteś.zalogowany/na.com</span>
 							</span>
 						</li>
 						<li class="list__item--border-top"></li>
 						<a href="#register" class="mdl-menu__item mdl-list__item">
 							<span class="mdl-list__item-primary-content">
 								<i class="material-icons mdl-list__item-icon">account_circle</i>
-								<span>Log In or Register!</span>
+								<span>Zaloguj się, lub zarejestruj!</span>
 							</span>
 						</a>
                     </ul>
@@ -98,7 +98,7 @@ if ($submitted === 'getCode') {
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link mdl-navigation__link--current" href="/">
 						<i class="material-icons" role="presentation">arrow_back</i>
-						Back to Login
+						Wróć do logowania
 					</a>
 				</nav>
 			</div>
@@ -108,7 +108,7 @@ if ($submitted === 'getCode') {
 
 						<div class="mdl-card__title-login">
 							<div class="mdl-tabs__tab-bar-login">
-								<a href="#code" class="mdl-tabs__tab mdl-tabs__tab-half-width is-active">Get Code</a>
+								<a href="#code" class="mdl-tabs__tab mdl-tabs__tab-half-width is-active">Zdobądź kod</a>
 								<a href="#reset" class="mdl-tabs__tab mdl-tabs__tab-half-width">Reset Password</a>
 							</div>
 						</div>
