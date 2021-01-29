@@ -63,11 +63,11 @@ class rtmp extends database {
 		$sql = "SELECT subscriber FROM $this->sub_table WHERE host_account = (SELECT email FROM $this->user_table WHERE stream_key = $1 LIMIT 1)";
 		$result = pg_query_params($this->link, $sql, $params);
 		$timestamp = date("F j, g:i a");
-		$timestamp = $name . " went live on $timestamp\r\n";
-		$write = $timestamp . 'Notified: ';
+		$timestamp = $name . " rozpoczał transmisje na żywo $timestamp\r\n";
+		$write = $timestamp . 'Powiadomiono: ';
 		while ($row = pg_fetch_assoc($result)) {
-			$subject = $GLOBALS['sitetitle'] . ' - ' . $name . ' went live!';
-            $message = $timestamp . "<br /><br />Stream Title: $stream_title<br /><br />Watch here: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
+			$subject = $GLOBALS['sitetitle'] . ' - ' . $name . ' transmituje na żywo!';
+            $message = $timestamp . "<br /><br />Tytuł streama: $stream_title<br /><br />Oglądaj tu: <a href='$furl/watch/$name'>$furl/watch/$name</a>";
 			$headers = [];
 			$headers[] = "MIME-Version: 1.0";
 			$headers[] = "Content-Type: text/html; charset=UTF-8";
