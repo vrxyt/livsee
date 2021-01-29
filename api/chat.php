@@ -54,7 +54,7 @@ class chat extends master
 			$array[] = $row;
 		}
 		$user = $array[0]['display_name'];
-		$this->write($channel, time(), $user, 'has joined the channel.', 'SYSTEM');
+		$this->write($channel, time(), $user, 'dołaczył do czatu.', 'SYSTEM');
 		return true;
 	}
 
@@ -102,7 +102,7 @@ class chat extends master
 			$array[] = $row;
 		}
 		$user = $array[0]['display_name'];
-		$this->write($channel, time(), $user, 'has left the channel.', 'SYSTEM');
+		$this->write($channel, time(), $user, 'opuścił czat.', 'SYSTEM');
 		return true;
 	}
 }
