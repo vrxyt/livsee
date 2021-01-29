@@ -4,8 +4,8 @@
 	</div>
 	<div class="mdl-card__supporting-text">
 		<div>
-			Looks like you took a wrong turn! Sorry, this page does not exist. If you arrived here from a saved bookmark, make sure you update your bookmarks!
+			Wygląda na to że tu nic nie ma! Przepraszamy, ta strona nie istnieje. Jeżeli dotarłeś tu przez znajomego to go zmień D:!
 		</div>
-		<a href="/">Go back home</a>
+		<a href="/">Przejdź na strone główną</a>
 	</div>
 </div>
