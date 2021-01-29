@@ -79,7 +79,7 @@ class user extends database
 		$sql = "SELECT * FROM $this->user_table WHERE email = $1";
 		$result = pg_fetch_assoc(pg_query_params($this->link, $sql, $params));
 		if ($result === false) {
-			return 'Account does not exist. Please register first.';
+			return 'Konto nie istnieje, prosimy o rejestracje.';
 		}
 		$hash = $result['password'];
 		$verified = $result['verified'];
@@ -95,10 +95,10 @@ class user extends database
 				}
 				return true;
 			} else {
-				$status = 'Login failed.';
+				$status = 'Logowanie nieudane.';
 			}
 		} else {
-			$status = 'Account not verified. Please check your email.';
+			$status = 'Konto wymaga potwierdzenia, sprawdź swoją skrzynke mailową.';
 		}
 		return $status;
 	}
@@ -173,7 +173,7 @@ class user extends database
 			throw new Exception($message, $code);
 		}
 		// edit emailtemplate.php as needed to change desired emails sent out
-		$subject = $GLOBALS['sitetitle'] . ' Account Verification';
+		$subject = $GLOBALS['sitetitle'] . ' Weryfikacja konta.';
 		ob_start();
 		include 'inc/emailtemplate.php';
 		$message = ob_get_contents();
@@ -274,7 +274,7 @@ class user extends database
 				$status = 'true';
 			}
 		} else {
-			$status = 'Invalid email/authentication code!';
+			$status = 'Niepoprawny email/kod autoryzujący!';
 		}
 		return $status;
 	}
@@ -298,13 +298,13 @@ class user extends database
 			$code = 1;
 			throw new Exception($message, $code);
 		}
-		$subject = $GLOBALS ["sitetitle"] . ' Password Reset';
+		$subject = $GLOBALS ["sitetitle"] . ' Reset hasła';
 		$message = "Password reset auth code for $email:<br /><br /><b>$authcode</b><br /><br />Reset form: <a href='$furl/lostpass'>Click here</a>";
 		$headers = [];
 		$headers[] = "MIME-Version: 1.0";
 		$headers[] = "Content-Type: text/html; charset=UTF-8";
 		$headers[] = "From: " . $GLOBALS['from_email'];
-		$headers[] = "Reply-To: issues@rirnef.net";
+		$headers[] = "Reply-To: issues@dldesports.pl";
 		$headers[] = 'X-Mailer: PHP/' . phpversion();
 		mail($email, $subject, $message, implode("\r\n", $headers));
 		return true;
@@ -338,7 +338,7 @@ class user extends database
 				$status = true;
 			}
 		} else {
-			$status = 'Invalid email/authentication code!';
+			$status = 'Niepoprawny email/kod autoryzujący!';
 		}
 		return $status;
 	}
@@ -379,7 +379,7 @@ class user extends database
 	{
 		$dncheck = $this->dncheck($email, $displayname);
 		if ($dncheck === true) {
-			$status = 'Display name already exists!';
+			$status = 'Ta nazwa jest zajęta!';
 		} else {
 			$sql = "UPDATE $this->user_table SET channel_name = $1, channel_title = $2, display_name = $3, chat_jp_setting = '$chatjp' WHERE email = $4";
 			$params = [$channelname, $channeltitle, $displayname, $email];
@@ -389,7 +389,7 @@ class user extends database
 				$code = 1;
 				throw new Exception($message, $code);
 			} else {
-				$status = 'Updated!';
+				$status = 'Zaktualizowano!';
 			}
 		}
 		return $status;
@@ -413,7 +413,7 @@ class user extends database
 				$code = 1;
 				throw new Exception($message, $code);
 			} else {
-				$status = 'Updated!';
+				$status = 'Zaktualizowano!';
 			}
 		} elseif ($type === 'offline') {
 			$sql = "UPDATE $this->user_table SET offline_image = $2 WHERE email = $1";
@@ -424,7 +424,7 @@ class user extends database
 				$code = 1;
 				throw new Exception($message, $code);
 			} else {
-				$status = 'Updated!';
+				$status = 'Zaktualizowano!';
 			}
 		} else {
 			$status = 'Unknown type!';
